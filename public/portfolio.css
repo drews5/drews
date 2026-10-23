@@ -27,7 +27,8 @@ a{color:inherit;text-decoration:none}
 .folder-paper{fill:#faf9f3;transition:transform .22s ease}
 .folder-paper-lines{fill:#c5ccd0}
 .folder-glyph{fill:var(--glyph)}
-.project-label{display:block;max-width:100%;min-height:30px;padding:3px 8px;font:400 18px/1.25 var(--pixel);text-wrap:pretty;transition:background .15s,color .15s}
+.project-label{display:block;max-width:100%;min-height:30px;padding:3px 0;font:400 18px/1.25 var(--pixel);text-wrap:pretty;transition:background .15s,color .15s}
+.locked-label{white-space:nowrap}
 .label-lock{display:inline-block;width:10px;height:12px;margin-left:6px;vertical-align:-1px;fill:currentColor;color:var(--muted)}
 .project:focus-visible{outline:2px dashed var(--ink);border-radius:4px}
 .project:focus-visible .project-label{background:#dae3e9}
