@@ -7,7 +7,7 @@ async function visit(dir){for(const item of await readdir(dir,{withFileTypes:tru
  if(!item.name.endsWith('.html'))continue;count++;const html=await readFile(path,'utf8');
  assert(!html.includes('https://rewrite-it-project.drew5.chatgpt.site'),'Old host remains');
  for(const match of html.matchAll(/\b(?:src|href|action)="(\/[^"#?]*)(?:[?#][^"]*)?"/g)){
-  const url=match[1];assert(url==='/rewrite'||url.startsWith('/rewrite/'),`Unexpected root URL: ${url}`);
+  const url=match[1];if(path.startsWith(join(root,'rewrite')+'/'))assert(url==='/rewrite'||url.startsWith('/rewrite/'),`Unexpected root URL: ${url}`);
   let target=join(root,decodeURIComponent(url));
   if(url.endsWith('/'))target=join(target,'index.html');
   try{await access(target);}catch{await access(join(target,'index.html'));}references++;

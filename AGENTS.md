@@ -11,3 +11,8 @@ This repository is the source of truth for Drew's project website. Host it on Gi
 - Before updating main, read the current branch head and preserve other projects and concurrent changes.
 - Keep DNS on Spaceship pointing to GitHub Pages. Never restore the former ChatGPT custom-domain mapping.
 - Future project pages belong in `public/<project>/` with links from `public/index.html`.
+
+## Portfolio homepage
+
+- `public/index.html` and `public/portfolio.css` implement the minimal centered personal portfolio. Keep its typography and styles separate from Re-Write It.
+- Watertown Players and Emploid currently have empty password-screen placeholders. No passwords are configured and no private content exists behind them. Do not treat `public/locked.js` as authentication or publish confidential content through these static pages.
