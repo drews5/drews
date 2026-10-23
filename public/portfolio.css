@@ -27,8 +27,8 @@ a{color:inherit;text-decoration:none}
 .folder-paper{fill:#faf9f3;transition:transform .22s ease}
 .folder-paper-lines{fill:#c5ccd0}
 .folder-glyph{fill:var(--glyph)}
-.project-label{display:flex;align-items:center;justify-content:center;gap:7px;max-width:100%;min-height:30px;padding:3px 8px;font:400 19px/1.25 var(--pixel);text-wrap:balance;transition:background .15s,color .15s}
-.label-lock{width:11px;height:13px;flex:none;fill:currentColor;color:var(--muted)}
+.project-label{display:block;max-width:100%;min-height:30px;padding:3px 8px;font:400 18px/1.25 var(--pixel);text-wrap:pretty;transition:background .15s,color .15s}
+.label-lock{display:inline-block;width:10px;height:12px;margin-left:6px;vertical-align:-1px;fill:currentColor;color:var(--muted)}
 .project:focus-visible{outline:2px dashed var(--ink);border-radius:4px}
 .project:focus-visible .project-label{background:#dae3e9}
 @media(hover:hover){.project:hover .folder{transform:translateY(-5px)}.project:hover .folder-paper{transform:translateY(-3px)}.project:hover .project-label{background:#dae3e9}.project:active .folder{transform:translateY(-1px)}}
