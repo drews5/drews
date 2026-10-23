@@ -1,0 +1,378 @@
+[
+  {
+    "section": "Impact",
+    "key": "kits",
+    "label": "School supply kits distributed",
+    "value": 18576,
+    "type": "integer",
+    "notes": "Whole kits. Updates the homepage, impact page, and founding story together."
+  },
+  {
+    "section": "Impact",
+    "key": "underfunded_percent",
+    "label": "Illinois districts underfunded",
+    "value": 0.83,
+    "type": "percent",
+    "notes": "Enter a percentage. Keep the reporting source current when this changes."
+  },
+  {
+    "section": "Impact",
+    "key": "budget_gap_millions",
+    "label": "CPS budget gap (millions)",
+    "value": 391,
+    "type": "number",
+    "notes": "Enter millions of dollars. 391 displays as $391M."
+  },
+  {
+    "section": "Impact",
+    "key": "metric_people_label",
+    "label": "Kit statistic label",
+    "value": "School supply kits distributed",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Impact",
+    "key": "metric_districts_label",
+    "label": "School funding statistic label",
+    "value": "of Illinois school districts were underfunded",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Impact",
+    "key": "metric_budget_label",
+    "label": "Budget statistic label",
+    "value": "Chicago Public Schools’ projected budget gap",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Impact",
+    "key": "underfunded_note",
+    "label": "School funding source note",
+    "value": "The school funding figure comes from a 2018 Education Trust report on Illinois school funding.",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Impact",
+    "key": "budget_note",
+    "label": "Budget source note",
+    "value": "The budget figure was CPS’s initial projected deficit for fiscal year 2025, before its proposed budget was balanced.",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Impact",
+    "key": "budget_source_url",
+    "label": "Budget source link",
+    "value": "https://www.cps.edu/about/finance/budget/budget-2025/budget-overview-2025/",
+    "type": "url",
+    "notes": ""
+  },
+  {
+    "section": "Giving",
+    "key": "kit_price",
+    "label": "Cost of one complete kit",
+    "value": 5,
+    "type": "currency",
+    "notes": "Updates gift calculations, first preset, and kit-price copy throughout the site."
+  },
+  {
+    "section": "Giving",
+    "key": "donation_url",
+    "label": "Donorbox campaign",
+    "value": "https://donorbox.org/re-write-it-project-holiday-fundraiser-2025-2026",
+    "type": "donorbox",
+    "notes": "Use the full https://donorbox.org/ campaign URL."
+  },
+  {
+    "section": "Contact",
+    "key": "email",
+    "label": "Public contact email",
+    "value": "therewriteitproject@gmail.com",
+    "type": "email",
+    "notes": "Updates displayed email and copy controls. FormSubmit delivery stays on its verified account."
+  },
+  {
+    "section": "Contact",
+    "key": "chapter_email",
+    "label": "Chapter contact email",
+    "value": "suhanakoshal@gmail.com",
+    "type": "email",
+    "notes": ""
+  },
+  {
+    "section": "Contact",
+    "key": "address",
+    "label": "Mailing address",
+    "value": "1433 W. Berteau Ave, Chicago, IL 60613-1914",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Contact",
+    "key": "chapter_application",
+    "label": "Chapter application",
+    "value": "https://forms.gle/1ifadZCLbBUbZZmZ8",
+    "type": "url",
+    "notes": ""
+  },
+  {
+    "section": "Social",
+    "key": "facebook",
+    "label": "Facebook link",
+    "value": "https://www.facebook.com/therewriteitproject/",
+    "type": "url",
+    "notes": ""
+  },
+  {
+    "section": "Social",
+    "key": "instagram",
+    "label": "Instagram link",
+    "value": "https://www.instagram.com/therewriteitproject/",
+    "type": "url",
+    "notes": ""
+  },
+  {
+    "section": "Social",
+    "key": "linkedin",
+    "label": "Linkedin link",
+    "value": "https://www.linkedin.com/company/the-rewrite-it-project/",
+    "type": "url",
+    "notes": ""
+  },
+  {
+    "section": "Homepage",
+    "key": "hero_heading",
+    "label": "Homepage headline",
+    "value": "Rewriting the narrative in education",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Homepage",
+    "key": "hero_intro",
+    "label": "Homepage introduction",
+    "value": "Making essential learning materials more accessible for students across Chicagoland.",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Homepage",
+    "key": "kit_mission",
+    "label": "Kit mission statement",
+    "value": "We believe that every kid has a right to quality school supplies.",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Supply donations",
+    "key": "dropoff_heading",
+    "label": "Supply donation notice title",
+    "value": "Arrange your donation first",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Supply donations",
+    "key": "dropoff_message",
+    "label": "Supply donation notice",
+    "value": "Due to the high volume of donations we have received, our drop-off locations are temporarily closed. Please contact our team to arrange your donation.",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Homepage FAQ",
+    "key": "home_faq_1_question",
+    "label": "Question 1",
+    "value": "What comes in a school supply kit?",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Homepage FAQ",
+    "key": "home_faq_1_answer",
+    "label": "Answer 1",
+    "value": "Each kit contains one spiral notebook, one folder, twelve colored pencils, five pencils, and five pens.",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Homepage FAQ",
+    "key": "home_faq_2_question",
+    "label": "Question 2",
+    "value": "Who can request supplies?",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Homepage FAQ",
+    "key": "home_faq_2_answer",
+    "label": "Answer 2",
+    "value": "We work with schools, youth organizations, and community partners serving students across Chicagoland. Use our supply request form to tell us what your students need.",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Homepage FAQ",
+    "key": "home_faq_3_question",
+    "label": "Question 3",
+    "value": "Can I donate used school supplies?",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Homepage FAQ",
+    "key": "home_faq_3_answer",
+    "label": "Answer 3",
+    "value": "Yes. We collect new and gently used supplies and refurbish usable materials. Please contact our team before dropping off a donation.",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Homepage FAQ",
+    "key": "home_faq_4_question",
+    "label": "Question 4",
+    "value": "Can students start a chapter?",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Homepage FAQ",
+    "key": "home_faq_4_answer",
+    "label": "Answer 4",
+    "value": "Yes. You will need a Chapter President, Treasurer, and Public Relations Officer. Our Chapter Management Team helps new chapters get started.",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Homepage FAQ",
+    "key": "home_faq_5_question",
+    "label": "Question 5",
+    "value": "What does a $5 gift provide?",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Homepage FAQ",
+    "key": "home_faq_5_answer",
+    "label": "Answer 5",
+    "value": "A $5 gift can provide one complete school supply kit. Donations also support the starter supplies our chapters need to collect, refurbish, and distribute materials.",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Chapter FAQ",
+    "key": "chapter_faq_1_question",
+    "label": "Question 1",
+    "value": "Can I start a chapter as a high school student?",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Chapter FAQ",
+    "key": "chapter_faq_1_answer",
+    "label": "Answer 1",
+    "value": "Yes. The chapter program is built for high school students. You will need a Chapter President, Treasurer, and Public Relations Officer.",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Chapter FAQ",
+    "key": "chapter_faq_2_question",
+    "label": "Question 2",
+    "value": "Do we need new supplies?",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Chapter FAQ",
+    "key": "chapter_faq_2_answer",
+    "label": "Answer 2",
+    "value": "We collect new and gently used materials. Refurbishing usable supplies is part of the chapter’s work.",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Chapter FAQ",
+    "key": "chapter_faq_3_question",
+    "label": "Question 3",
+    "value": "Where do the supplies go?",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Chapter FAQ",
+    "key": "chapter_faq_3_answer",
+    "label": "Answer 3",
+    "value": "We work with elementary schools and other youth organizations. Chapters are matched with local needs so students can contribute in their own communities.",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Chapter FAQ",
+    "key": "chapter_faq_4_question",
+    "label": "Question 4",
+    "value": "Who can help us get started?",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Chapter FAQ",
+    "key": "chapter_faq_4_answer",
+    "label": "Answer 4",
+    "value": "Contact our Chapter Management Team at suhanakoshal@gmail.com",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Partner quotes",
+    "key": "quote_0_name",
+    "label": "Partner 1 name",
+    "value": "MEANS Foundation",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Partner quotes",
+    "key": "quote_0_text",
+    "label": "Partner 1 quote",
+    "value": "Your help is greatly appreciated! It has changed many of our students lives. We are so grateful!",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Partner quotes",
+    "key": "quote_1_name",
+    "label": "Partner 2 name",
+    "value": "The Rohingya Cultural Center",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Partner quotes",
+    "key": "quote_1_text",
+    "label": "Partner 2 quote",
+    "value": "Thank you to the Re-Write It Project who helped supply school supplies, books, toys, and more to the RCC! We appreciate all the hard work you are doing!",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Partner quotes",
+    "key": "quote_2_name",
+    "label": "Partner 3 name",
+    "value": "Erie Family Health Foundation",
+    "type": "text",
+    "notes": ""
+  },
+  {
+    "section": "Partner quotes",
+    "key": "quote_2_text",
+    "label": "Partner 3 quote",
+    "value": "Thank you so much for your generous donation of school and art supplies. Your gift will directly benefit young patients who have been greatly impacted by the pandemic. You make our essential work possible!",
+    "type": "text",
+    "notes": ""
+  }
+]

@@ -1,0 +1,762 @@
+{
+  "/assets/photos/chapter-supply-packing.webp": [
+    {
+      "src": "/assets/responsive/photos__chapter-supply-packing-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__chapter-supply-packing-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__chapter-supply-packing-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/photos__chapter-supply-packing-1280.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/photos/outdoor-volunteer-group.webp": [
+    {
+      "src": "/assets/responsive/photos__outdoor-volunteer-group-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__outdoor-volunteer-group-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__outdoor-volunteer-group-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/photos__outdoor-volunteer-group-1280.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/photos/volunteers-and-packed-boxes.webp": [
+    {
+      "src": "/assets/responsive/photos__volunteers-and-packed-boxes-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__volunteers-and-packed-boxes-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__volunteers-and-packed-boxes-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/photos__volunteers-and-packed-boxes-1280.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/photos/finished-supply-kit.webp": [
+    {
+      "src": "/assets/responsive/photos__finished-supply-kit-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__finished-supply-kit-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__finished-supply-kit-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/photos__finished-supply-kit-1200.webp",
+      "width": 1200
+    }
+  ],
+  "/assets/photos/donation-boxes-at-door.webp": [
+    {
+      "src": "/assets/responsive/photos__donation-boxes-at-door-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__donation-boxes-at-door-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__donation-boxes-at-door-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/photos__donation-boxes-at-door-1280.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/photos/volunteers-carrying-donation-boxes.webp": [
+    {
+      "src": "/assets/responsive/photos__volunteers-carrying-donation-boxes-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__volunteers-carrying-donation-boxes-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__volunteers-carrying-donation-boxes-960.webp",
+      "width": 960
+    }
+  ],
+  "/assets/photos/ready-to-use-supply-kit.webp": [
+    {
+      "src": "/assets/responsive/photos__ready-to-use-supply-kit-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__ready-to-use-supply-kit-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__ready-to-use-supply-kit-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/photos__ready-to-use-supply-kit-1026.webp",
+      "width": 1026
+    }
+  ],
+  "/assets/photos/car-loaded-with-supplies.webp": [
+    {
+      "src": "/assets/responsive/photos__car-loaded-with-supplies-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__car-loaded-with-supplies-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__car-loaded-with-supplies-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/photos__car-loaded-with-supplies-1280.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/photos/classroom-volunteer-group.webp": [
+    {
+      "src": "/assets/responsive/photos__classroom-volunteer-group-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__classroom-volunteer-group-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__classroom-volunteer-group-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/photos__classroom-volunteer-group-1280.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/photos/volunteers-with-finished-kits.webp": [
+    {
+      "src": "/assets/responsive/photos__volunteers-with-finished-kits-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__volunteers-with-finished-kits-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__volunteers-with-finished-kits-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/photos__volunteers-with-finished-kits-1280.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/photos/volunteer-donation-handoff.webp": [
+    {
+      "src": "/assets/responsive/photos__volunteer-donation-handoff-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__volunteer-donation-handoff-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__volunteer-donation-handoff-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/photos__volunteer-donation-handoff-1280.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/photos/volunteers-with-collected-donations.webp": [
+    {
+      "src": "/assets/responsive/photos__volunteers-with-collected-donations-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__volunteers-with-collected-donations-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__volunteers-with-collected-donations-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/photos__volunteers-with-collected-donations-1280.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/photos/volunteers-with-kits-homepage.webp": [
+    {
+      "src": "/assets/responsive/photos__volunteers-with-kits-homepage-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__volunteers-with-kits-homepage-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__volunteers-with-kits-homepage-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/photos__volunteers-with-kits-homepage-1280.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/photos/donated-books-and-supplies.webp": [
+    {
+      "src": "/assets/responsive/photos__donated-books-and-supplies-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__donated-books-and-supplies-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__donated-books-and-supplies-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/photos__donated-books-and-supplies-1170.webp",
+      "width": 1170
+    }
+  ],
+  "/assets/photos/loading-supply-bin.webp": [
+    {
+      "src": "/assets/responsive/photos__loading-supply-bin-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__loading-supply-bin-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__loading-supply-bin-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/photos__loading-supply-bin-1280.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/photos/rohingya-cultural-center-volunteers.webp": [
+    {
+      "src": "/assets/responsive/photos__rohingya-cultural-center-volunteers-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__rohingya-cultural-center-volunteers-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__rohingya-cultural-center-volunteers-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/photos__rohingya-cultural-center-volunteers-1096.webp",
+      "width": 1096
+    }
+  ],
+  "/assets/photos/volunteers-sorting-on-floor.webp": [
+    {
+      "src": "/assets/responsive/photos__volunteers-sorting-on-floor-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__volunteers-sorting-on-floor-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__volunteers-sorting-on-floor-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/photos__volunteers-sorting-on-floor-1024.webp",
+      "width": 1024
+    }
+  ],
+  "/assets/photos/sorting-books-at-table.webp": [
+    {
+      "src": "/assets/responsive/photos__sorting-books-at-table-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__sorting-books-at-table-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__sorting-books-at-table-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/photos__sorting-books-at-table-1280.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/photos/collected-donation-boxes.webp": [
+    {
+      "src": "/assets/responsive/photos__collected-donation-boxes-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__collected-donation-boxes-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__collected-donation-boxes-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/photos__collected-donation-boxes-1280.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/photos/sorting-and-packing-materials.webp": [
+    {
+      "src": "/assets/responsive/photos__sorting-and-packing-materials-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__sorting-and-packing-materials-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__sorting-and-packing-materials-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/photos__sorting-and-packing-materials-1280.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/photos/organized-art-supplies.webp": [
+    {
+      "src": "/assets/responsive/photos__organized-art-supplies-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__organized-art-supplies-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__organized-art-supplies-824.webp",
+      "width": 824
+    }
+  ],
+  "/assets/photos/preparing-supply-bags.webp": [
+    {
+      "src": "/assets/responsive/photos__preparing-supply-bags-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/photos__preparing-supply-bags-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/photos__preparing-supply-bags-820.webp",
+      "width": 820
+    }
+  ],
+  "/assets/team/niko-vasilopoulos.webp": [
+    {
+      "src": "/assets/responsive/team__niko-vasilopoulos-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__niko-vasilopoulos-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/raina-koshal.webp": [
+    {
+      "src": "/assets/responsive/team__raina-koshal-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__raina-koshal-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/sou-lynn-beneteau.webp": [
+    {
+      "src": "/assets/responsive/team__sou-lynn-beneteau-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__sou-lynn-beneteau-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/jayen-datta.webp": [
+    {
+      "src": "/assets/responsive/team__jayen-datta-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__jayen-datta-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/kristin-mckay.webp": [
+    {
+      "src": "/assets/responsive/team__kristin-mckay-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__kristin-mckay-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/saloni-nahar.webp": [
+    {
+      "src": "/assets/responsive/team__saloni-nahar-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__saloni-nahar-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/norah-marinelli.webp": [
+    {
+      "src": "/assets/responsive/team__norah-marinelli-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__norah-marinelli-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/christopher-naglestad.webp": [
+    {
+      "src": "/assets/responsive/team__christopher-naglestad-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__christopher-naglestad-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/oriana-bradley.webp": [
+    {
+      "src": "/assets/responsive/team__oriana-bradley-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__oriana-bradley-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/amelie-lynde.webp": [
+    {
+      "src": "/assets/responsive/team__amelie-lynde-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__amelie-lynde-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/melissa-penafiel.webp": [
+    {
+      "src": "/assets/responsive/team__melissa-penafiel-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__melissa-penafiel-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/lindsey-prochot.webp": [
+    {
+      "src": "/assets/responsive/team__lindsey-prochot-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__lindsey-prochot-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/adi-singh.webp": [
+    {
+      "src": "/assets/responsive/team__adi-singh-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__adi-singh-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/quintana-weisgerber.webp": [
+    {
+      "src": "/assets/responsive/team__quintana-weisgerber-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__quintana-weisgerber-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/kate-murray.webp": [
+    {
+      "src": "/assets/responsive/team__kate-murray-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__kate-murray-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/rifaa-meghani.webp": [
+    {
+      "src": "/assets/responsive/team__rifaa-meghani-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__rifaa-meghani-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/caylie-kromelow.webp": [
+    {
+      "src": "/assets/responsive/team__caylie-kromelow-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__caylie-kromelow-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/jay-shah.webp": [
+    {
+      "src": "/assets/responsive/team__jay-shah-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__jay-shah-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/sareena-shah.webp": [
+    {
+      "src": "/assets/responsive/team__sareena-shah-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__sareena-shah-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/maya-jha.webp": [
+    {
+      "src": "/assets/responsive/team__maya-jha-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__maya-jha-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/ana-parikh.webp": [
+    {
+      "src": "/assets/responsive/team__ana-parikh-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__ana-parikh-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/amesha-banjara.webp": [
+    {
+      "src": "/assets/responsive/team__amesha-banjara-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__amesha-banjara-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/robert-strauss.webp": [
+    {
+      "src": "/assets/responsive/team__robert-strauss-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__robert-strauss-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/team/kennedy-bolton.webp": [
+    {
+      "src": "/assets/responsive/team__kennedy-bolton-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/team__kennedy-bolton-600.webp",
+      "width": 600
+    }
+  ],
+  "/assets/volunteers.webp": [
+    {
+      "src": "/assets/responsive/volunteers-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/volunteers-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/volunteers-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/volunteers-1280.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/chapter-delivery.webp": [
+    {
+      "src": "/assets/responsive/chapter-delivery-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/chapter-delivery-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/chapter-delivery-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/chapter-delivery-1280.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/packing-kits.webp": [
+    {
+      "src": "/assets/responsive/packing-kits-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/packing-kits-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/packing-kits-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/packing-kits-1280.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/supply-delivery.webp": [
+    {
+      "src": "/assets/responsive/supply-delivery-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/supply-delivery-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/supply-delivery-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/supply-delivery-1280.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/supplies.webp": [
+    {
+      "src": "/assets/responsive/supplies-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/supplies-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/supplies-883.webp",
+      "width": 883
+    }
+  ],
+  "/assets/community.webp": [
+    {
+      "src": "/assets/responsive/community-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/community-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/community-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/community-1280.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/means-volunteers.webp": [
+    {
+      "src": "/assets/responsive/means-volunteers-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/means-volunteers-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/means-volunteers-960.webp",
+      "width": 960
+    },
+    {
+      "src": "/assets/responsive/means-volunteers-1280.webp",
+      "width": 1280
+    }
+  ],
+  "/assets/erie-family-health.webp": [
+    {
+      "src": "/assets/responsive/erie-family-health-320.webp",
+      "width": 320
+    },
+    {
+      "src": "/assets/responsive/erie-family-health-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/assets/responsive/erie-family-health-720.webp",
+      "width": 720
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "asset": "/assets/partners/chicago-youth-programs.webp",
+    "source": "https://chicagoyouthprograms.org/wp-content/uploads/2020/07/CYP_logo_200_retina.png",
+    "use": "Official homepage header logo"
+  },
+  {
+    "asset": "/assets/partners/mercy-home.webp",
+    "source": "https://www.mercyhome.org/wp-content/themes/mh-independent/img/mercyhome.png",
+    "use": "Official homepage header logo"
+  },
+  {
+    "asset": "/assets/partners/upcycling-colors.webp",
+    "source": "https://img1.wsimg.com/isteam/ip/6fea898f-54be-43fa-867e-e402af740c48/2908d6f8-7db7-4d73-93c2-986b7bd0cbf0.jpg",
+    "use": "Original title mark cropped from official homepage banner, without redrawing"
+  }
+]

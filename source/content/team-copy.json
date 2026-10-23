@@ -1,0 +1,31 @@
+{
+  "sources": {
+    "homepage": "Supplied The Re-Write It Project New Landing Page.jpg",
+    "mission": "https://www.therewriteitproject.org/copy-of-what-we-do",
+    "chapters": "https://www.therewriteitproject.org/copy-of-chapters",
+    "giving": "https://www.therewriteitproject.org/copy-of-donate",
+    "requests": "https://www.therewriteitproject.org/copy-of-request-a-donation",
+    "additional_language": "https://docs.google.com/document/d/1vqqagk1FRzukreS_lsqYpSK16Buxj39uQ0YdyVlMY-A/edit"
+  },
+  "team_text": {
+    "mission": "Our mission is to provide underserved students around Chicago with access to quality learning resources imperative to unlocking their fullest academic potential. We aim to reduce educational inequities by combating systemic influences that impede student access to essential supplies.",
+    "how_we_do_it": "By refurbishing used materials into quality supplies and supply kits for students, we apply environmentally sustainable practices to rewrite the narrative surrounding worn supplies. Our goal is to empower students to explore their creative outlets and tap into the powerful instrument of education. Our dedicated high school chapters carry out the collection and refurbishing process by taking the initiative to repurpose and renew these materials for a meaningful cause.",
+    "chapters": "The heart of The Re-Write It Project lies in our Chapters Program, where high school students take charge in refurbishing and distributing essential learning materials. By opening a chapter, high schoolers take an active role in creating sustainable change, ensuring that quality supplies reach the students who need them most.",
+    "starting_a_chapter": "Opening a chapter of The Re-Write It Project is easy! All you need is a dedicated three-person leadership team consisting of a Chapter President, Treasurer, and Public Relations Officer. With this foundation, you’re ready to start making a difference in your community.",
+    "chapter_support": "When you create a chapter, you join The Re-Write It Project family. Our Chapter Management Team is dedicated to ensuring you feel supported as a leader. From helpful resources to engaging Chapter Lead calls, we’re here to guide you every step of the way. Plus, our team is always just a message away—whether for advice, encouragement, or to celebrate your successes!",
+    "local_change": "Starting a chapter allows you to make a direct impact in your community. It’s a structured, supportive, and easy way to help students gain access to essential educational supplies while addressing inequities in your area.",
+    "donation_appeal": "Every action, big or small, fuels our mission to bridge educational inequities. Your support strengthens our ability to make quality learning materials accessible. Together, we can grow our impact and rewrite the future for countless students.",
+    "supply_requests": "If your youth institution is in need of essential learning resources, please send us an email! We currently serve youth populations including schools, community centers, orphanages, recreational spaces, and childcare centers. We’re excited to work with you!"
+  },
+  "approved_updates": {
+    "kit_price_usd": 5,
+    "kits_distributed": 18576
+  },
+  "adaptations": [
+    "Current prices and kit total replace historical amounts.",
+    "Supply requests can use the working website form as well as email.",
+    "The latest chapter application contact replaces an older published contact.",
+    "Timeline and form instructions follow the team’s mission, chapter, and application language.",
+    "No application draft placeholders or unverified budget figures are published."
+  ]
+}

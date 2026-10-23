@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /message-received/
+Sitemap: https://rewrite-it-project.drew5.chatgpt.site/sitemap.xml

@@ -1,0 +1,96 @@
+{
+  "name": "The Re-Write It Project",
+  "email": "therewriteitproject@gmail.com",
+  "address": "1433 W. Berteau Ave, Chicago, IL 60613-1914",
+  "ein": "86-3270888",
+  "students": 18500,
+  "kit_price": 5,
+  "donation_url": "https://donorbox.org/re-write-it-project-holiday-fundraiser-2025-2026",
+  "chapter_application": "https://forms.gle/1ifadZCLbBUbZZmZ8",
+  "team_application": "/join/",
+  "chapter_contact": "suhanakoshal@gmail.com",
+  "dropoffs_open": false,
+  "mission": "We provide school supplies to students across Chicagoland. Student-led chapters collect and refurbish donated materials, then work with schools and youth organizations to distribute them.",
+  "social": {
+    "facebook": "https://www.facebook.com/therewriteitproject/",
+    "instagram": "https://www.instagram.com/therewriteitproject/",
+    "linkedin": "https://www.linkedin.com/company/the-rewrite-it-project/"
+  },
+  "testimonials": [
+    {
+      "name": "MEANS Foundation",
+      "quote": "Your help is greatly appreciated! It has changed many of our students lives. We are so grateful!",
+      "photo": "/assets/means-volunteers.webp",
+      "alt": "MEANS volunteers gathered at their 2019 retreat",
+      "photo_class": "means-volunteers-photo"
+    },
+    {
+      "name": "The Rohingya Cultural Center",
+      "quote": "Thank you to the Re-Write It Project who helped supply school supplies, books, toys, and more to the RCC! We appreciate all the hard work you are doing!",
+      "photo": "/assets/photos/rohingya-cultural-center-volunteers.webp",
+      "alt": "Volunteers at the Rohingya Culture Center of Chicago"
+    },
+    {
+      "name": "Erie Family Health Foundation",
+      "quote": "Thank you so much for your generous donation of school and art supplies. Your gift will directly benefit young patients who have been greatly impacted by the pandemic. You make our essential work possible!",
+      "photo": "/assets/erie-family-health.webp",
+      "alt": "A doctor with a family and three children at Erie Family Health",
+      "photo_class": "erie-testimonial-photo"
+    }
+  ],
+  "home_partners": [
+    {
+      "name": "After School Matters",
+      "logo": "/assets/partner-after-school.webp"
+    },
+    {
+      "name": "GAP Community Child Care Center",
+      "logo": "/assets/partner-gap.webp",
+      "url": "https://gapccc.com/"
+    },
+    {
+      "name": "Reduce Waste Chicago",
+      "logo": "/assets/partner-reduce-waste.webp"
+    },
+    {
+      "name": "Bernie's Book Bank",
+      "logo": "/assets/partner-bernies.webp"
+    },
+    {
+      "name": "Connecting Chicago",
+      "logo": "/assets/partner-connecting.webp"
+    },
+    {
+      "name": "Fanari Camp",
+      "logo": "/assets/partner-fanari.webp"
+    },
+    {
+      "name": "Northwestern Medicine Feinberg School of Medicine",
+      "logo": "/assets/partner-northwestern.webp",
+      "url": "https://www.feinberg.northwestern.edu/"
+    },
+    {
+      "name": "Roscoe Books",
+      "logo": "/assets/roscoe-books.webp"
+    }
+  ],
+  "timeline": [
+    {
+      "year": "2020",
+      "title": "A student-led start",
+      "text": "Four Chicago high school students founded The Re-Write It Project during the pandemic to address unequal access to essential learning materials."
+    },
+    {
+      "year": "2021",
+      "title": "Community in action",
+      "text": "A partnership with Fanari Camp helped create more than 1,700 supply kits, alongside thousands of bulk supplies."
+    },
+    {
+      "year": "Today",
+      "title": "Student chapters",
+      "text": "Our student-led chapters have distributed 18,576 school supply kits."
+    }
+  ],
+  "home_students": 16576,
+  "kits": 18576
+}
