@@ -45,7 +45,7 @@ $$('.donation-picker').forEach(form=>{
  custom.addEventListener('focus',()=>{touch();selected=null;amount.disabled=true;choices.forEach(c=>{c.classList.remove('selected');c.setAttribute('aria-pressed','false');});$('.custom-choice',form).classList.add('active');if(!custom.value)impact(null);});
  custom.addEventListener('input',()=>{touch();selected=null;const n=Number(custom.value);amount.disabled=!validAmount(n);amount.value=custom.value;error.textContent=custom.value&&!validAmount(n)?'Enter an amount from $1 to $100,000.':'';impact(n);});
  form.addEventListener('submit',e=>{touch();if(selected===null&&!custom.value.trim()){amount.disabled=true;return;}const n=selected??Number(custom.value);if(!validAmount(n)){e.preventDefault();error.textContent='Enter an amount from $1 to $100,000.';custom.focus();return;}amount.disabled=false;amount.value=String(Math.round(n*100)/100);});
- if(kit){drawKits(1);function dwell(){stopDwell();if(!interacted&&inView&&!document.hidden)dwellTimer=setTimeout(()=>{dwellTimer=null;if(!interacted&&inView&&!document.hidden){choose(kitPrice);observer?.disconnect();}},4000);}
+ if(kit){drawKits(1);function dwell(){stopDwell();if(!interacted&&inView&&!document.hidden)dwellTimer=setTimeout(()=>{dwellTimer=null;if(!interacted&&inView&&!document.hidden){choose(kitPrice);observer?.disconnect();}},7000);}
   const observer='IntersectionObserver' in window?new IntersectionObserver(entries=>{inView=entries[0].isIntersecting&&entries[0].intersectionRatio>=.55;dwell();},{threshold:[0,.55]}):null;observer?.observe($('.kit-summary',kit));document.addEventListener('visibilitychange',dwell);
  }
 });
