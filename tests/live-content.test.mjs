@@ -11,6 +11,7 @@ import fields from '../source/content/editor-fields.json' with {type:'json'};
 const {defaults,readValues}=createContentReader(fields);
 const home=await readFile(new URL('../_site/rewrite/index.html',import.meta.url),'utf8');
 const give=await readFile(new URL('../_site/rewrite/give/index.html',import.meta.url),'utf8');
+const impact=await readFile(new URL('../_site/rewrite/impact/index.html',import.meta.url),'utf8');
 const contact=await readFile(new URL('../_site/rewrite/contact/index.html',import.meta.url),'utf8');
 const app=await readFile(new URL('../public/rewrite/app.js',import.meta.url),'utf8');
 const csv=values=>'Title,,,,\r\nSection,Field,Value,Notes,Key\r\n'+Object.entries({...defaults,...values}).map(([key,value])=>['Test',key,String(value),'',key].map(v=>'"'+v.replaceAll('"','""')+'"').join(',')).join('\r\n');
@@ -56,7 +57,7 @@ test('refreshes metrics, safe copy, pricing, links, FAQ schema and email copy co
  applyLiveContent(doc,defaults,next,config.original);
  assert.equal(doc.querySelector('[data-content=hero_heading]').textContent,next.hero_heading);assert.equal(doc.querySelector('[data-content=hero_heading] students'),null);
  assert.equal(intro.innerHTML,originalIntro,'unchanged hero line breaks survive');
- assert.equal(doc.querySelector('[data-count]').dataset.count,'19123');assert.equal(doc.querySelector('[data-site-number=kits]').textContent,'19,123');
+ assert.equal(doc.querySelector('.hero-ticker [data-count]'),null,'the homepage ticker is static');assert.equal(doc.querySelector('[data-site-number=kits]').textContent,'19,123');
  assert.equal(doc.querySelector('[data-content=metric_budget_label]').closest('.metric').querySelector('[data-metric-count]').textContent,'$402.5M');
  assert.equal([...doc.querySelectorAll('.metric-districts-piece')].filter(d=>d.getAttribute('fill')==='#d9d9d9').length,80);
  assert.equal(doc.querySelector('.donation-picker').getAttribute('action'),next.donation_url);
@@ -97,24 +98,23 @@ test('public contact edits preserve the verified form recipient and an unsent me
  assert.equal(doc.querySelector('.footer-email').textContent,'new-team@example.org');assert.ok([...doc.querySelectorAll('.footer-legal p')].some(p=>p.textContent==='A new public mailing address'));
 });
 
-test('an in-progress counter finishes at the new value, including decimal metrics',()=>{
- const doc=page(home),{observers,frames}=initialize(doc,{motion:true});
+test('an in-progress impact counter finishes at the refreshed kit total',()=>{
+ const doc=page(impact),{observers,frames}=initialize(doc,{motion:true});
  for(const observer of observers)for(const target of [...observer.elements])if(target.matches('.metric,[data-count]'))observer.callback([{target,isIntersecting:true,intersectionRatio:1}]);
- applyLiveContent(doc,defaults,{...defaults,kits:19123,budget_gap_millions:402.5},config.original);runFrames(frames);
- assert.equal(doc.querySelector('[data-count]').textContent,'19,123');
- assert.equal(doc.querySelector('[data-content=metric_budget_label]').closest('.metric').querySelector('[data-metric-count]').textContent,'$402.5M');
+ applyLiveContent(doc,defaults,{...defaults,kits:19123},config.original);runFrames(frames);
+ assert.equal(doc.querySelector('.impact-count [data-count]').textContent,'19,123');
 });
 
 test('direct refreshes bypass browser cache and retain current content on network or feed failure',async()=>{
  const doc=page(home);let failure=false,lastRequest;
  const sync=startLiveContent(doc,config,async(url,options)=>{lastRequest={url,options};if(failure)throw Error('offline');return {ok:true,text:async()=>csv({kits:19123})};});
  for(let i=0;i<20&&doc.documentElement.dataset.contentSync!=='live';i++)await Promise.resolve();
- assert.equal(doc.querySelector('[data-count]').textContent,'19,123');assert.equal(doc.documentElement.dataset.contentSync,'live');
+ assert.equal(doc.querySelector('.hero-ticker [data-count]'),null);assert.equal(doc.querySelector('[data-site-number=kits]').textContent,'19,123');assert.equal(doc.documentElement.dataset.contentSync,'live');
  assert.equal(lastRequest.options.cache,'no-store');assert.equal(lastRequest.options.credentials,'omit');assert.ok(new URL(lastRequest.url).searchParams.has('_refresh'));
- failure=true;await sync.refresh();assert.equal(doc.documentElement.dataset.contentSync,'unavailable');assert.equal(doc.querySelector('[data-count]').textContent,'19,123');sync.stop();
+ failure=true;await sync.refresh();assert.equal(doc.documentElement.dataset.contentSync,'unavailable');assert.equal(doc.querySelector('[data-site-number=kits]').textContent,'19,123');sync.stop();
  const invalid=startLiveContent(doc,{...config,initialValues:{...defaults,kits:19123}},async()=>({ok:true,text:async()=>'<html>not a sheet</html>'}));
  for(let i=0;i<20&&doc.documentElement.dataset.contentSync!=='unavailable';i++)await Promise.resolve();
- await invalid.refresh();assert.equal(doc.querySelector('[data-count]').textContent,'19,123');invalid.stop();
+ await invalid.refresh();assert.equal(doc.querySelector('[data-site-number=kits]').textContent,'19,123');invalid.stop();
 });
 
 test('an unavailable sheet fails the build without replacing the published snapshot',async()=>{
