@@ -15,7 +15,8 @@ document.addEventListener('click',e=>{if(innerWidth>700&&!e.target.closest('.nav
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){const open=menu?.getAttribute('aria-expanded')==='true';closeMenu();if(open)menu.focus();}if(e.key==='Tab'&&nav?.classList.contains('open')){const controls=[menu,...$$('a,button',nav)].filter(x=>x.getClientRects().length);const first=controls[0],last=controls.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}});
 window.addEventListener('resize',()=>{if(innerWidth>700&&nav?.classList.contains('open'))closeMenu();});
 $$('.main-nav a').forEach(a=>a.addEventListener('click',closeMenu));
-const kitPrice=Number(document.body.dataset.kitPrice)||5;
+let kitPrice=Number(document.body.dataset.kitPrice)||5;
+document.addEventListener("site-content-updated",()=>{kitPrice=Number(document.body.dataset.kitPrice)||5;});
 const params=new URLSearchParams(location.search);const validAmount=n=>Number.isFinite(n)&&n>=1&&n<=100000;
 const formatGiftMoney=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:Number.isInteger(n)?0:2,maximumFractionDigits:2}).format(n);
 // The $50 gift shows ten individual kits. Larger gifts reuse bounded artwork.
@@ -45,6 +46,15 @@ $$('.donation-picker').forEach(form=>{
  custom.addEventListener('focus',()=>{touch();selected=null;amount.disabled=true;choices.forEach(c=>{c.classList.remove('selected');c.setAttribute('aria-pressed','false');});$('.custom-choice',form).classList.add('active');if(!custom.value)impact(null);});
  custom.addEventListener('input',()=>{touch();selected=null;const n=Number(custom.value);amount.disabled=!validAmount(n);amount.value=custom.value;error.textContent=custom.value&&!validAmount(n)?'Enter an amount from $1 to $100,000.':'';impact(n);});
  form.addEventListener('submit',e=>{touch();if(selected===null&&!custom.value.trim()){amount.disabled=true;return;}const n=selected??Number(custom.value);if(!validAmount(n)){e.preventDefault();error.textContent='Enter an amount from $1 to $100,000.';custom.focus();return;}amount.disabled=false;amount.value=String(Math.round(n*100)/100);});
+ document.addEventListener('site-content-updated',event=>{
+  if(!event.detail.changed.includes('kit_price'))return;
+  const current=selected??(custom.value.trim()?Number(custom.value):null);
+  if(validAmount(current)){
+   const matching=choices.find(c=>Number(c.dataset.amount)===current);selected=matching?current:null;
+   choices.forEach(c=>{const on=c===matching;c.classList.toggle('selected',on);c.setAttribute('aria-pressed',String(on));});
+   custom.value=matching?'':String(current);$('.custom-choice',form).classList.toggle('active',!matching);amount.disabled=false;amount.value=String(current);impact(current);
+  }else impact(null);
+ });
  if(kit){drawKits(1);function dwell(){stopDwell();if(!interacted&&inView&&!document.hidden)dwellTimer=setTimeout(()=>{dwellTimer=null;if(!interacted&&inView&&!document.hidden){choose(kitPrice);observer?.disconnect();}},7000);}
   const observer='IntersectionObserver' in window?new IntersectionObserver(entries=>{inView=entries[0].isIntersecting&&entries[0].intersectionRatio>=.55;dwell();},{threshold:[0,.55]}):null;observer?.observe($('.kit-summary',kit));document.addEventListener('visibilitychange',dwell);
  }
@@ -71,7 +81,7 @@ if(partnerSearch){const cards=$$('.partner-cloud [data-partner-name]'),clear=$('
  function filterPartners(){const q=partnerSearch.value.trim();let count=0;cards.forEach(card=>{const show=matchesDirectory(card.dataset.partnerSearch,q);card.hidden=!show;if(show)count++;});$('#partner-results').textContent=q?count+' of '+cards.length+' organizations':cards.length+' organizations';clear.hidden=!q;empty.hidden=count!==0;}
  function resetPartners(){partnerSearch.value='';filterPartners();partnerSearch.focus();}partnerSearch.addEventListener('input',filterPartners);partnerSearch.addEventListener('keydown',e=>{if(e.key==='Escape')resetPartners();});clear.addEventListener('click',resetPartners);$('[data-reset-partners]').addEventListener('click',resetPartners);filterPartners();
 }
-if(!reducedMotion&&'IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(!entry.isIntersecting)return;observer.unobserve(entry.target);const el=entry.target,target=Number(el.dataset.count),started=performance.now();function tick(now){const p=Math.min((now-started)/1800,1);el.textContent=Math.round(target*(1-Math.pow(1-p,3))).toLocaleString('en-US');if(p<1)requestAnimationFrame(tick);}requestAnimationFrame(tick);}),{threshold:.4});$$('[data-count]').forEach(el=>observer.observe(el));const reveal=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){reveal.unobserve(entry.target);entry.target.classList.add('section-enter');}}),{threshold:.15});$$('.work-photo-grid,.impact-feature,.chapter-practical,.involved-photo-banner').forEach(el=>reveal.observe(el));}
+if(!reducedMotion&&'IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(!entry.isIntersecting)return;observer.unobserve(entry.target);const el=entry.target,started=performance.now();function tick(now){const target=Number(el.dataset.count),p=Math.min((now-started)/1800,1);el.textContent=Math.round(target*(1-Math.pow(1-p,3))).toLocaleString('en-US');if(p<1)requestAnimationFrame(tick);}requestAnimationFrame(tick);}),{threshold:.4});$$('[data-count]').forEach(el=>observer.observe(el));const reveal=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){reveal.unobserve(entry.target);entry.target.classList.add('section-enter');}}),{threshold:.15});$$('.work-photo-grid,.impact-feature,.chapter-practical,.involved-photo-banner').forEach(el=>reveal.observe(el));}
 $$('[data-inquiry]').forEach(form=>{
  const submit=$('[type=submit]',form),error=$('.form-error',form),fields=$('.form-fields',form),success=$('.submission-success',form),interest=$('[name=interest]',form);
  if(interest&&params.get('topic')){const option=[...interest.options].find(o=>o.value.toLowerCase()===params.get('topic').toLowerCase());if(option)interest.value=option.value;}
@@ -90,20 +100,20 @@ $$('[data-inquiry]').forEach(form=>{
  });
  $('.send-another',form)?.addEventListener('click',()=>{success.hidden=true;fields.hidden=false;error.textContent='';$('[name=name]',form).focus();});
 });
-$$('[data-copy-email]').forEach(button=>button.addEventListener('click',async()=>{const text=button.dataset.copyEmail,status=$('.copy-status',button.parentElement);try{if(!navigator.clipboard)throw new Error();await navigator.clipboard.writeText(text);status.textContent='Email address copied.';button.dataset.copied='true';button.title='Copied';button.setAttribute('aria-label','Email address copied');clearTimeout(button.copyFeedbackTimer);button.copyFeedbackTimer=setTimeout(()=>{delete button.dataset.copied;button.title='Copy email address';button.setAttribute('aria-label','Copy '+text);},1800);}catch{let input=$('.copy-email-fallback',button.parentElement);if(!input){input=document.createElement('input');input.className='copy-email-fallback';input.readOnly=true;input.setAttribute('aria-label','Email address to copy');button.after(input);}input.value=text;input.focus();input.select();status.textContent='Select and copy the email address above.';}}));
+document.addEventListener('click',async event=>{const button=event.target.closest('[data-copy-email]');if(!button)return;const text=button.dataset.copyEmail,status=$('.copy-status',button.parentElement);try{if(!navigator.clipboard)throw new Error();await navigator.clipboard.writeText(text);status.textContent='Email address copied.';button.dataset.copied='true';button.title='Copied';button.setAttribute('aria-label','Email address copied');clearTimeout(button.copyFeedbackTimer);button.copyFeedbackTimer=setTimeout(()=>{delete button.dataset.copied;button.title='Copy email address';button.setAttribute('aria-label','Copy '+text);},1800);}catch{let input=$('.copy-email-fallback',button.parentElement);if(!input){input=document.createElement('input');input.className='copy-email-fallback';input.readOnly=true;input.setAttribute('aria-label','Email address to copy');button.after(input);}input.value=text;input.focus();input.select();status.textContent='Select and copy the email address above.';}});
 // Stagger the figures; let quiet artwork overlap the count after a short lead.
 if(!reducedMotion&&'IntersectionObserver' in window){
  const metricObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
   if(!entry.isIntersecting)return;
   const metric=entry.target;metricObserver.unobserve(metric);
   const value=metric.querySelector('[data-metric-count]');
-  const target=Number(value.dataset.metricCount),prefix=value.dataset.prefix||'',suffix=value.dataset.suffix||'';
+  const prefix=value.dataset.prefix||'',suffix=value.dataset.suffix||'';
   const start=performance.now()+Number(metric.dataset.metricOrder)*180,duration=2200;
   value.textContent=prefix+'0'+suffix;
   function frame(now){if(now<start){requestAnimationFrame(frame);return;}
    const elapsed=now-start,p=Math.min(elapsed/duration,1);
    metric.classList.add('metric-playing');if(elapsed>=260)metric.classList.add('metric-art-enter');
-   value.textContent=prefix+Math.round(target*(1-Math.pow(1-p,2))).toLocaleString('en-US')+suffix;
+   value.textContent=prefix+(p===1?Number(value.dataset.metricCount):Math.round(Number(value.dataset.metricCount)*(1-Math.pow(1-p,2)))).toLocaleString('en-US',{maximumFractionDigits:2})+suffix;
    if(p<1)requestAnimationFrame(frame);else metric.classList.add('metric-complete');
   }
   requestAnimationFrame(frame);
@@ -120,6 +130,7 @@ $$('.gift-builder').forEach(builder=>{
   const remainder=Math.round(amount*100)%Math.round(kitPrice*100);note.textContent=count?(remainder?formatGiftMoney(remainder/100)+' also helps fund supplies.':''):formatGiftMoney(amount)+' helps fund school supplies.';note.hidden=!note.textContent;
   const url=new URL(builder.dataset.donationUrl);url.searchParams.set('amount',String(Math.round(amount*100)/100));url.searchParams.set('default_interval','o');checkout.href=url.href;checkout.textContent='Donate '+formatGiftMoney(amount);
  }
+ document.addEventListener('site-content-updated',event=>{if(event.detail.changed.some(key=>key==='kit_price'||key==='donation_url'))update();});
  choices.forEach(b=>b.addEventListener('click',()=>{input.value=b.dataset.giftAmount;update();}));input.addEventListener('input',update);checkout.addEventListener('click',e=>{if(checkout.getAttribute('aria-disabled')==='true'){e.preventDefault();input.focus();}});update();
 });
 

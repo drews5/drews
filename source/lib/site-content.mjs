@@ -1,29 +1,11 @@
 import fields from '../content/editor-fields.json' with {type:'json'};
 import config from '../content/live-sheet.json' with {type:'json'};
-export const defaults=Object.fromEntries(fields.map(f=>[f.key,f.value]));
-const definitions=new Map(fields.map(f=>[f.key,f]));
+import {createContentReader} from './content-values.mjs';
+export {parseCsv} from './content-values.mjs';
+export const {defaults,readValues}=createContentReader(fields);
 const escapeHtml=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const copyEmail=text=>escapeHtml(text).replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,address=>`<span class="email-copy-link"><a href="mailto:${address}">${address}</a><button type="button" class="email-copy-button" data-copy-email="${address}" aria-label="Copy ${address}" title="Copy email address"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="14" y="13" width="19" height="23" rx="3"/><path d="M25 13V7a3 3 0 0 0-3-3H8a3 3 0 0 0-3 3v19a3 3 0 0 0 3 3h6"/></svg></button><span class="copy-status sr-only" role="status"></span></span>`);
 const money=n=>Number(n).toLocaleString('en-US',{maximumFractionDigits:2});
-export function parseCsv(text){
- const rows=[];let row=[],cell='',quoted=false;
- for(let i=0;i<text.length;i++){const c=text[i];if(c==='"'){if(quoted&&text[i+1]==='"'){cell+='"';i++;}else quoted=!quoted;}else if(c===','&&!quoted){row.push(cell);cell='';}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&text[i+1]==='\n')i++;row.push(cell);rows.push(row);row=[];cell='';}else cell+=c;}
- if(cell||row.length){row.push(cell);rows.push(row);}return rows;
-}
-export function readValues(csv){
- const result={...defaults};
- for(const row of parseCsv(csv)){const key=row[4]?.trim(),definition=definitions.get(key);if(!definition)continue;let v=row[2]?.trim();if(!v)continue;
-  if(['integer','number','currency','percent'].includes(definition.type)){
-   const n=Number(v.replace(/[$,%\s]/g,''));if(!Number.isFinite(n)||n<0)continue;
-   if(definition.type==='percent'){v=v.includes('%')||n>1?n/100:n;if(v>1)continue;}
-   else if(definition.type==='currency'){if(n<.01||n>1000)continue;v=Math.round(n*100)/100;}
-   else{if(n>1e9||(definition.type==='integer'&&!Number.isInteger(n)))continue;v=n;}
-  }else if(definition.type==='email'){if(!/^[^\s@<>"']+@[^\s@<>"']+\.[^\s@<>"']+$/.test(v))continue;}
-  else if(['url','donorbox'].includes(definition.type)){try{const u=new URL(v);if(u.protocol!=='https:'||u.username||u.password||(definition.type==='donorbox'&&!['donorbox.org','www.donorbox.org'].includes(u.hostname)))continue;v=u.href;}catch{continue;}}
-  else if(v.length>2000)continue;
-  result[key]=v;
- }return result;
-}
 let cached={...defaults},checked=0,pending;
 export async function getSiteContent(){
  if(Date.now()-checked<60000)return cached;
