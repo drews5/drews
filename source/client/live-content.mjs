@@ -33,7 +33,9 @@ export function applyLiveContent(doc,previous,next,original={kit_price:5}){
  const changed=Object.keys(next).filter(key=>next[key]!==previous[key]);
  // Keep the original artwork, with its dot proportions matching the editable figure.
  const dots=[...doc.querySelectorAll('.metric-districts-piece')],gray=Math.round(Number(next.underfunded_percent)*dots.length);
- dots.forEach((dot,i)=>dot.setAttribute('fill',i<gray?'#d9d9d9':'#ff9686'));
+ dots.forEach(dot=>{if(!dot.dataset.baseFill)dot.dataset.baseFill=dot.getAttribute('fill');});
+ const ordered=[...dots].sort((a,b)=>(a.dataset.baseFill==='#ff9686')-(b.dataset.baseFill==='#ff9686')||Number(a.getAttribute('cx'))-Number(b.getAttribute('cx'))||Number(a.getAttribute('cy'))-Number(b.getAttribute('cy')));
+ ordered.forEach((dot,i)=>dot.setAttribute('fill',i<gray?'#d9d9d9':'#ff9686'));
  if(!changed.length)return changed;
  const priceChanged=changed.includes('kit_price'),emailChanged=changed.some(k=>k==='email'||k==='chapter_email');
  const copyText=value=>{

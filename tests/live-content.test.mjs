@@ -41,6 +41,14 @@ test('rejects invalid feeds and unsafe links while preserving last valid fields'
  assert.throws(()=>readValues('<html>hero_heading</html>'));assert.throws(()=>readValues('"unfinished'));assert.throws(()=>readValues('x'.repeat(150001)));
 });
 
+test('normal refreshes preserve the approved dot pattern and percentage edits are reversible',()=>{
+ const doc=page(home),dots=[...doc.querySelectorAll('.metric-districts-piece')],original=dots.map(dot=>dot.getAttribute('fill'));
+ applyLiveContent(doc,defaults,defaults,config.original);assert.deepEqual(dots.map(dot=>dot.getAttribute('fill')),original);
+ const edited={...defaults,underfunded_percent:.8};applyLiveContent(doc,defaults,edited,config.original);
+ assert.equal(dots.filter(dot=>dot.getAttribute('fill')==='#d9d9d9').length,80);
+ applyLiveContent(doc,edited,defaults,config.original);assert.deepEqual(dots.map(dot=>dot.getAttribute('fill')),original);
+});
+
 test('refreshes metrics, safe copy, pricing, links, FAQ schema and email copy controls',()=>{
  const doc=page(home);initialize(doc);
  const intro=doc.querySelector('[data-content=hero_intro]'),originalIntro=intro.innerHTML;
