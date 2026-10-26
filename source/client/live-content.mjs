@@ -78,11 +78,11 @@ export function applyLiveContent(doc,previous,next,original={kit_price:5}){
    buttons.forEach((button,i)=>{
     const attr=button.hasAttribute('data-amount')?'data-amount':'data-gift-amount',amount=i===0?Number(next.kit_price):Number(button.getAttribute(attr)),count=Math.floor(Math.round(amount*100)/(Number(next.kit_price)*100));
     button.setAttribute(attr,String(amount));button.querySelector('strong').textContent=dollarText(amount);
-    const label=button.querySelector('small,span');if(label)label.textContent=count?(count===1?'One kit':numberText(count)+' kits'):'Part of a kit';
+    const label=button.querySelector('small,span');if(label)label.textContent=amount===100?'Classroom':count?(count===1?'One kit':numberText(count)+' kits'):'Part of a kit';
    });
    container.querySelectorAll('.gift-link').forEach((link,i)=>{
     const url=new URL(link.href),amount=i===0?Number(next.kit_price):Number(url.searchParams.get('amount')),count=Math.floor(amount/Number(next.kit_price));url.searchParams.set('amount',String(amount));link.href=url.href;
-    link.querySelector('strong').textContent=dollarText(amount);link.querySelector('span').textContent=count?(count===1?'One kit':numberText(count)+' kits'):'Part of a kit';
+    link.querySelector('strong').textContent=dollarText(amount);link.querySelector('span').textContent=amount===100?'Classroom':count?(count===1?'One kit':numberText(count)+' kits'):'Part of a kit';
    });
   });
  }
