@@ -601,3 +601,8 @@ body,input,select,textarea,button{font-family:Alice,Georgia,serif}body{line-heig
 .home-kit .kit-delivery-visual .delivery-piece{max-height:100%}
 @media(min-width:701px) and (max-width:900px){.home-kit{padding-top:45px}.home-kit>h2{font-size:33px;margin-bottom:45px}}
 @media(max-width:360px){.home-kit>h2{font-size:28px}}
+
+
+/* Keep the kit supply panel translucent at the same strength on every screen. */
+.home-kit .kit-copy>.kit-contents{background:rgb(255 255 255 / 85%);color:var(--navy)}
+.home-kit .kit-copy>.kit-contents .kit-item+.kit-item:before{background:rgb(16 58 113 / 35%)}
