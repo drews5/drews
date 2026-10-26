@@ -606,3 +606,7 @@ body,input,select,textarea,button{font-family:Alice,Georgia,serif}body{line-heig
 /* Keep the kit supply panel translucent at the same strength on every screen. */
 .home-kit .kit-copy>.kit-contents{background:rgb(255 255 255 / 85%);color:var(--navy)}
 .home-kit .kit-copy>.kit-contents .kit-item+.kit-item:before{background:rgb(16 58 113 / 35%)}
+
+/* Align the percentage with the peak, one dot to the right. */
+.metrics .metric-visual:has(>.metric-art-districts){container-type:size}
+.metrics .metric-art-districts+.metric-value{translate:min(6.039cqw,10.065cqh) 0}
