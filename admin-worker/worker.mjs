@@ -1,13 +1,16 @@
-const empty=()=>({pages:{},shared:{}});
+import {parseSharedValue} from '../public/rewrite/shared-content.js';
+const empty=()=>({pages:{},shared:{},values:{}});
 const encoder=new TextEncoder();
 async function digest(value){return new Uint8Array(await crypto.subtle.digest('SHA-256',encoder.encode(value)));}
 async function equal(a,b){const x=await digest(a),y=await digest(b);let difference=0;for(let i=0;i<x.length;i++)difference|=x[i]^y[i];return difference===0;}
 function validate(document){
  if(!document||typeof document!=='object'||!document.pages||!document.shared)throw Error('Invalid document');
  if(JSON.stringify(document).length>1500000)throw Error('Content is too large');
+ if(document.values){if(typeof document.values!=='object'||Array.isArray(document.values))throw Error('Invalid shared settings');for(const [key,value] of Object.entries(document.values))document.values[key]=parseSharedValue(key,value);}
  const groups=[document.shared,...Object.entries(document.pages).map(([route,ops])=>{if(!/^\/[a-z0-9/-]*$/.test(route))throw Error('Invalid page');return ops;})];
  for(const group of groups){if(!group||typeof group!=='object')throw Error('Invalid edits');for(const [id,op] of Object.entries(group)){
   if(!/^[a-f0-9]{16}$/.test(id)||!op||typeof op!=='object')throw Error('Invalid edit');
+  if(op.key!==undefined&&!/^[a-f0-9]{16}$/.test(op.key))throw Error('Invalid content key');
   if(op.text!==undefined&&(typeof op.text!=='string'||op.text.length>20000))throw Error('Text is too long');
   for(const key of ['src','href'])if(op[key]!==undefined){const u=new URL(op[key]);if(!['https:','mailto:','tel:'].includes(u.protocol)||key==='src'&&u.protocol!=='https:')throw Error('Invalid URL');}
   if(op.alt!==undefined&&(typeof op.alt!=='string'||op.alt.length>500))throw Error('Invalid image description');

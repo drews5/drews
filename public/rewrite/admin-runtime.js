@@ -1,9 +1,16 @@
+import {applyLiveContent} from './content-engine.js';
+import {contentState,sharedBinding} from './shared-content.js';
 export function applyEdits(doc,document,route){
+ const state=contentState(doc),base=doc.adminSheetValues||state.initialValues;
+ doc.adminSharedValues=document.values||{};
+ if(base){const next={...base,...doc.adminSharedValues};const previous=doc.adminEffectiveValues||state.initialValues;doc.adminEffectiveValues=next;applyLiveContent(doc,previous,next,state.original);const script=doc.querySelector('#site-content-state');if(script){state.adminValues=doc.adminSharedValues;script.textContent=JSON.stringify(state).replace(/</g,'\\u003c');}}
  const groups=[document.shared||{},document.pages?.[route]||{}];
  for(const group of groups)for(const [id,op] of Object.entries(group)){
-  const el=doc.querySelector('[data-admin-id="'+id+'"]');if(!el||op.tag&&op.tag!==el.tagName)continue;
-  if(op.text!==undefined){el.textContent=op.text;el.style.whiteSpace='pre-line';}
-  if(op.href&&el.tagName==='A')el.setAttribute('href',op.href);
+  const stable=/^[a-f0-9]{16}$/.test(op.key||'')?doc.querySelector('[data-admin-key="'+op.key+'"]'):null;
+  const el=op.key?stable:doc.querySelector('[data-admin-id="'+id+'"]');if(!el||op.tag&&op.tag!==el.tagName)continue;
+  const binding=sharedBinding(el,doc),shared=binding&&Object.hasOwn(doc.adminSharedValues,binding);
+  if(op.text!==undefined&&!(shared&&!['donation_url','chapter_application','facebook','instagram','linkedin','budget_source_url'].includes(binding))){el.textContent=op.text;el.style.whiteSpace='pre-line';}
+  if(op.href&&el.tagName==='A'&&!shared)el.setAttribute('href',op.href);
   if(op.src&&el.tagName==='IMG'){el.setAttribute('src',op.src);el.removeAttribute('srcset');el.removeAttribute('sizes');el.style.objectFit='contain';}
   if(op.alt!==undefined&&el.tagName==='IMG')el.alt=op.alt;
   if(op.hidden)el.hidden=true;

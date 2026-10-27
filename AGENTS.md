@@ -15,6 +15,13 @@ This repository is the source of truth for Drew's project website. Host it on Gi
 - Keep DNS on Spaceship pointing to GitHub Pages. Never restore the former ChatGPT custom-domain mapping.
 - Future project pages belong in `public/<project>/` with links from `public/index.html`.
 
+## Shared website editing
+
+- Important metrics, kit price, contact details, and social/donation links use the admin document's `values` map; definitions and validation are in `public/rewrite/shared-content.js`. Never replace these with separate page text overrides.
+- Explicit admin values override spreadsheet fields. Clearing an override with Use spreadsheet restores live spreadsheet updates. Keep this precedence in the browser and static builds.
+- `source/lib/admin-identity.mjs` assigns legacy IDs and semantic keys. Preserve stable keys when changing templates so saved text, link, image, header, and footer edits survive future builds. Do not apply an edit to a different element if its key disappears.
+- Canonical pages automatically enter the editor directory, get an unedited admin-source JSON snapshot, and inherit shared settings plus header/footer edits. Preserve this behavior when adding pages.
+
 ## Portfolio homepage
 
 - `public/index.html` and `public/portfolio.css` implement the minimal centered personal portfolio. Keep its typography and styles separate from Re-Write It.
