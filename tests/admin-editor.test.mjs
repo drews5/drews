@@ -1,0 +1,40 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import vm from 'node:vm';
+import {parseHTML} from 'linkedom';
+import {applyEdits} from '../public/rewrite/admin-runtime.js';
+
+test('mobile content selection opens reachable controls, edits text and saves before publishing',async()=>{
+ const html=await readFile(new URL('../public/rewrite/admin/index.html',import.meta.url),'utf8');
+ const script=(await readFile(new URL('../public/rewrite/admin/editor.js',import.meta.url),'utf8')).replace(/^import .*;\n/,'');
+ const {document,window}=parseHTML(html),preview=document.querySelector('#preview');
+ const frame=parseHTML('<html><head></head><body><main><h1 data-admin-id="1111111111111111">Original heading</h1><img data-admin-id="2222222222222222" src="https://example.org/photo.webp" alt="Kit photo"></main><footer><p data-admin-id="3333333333333333">Footer text</p></footer></body></html>').document;
+ Object.defineProperty(preview,'contentDocument',{get:()=>frame});
+ let saved={pages:{},shared:{}},revision=0;const calls=[];
+ const fetch=async(url,options={})=>{calls.push({url,method:options.method||'GET'});let value;
+  if(url.endsWith('admin-config.json'))value={apiBase:'https://admin.example'};
+  else if(url.endsWith('admin-pages.json'))value=[{route:'/',title:'Home'}];
+  else if(url.endsWith('/draft')&&options.method==='PUT'){saved=JSON.parse(options.body);value={document:saved,revision:++revision};}
+  else if(url.endsWith('/draft'))value={document:saved,revision};
+  else if(url.endsWith('/publish'))value={ok:true};
+  else return {ok:true,text:async()=>frame.documentElement.outerHTML};
+  return {ok:true,json:async()=>value};
+ };
+ const context=vm.createContext({document,window,location:{origin:'https://drews.click'},sessionStorage:{getItem:()=> 'test-session',setItem(){},removeItem(){}},matchMedia:()=>({matches:true}),fetch,applyEdits,URL,DOMParser:window.DOMParser,confirm:()=>true,console});
+ const editor=await new vm.Script('(async()=>{'+script+';return {openPage};})()').runInContext(context);
+ await editor.openPage({route:'/',title:'Home'});preview.dispatchEvent(new window.Event('load'));
+ assert.equal(document.querySelector('#canvas').hidden,true);assert.equal(document.querySelector('#content-list').hidden,false);
+ const find=text=>[...document.querySelectorAll('.content-item')].find(el=>el.textContent.includes(text));
+ find('Original heading').click();assert.ok(document.body.classList.contains('inspector-open'));
+ const field=document.querySelector('#text');field.value='Updated by the team';field.dispatchEvent(new window.Event('input'));
+ assert.equal(frame.querySelector('h1').textContent,'Updated by the team');
+ document.querySelector('#close-inspector').click();assert.ok(find('Updated by the team'));
+ find('Kit photo').click();assert.equal(document.querySelector('#image-wrap').hidden,false);assert.equal(document.querySelector('#text-wrap').hidden,true);
+ find('Footer text').click();assert.equal(document.querySelector('#selection-help').textContent,'Shared across all pages.');
+ field.value='Updated footer';field.dispatchEvent(new window.Event('input'));
+ await document.querySelector('#publish-page').onclick();
+ assert.equal(saved.pages['/']['1111111111111111'].text,'Updated by the team');assert.equal(saved.shared['3333333333333333'].text,'Updated footer');
+ assert.deepEqual(calls.filter(c=>['PUT','POST'].includes(c.method)).map(c=>c.method),['PUT','POST']);
+ assert.equal(document.querySelector('#edit-status').textContent,'Published');
+});
