@@ -1,9 +1,10 @@
+import {initializeSuggestions} from './suggestions.js?v=suggest1';
 import {applyEdits} from '../admin-runtime.js';
 import {sharedFields,parseSharedValue,sharedBinding,contentState} from '../shared-content.js';
 const $=s=>document.querySelector(s),empty=()=>({pages:{},shared:{},values:{}});let api='',token=sessionStorage.getItem('rewrite-admin-session')||'',content=empty(),revision=0,route='',selected=null,frame=null,history=[],future=[],dirty=false,loadedHtml='',pendingSelection='',settingsBaseline={},selectedField='',view=matchMedia('(max-width:650px)').matches?'content':'preview';
 const status=(message,error=false)=>{const el=route?$('#edit-status'):$('#status');el.textContent=message;el.style.color=error?'#a13029':'';};
 async function request(path,options={}){const r=await fetch(api+path,{...options,headers:{Authorization:'Bearer '+token,...options.headers}});const body=await r.json();if(!r.ok){if(r.status===401){token='';sessionStorage.removeItem('rewrite-admin-session');show('login');}throw Error(body.error||'Request failed');}return body;}
-function show(id){for(const name of ['login','dashboard','editor'])$('#'+name).hidden=name!==id;$('#logout').hidden=id==='login';}
+function show(id){for(const name of ['login','dashboard','editor'])$('#'+name).hidden=name!==id;$('#logout').hidden=id==='login';$('#suggestion-banner').hidden=id==='login';if(id==='login'&&$('#suggestion-dialog').open)$('#suggestion-dialog').close();}
 function checkpoint(){history.push(JSON.stringify(content));if(history.length>50)history.shift();future=[];dirty=true;status('Unsaved changes');}
 function scope(el){return el.closest('header,footer')?content.shared:(content.pages[route]||={});}
 function operation(){const group=scope(selected),id=selected.dataset.adminId,key=selected.dataset.adminKey;const previous=key&&Object.entries(group).find(([,op])=>op.key===key);if(previous&&previous[0]!==id){group[id]=previous[1];delete group[previous[0]];}const op=group[id]||={tag:selected.tagName};if(key)op.key=key;return op;}
@@ -80,3 +81,5 @@ function renderSettings(){
  }
 }
 $('#content-view').onclick=()=>setView('content');$('#preview-view').onclick=()=>setView('preview');$('#content-search').oninput=renderContent;$('#close-inspector').onclick=()=>{document.body.classList.remove('inspector-open');if(frame)renderContent();};
+
+initializeSuggestions({getContext:()=>({route,selection:selected?((selected.closest('section')?.querySelector('h2')?.textContent||'')+' '+(selected.alt||selected.textContent||'')).trim().slice(0,200):''}),uploadPhoto:upload});

@@ -4,6 +4,7 @@ import {readFile} from 'node:fs/promises';
 import vm from 'node:vm';
 import {parseHTML} from 'linkedom';
 import {applyEdits} from '../public/rewrite/admin-runtime.js';
+import {initializeSuggestions} from '../public/rewrite/admin/suggestions.js';
 import {sharedFields,parseSharedValue,sharedBinding,contentState} from '../public/rewrite/shared-content.js';
 
 test('mobile content selection opens reachable controls, edits text and saves before publishing',async()=>{
@@ -23,7 +24,7 @@ test('mobile content selection opens reachable controls, edits text and saves be
   else return {ok:true,text:async()=>frame.documentElement.outerHTML};
   return {ok:true,json:async()=>value};
  };
- const context=vm.createContext({document,window,location:{origin:'https://drews.click'},sessionStorage:{getItem:()=> 'test-session',setItem(){},removeItem(){}},matchMedia:()=>({matches:true}),fetch,applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,DOMParser:window.DOMParser,confirm:()=>true,console});
+ const context=vm.createContext({document,window,location:{origin:'https://drews.click'},sessionStorage:{getItem:()=> 'test-session',setItem(){},removeItem(){}},matchMedia:()=>({matches:true}),fetch,initializeSuggestions:options=>initializeSuggestions({...options,doc:document,fetcher:fetch}),applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,DOMParser:window.DOMParser,confirm:()=>true,console});
  const editor=await new vm.Script('(async()=>{'+script+';return {openPage};})()').runInContext(context);
  await editor.openPage({route:'/',title:'Home'});preview.dispatchEvent(new window.Event('load'));
  assert.equal(document.querySelector('#canvas').hidden,true);assert.equal(document.querySelector('#content-list').hidden,false);
