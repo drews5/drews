@@ -44,7 +44,8 @@ test('the direct editor serves its assets and local API configuration without pr
  const env={SITE_ORIGIN:'https://drews.click'},calls=[];
  const fetcher=async(url,options)=>{calls.push({url:url.href,options});return new Response('Editor source',{headers:{'Content-Type':'text/html'}});};
  const config=await serveEditor(new Request('https://admin.example/rewrite/admin-config.json'),env,fetcher);assert.deepEqual(await config.json(),{apiBase:'https://admin.example',siteOrigin:'https://drews.click'});assert.equal(calls.length,0);
- const page=await serveEditor(new Request('https://admin.example/rewrite/admin/?v=login3'),env,fetcher);assert.equal(await page.text(),'Editor source');assert.equal(calls[0].url,'https://drews.click/rewrite/admin/?v=login3');assert.equal(page.headers.get('Cache-Control'),'no-store');
+ const page=await serveEditor(new Request('https://admin.example/rewrite/admin/?v=login3'),env,fetcher);assert.equal(await page.text(),'Editor source');assert.equal(calls[0].url,'https://drews.click/rewrite/admin/?v=login3');assert.equal(page.headers.get('Cache-Control'),'no-store');assert.equal(calls[0].options.redirect,'manual');
+ assert.equal((await serveEditor(new Request('https://admin.example/rewrite/admin/'),env,async()=>new Response(null,{status:302,headers:{Location:'https://unrelated.example'}}))).status,502);
  assert.equal(await serveEditor(new Request('https://admin.example/login'),env,fetcher),null);
  assert.equal(await serveEditor(new Request('https://admin.example/https://unrelated.example'),env,fetcher),null);
  assert.equal((await serveEditor(new Request('https://admin.example/rewrite/admin/editor.js',{method:'POST'}),env,fetcher)).status,405);

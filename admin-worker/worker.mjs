@@ -75,7 +75,8 @@ export async function serveEditor(request,env,fetcher=fetch){
  const assets=new Set(['/rewrite/','/rewrite/admin/','/rewrite/admin/index.html','/rewrite/admin/editor.js','/rewrite/admin/editor.css','/rewrite/admin/suggestions.js','/rewrite/admin-runtime.js','/rewrite/shared-content.js','/rewrite/content-engine.js','/rewrite/admin-pages.json','/rewrite/assets/alice-400.woff']);
  if(!assets.has(url.pathname)&&!/^\/rewrite\/admin-source\/[a-z0-9_-]+\.json$/.test(url.pathname))return null;
  if(!['GET','HEAD'].includes(request.method))return new Response('Method not allowed',{status:405,headers:{Allow:'GET,HEAD'}});
- const upstream=await fetcher(new URL(url.pathname+url.search,site),{method:request.method,redirect:'error',cache:'no-store'});
+ const upstream=await fetcher(new URL(url.pathname+url.search,site),{method:request.method,redirect:'manual',cache:'no-store'});
+ if(upstream.status>=300&&upstream.status<400)return new Response('Editor files unavailable. Please try again.',{status:502,headers:{'Cache-Control':'no-store'}});
  const headers=new Headers(upstream.headers);headers.set('Cache-Control','no-store');headers.set('X-Content-Type-Options','nosniff');
  return new Response(upstream.body,{status:upstream.status,headers});
 }
