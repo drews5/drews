@@ -24,7 +24,7 @@ test('mobile content selection opens reachable controls, edits text and saves be
   else return {ok:true,text:async()=>frame.documentElement.outerHTML};
   return {ok:true,json:async()=>value};
  };
- const context=vm.createContext({document,window,location:{origin:'https://drews.click'},sessionStorage:{getItem:()=> 'test-session',setItem(){},removeItem(){}},matchMedia:()=>({matches:true}),fetch,initializeSuggestions:options=>initializeSuggestions({...options,doc:document,fetcher:fetch}),applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,DOMParser:window.DOMParser,confirm:()=>true,console});
+ const context=vm.createContext({document,window,location:{origin:'https://admin.example',search:''},sessionStorage:{getItem:()=> 'test-session',setItem(){},removeItem(){}},matchMedia:()=>({matches:true}),fetch,initializeSuggestions:options=>initializeSuggestions({...options,doc:document,fetcher:fetch}),applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,AbortSignal,DOMParser:window.DOMParser,confirm:()=>true,console});
  const editor=await new vm.Script('(async()=>{'+script+';return {openPage};})()').runInContext(context);
  await editor.openPage({route:'/',title:'Home'});preview.dispatchEvent(new window.Event('load'));
  assert.equal(document.querySelector('#canvas').hidden,true);assert.equal(document.querySelector('#content-list').hidden,false);
@@ -42,4 +42,24 @@ test('mobile content selection opens reachable controls, edits text and saves be
  assert.equal(saved.values.kits,20000);assert.equal(saved.pages['/']['1111111111111111'].text,'Updated by the team');assert.equal(saved.shared['3333333333333333'].text,'Updated footer');
  assert.deepEqual(calls.filter(c=>['PUT','POST'].includes(c.method)).map(c=>c.method),['PUT','POST']);
  assert.equal(document.querySelector('#edit-status').textContent,'Published');
+});
+
+test('the public entry opens the direct editor and login sends no stale authorization header',async()=>{
+ const html=await readFile(new URL('../public/rewrite/admin/index.html',import.meta.url),'utf8'),script=(await readFile(new URL('../public/rewrite/admin/editor.js',import.meta.url),'utf8')).replace(/^import .*;\n/gm,'');
+ async function setup(origin){
+  const {document,window}=parseHTML(html),calls=[],redirects=[];
+  const fetch=async(url,options={})=>{calls.push({url,options});let data;
+   if(url.endsWith('admin-config.json'))data={apiBase:'https://admin.example',siteOrigin:'https://drews.click'};
+   else if(url.endsWith('/login'))data={token:'test-token'};
+   else if(url.endsWith('/draft'))data={document:{pages:{},shared:{},values:{}},revision:0};
+   else if(url.endsWith('admin-pages.json'))data=[];
+   else return {ok:true,text:async()=>'<html><body></body></html>'};
+   return {ok:true,json:async()=>data};
+  };
+  const context=vm.createContext({document,window,location:{origin,search:'?v=login3',replace:url=>redirects.push(url)},sessionStorage:{getItem:()=>'',setItem(){},removeItem(){}},matchMedia:()=>({matches:true}),fetch,initializeSuggestions:()=>{},applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,AbortSignal,DOMParser:window.DOMParser,confirm:()=>true,console});
+  await new vm.Script('(async()=>{'+script+'})()').runInContext(context);return {document,calls,redirects};
+ }
+ const entry=await setup('https://drews.click');assert.deepEqual(entry.redirects,['https://admin.example/rewrite/admin/?v=login3']);assert.equal(entry.calls.length,1);
+ const direct=await setup('https://admin.example');assert.equal(direct.redirects.length,0);direct.document.querySelector('#password').value=crypto.randomUUID();await direct.document.querySelector('#login-form').onsubmit({preventDefault(){}});
+ const login=direct.calls.find(call=>call.url.endsWith('/login'));assert.equal(login.options.headers.Authorization,undefined);assert.equal(login.options.headers['Content-Type'],'text/plain;charset=UTF-8');assert.equal(login.options.credentials,'omit');assert.equal(direct.document.querySelector('#dashboard').hidden,false);
 });

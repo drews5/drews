@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {AdminService} from '../admin-worker/worker.mjs';
+import {AdminService,serveEditor} from '../admin-worker/worker.mjs';
 import {parseHTML} from 'linkedom';
 import {applyEdits} from '../public/rewrite/admin-runtime.js';
 test('admin authenticates on the server, keeps drafts private, publishes explicitly, and rejects conflicting saves',async()=>{
@@ -27,4 +27,25 @@ test('page edits preserve unrelated pages, apply shared footer edits, and do not
  const content={pages:{'/about':{'1234567890abcdef':{tag:'H1',text:'About',additions:[{src:'https://images.example/photo.webp',alt:'Students packing supplies'}]}}},shared:{'abcdef1234567890':{tag:'P',text:'Shared footer'}}};
  applyEdits(doc,content,'/');assert.equal(doc.querySelector('h1').textContent,'Original');assert.equal(doc.querySelector('footer p').textContent,'Shared footer');
  applyEdits(doc,content,'/about');applyEdits(doc,content,'/about');assert.equal(doc.querySelector('h1').textContent,'About');assert.equal(doc.querySelectorAll('img').length,1);
+});
+
+test('same-origin and www logins work while unrelated origins remain blocked',async()=>{
+ const records=new Map(),ctx={storage:{get:async key=>records.get(key),put:async(key,value)=>records.set(key,value),delete:async key=>records.delete(key)},blockConcurrencyWhile:callback=>callback()};
+ const password=crypto.randomUUID(),service=new AdminService(ctx,{ADMIN_PASSWORD:password,SITE_ORIGIN:'https://drews.click'});
+ for(const origin of ['https://drews.click','https://www.drews.click','https://admin.example']){
+  const preflight=await service.fetch(new Request('https://admin.example/login',{method:'OPTIONS',headers:{Origin:origin,'Access-Control-Request-Method':'POST','Access-Control-Request-Headers':'content-type'}}));assert.equal(preflight.status,204);assert.equal(preflight.headers.get('Access-Control-Allow-Origin'),origin);
+  const response=await service.fetch(new Request('https://admin.example/login',{method:'POST',headers:{Origin:origin,'Content-Type':'text/plain;charset=UTF-8'},body:JSON.stringify({password})}));assert.equal(response.status,200);const {token}=await response.json();
+  const draft=await service.fetch(new Request('https://admin.example/draft',{headers:{Origin:origin,Authorization:'Bearer '+token}}));assert.equal(draft.status,200);assert.equal(draft.headers.get('Access-Control-Allow-Origin'),origin);
+ }
+ const rejected=await service.fetch(new Request('https://admin.example/login',{method:'OPTIONS',headers:{Origin:'https://unrelated.example'}}));assert.equal(rejected.status,403);assert.notEqual(rejected.headers.get('Access-Control-Allow-Origin'),'https://unrelated.example');
+});
+
+test('the direct editor serves its assets and local API configuration without proxying arbitrary destinations',async()=>{
+ const env={SITE_ORIGIN:'https://drews.click'},calls=[];
+ const fetcher=async(url,options)=>{calls.push({url:url.href,options});return new Response('Editor source',{headers:{'Content-Type':'text/html'}});};
+ const config=await serveEditor(new Request('https://admin.example/rewrite/admin-config.json'),env,fetcher);assert.deepEqual(await config.json(),{apiBase:'https://admin.example',siteOrigin:'https://drews.click'});assert.equal(calls.length,0);
+ const page=await serveEditor(new Request('https://admin.example/rewrite/admin/?v=login3'),env,fetcher);assert.equal(await page.text(),'Editor source');assert.equal(calls[0].url,'https://drews.click/rewrite/admin/?v=login3');assert.equal(page.headers.get('Cache-Control'),'no-store');
+ assert.equal(await serveEditor(new Request('https://admin.example/login'),env,fetcher),null);
+ assert.equal(await serveEditor(new Request('https://admin.example/https://unrelated.example'),env,fetcher),null);
+ assert.equal((await serveEditor(new Request('https://admin.example/rewrite/admin/editor.js',{method:'POST'}),env,fetcher)).status,405);
 });

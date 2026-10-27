@@ -17,6 +17,7 @@ This repository is the source of truth for Drew's project website. Host it on Gi
 
 ## Shared website editing
 
+- The GitHub Pages editor entry redirects to the existing admin Worker's `/rewrite/admin/` URL. Keep authentication, drafts, publishing, and uploads on that same origin; the Worker serves the editor's public assets from GitHub Pages. Use the configured `siteOrigin` for page sources, previews, and saved relative links.
 - Important metrics, kit price, contact details, and social/donation links use the admin document's `values` map; definitions and validation are in `public/rewrite/shared-content.js`. Never replace these with separate page text overrides.
 - Explicit admin values override spreadsheet fields. Clearing an override with Use spreadsheet restores live spreadsheet updates. Keep this precedence in the browser and static builds.
 - `source/lib/admin-identity.mjs` assigns legacy IDs and semantic keys. Preserve stable keys when changing templates so saved text, link, image, header, and footer edits survive future builds. Do not apply an edit to a different element if its key disappears.

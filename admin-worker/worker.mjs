@@ -19,9 +19,10 @@ function validate(document){
 }
 async function handle(request,env){
  const url=new URL(request.url),origin=request.headers.get('Origin'),allowed=env.SITE_ORIGIN||'https://drews.click';
- const headers={'Access-Control-Allow-Origin':allowed,'Access-Control-Allow-Methods':'GET,POST,PUT,OPTIONS','Access-Control-Allow-Headers':'Content-Type,Authorization,If-Match','Access-Control-Expose-Headers':'ETag','Vary':'Origin','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'};
+ const origins=new Set([allowed,url.origin]);if(allowed==='https://drews.click')origins.add('https://www.drews.click');
+ const headers={'Access-Control-Allow-Origin':origins.has(origin)?origin:allowed,'Access-Control-Allow-Methods':'GET,POST,PUT,OPTIONS','Access-Control-Allow-Headers':'Content-Type,Authorization,If-Match','Access-Control-Expose-Headers':'ETag','Vary':'Origin','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'};
  const json=(body,status=200,extra={})=>new Response(JSON.stringify(body),{status,headers:{...headers,'Content-Type':'application/json',...extra}});
- if(origin&&origin!==allowed)return json({error:'Origin not allowed'},403);
+ if(origin&&!origins.has(origin))return json({error:'Origin not allowed'},403);
  if(request.method==='OPTIONS')return new Response(null,{status:204,headers});
  try{
   if(!env.CONTENT||!env.ADMIN_PASSWORD)return json({error:'Admin service setup is incomplete'},503);
@@ -68,4 +69,14 @@ export class AdminService {
   return handle(request,{...this.env,CONTENT});
  });}
 }
-export default {fetch(request,env){return env.ADMIN_SERVICE.get(env.ADMIN_SERVICE.idFromName('rewrite')).fetch(request);}};
+export async function serveEditor(request,env,fetcher=fetch){
+ const url=new URL(request.url),site=env.SITE_ORIGIN||'https://drews.click';
+ if(url.pathname==='/rewrite/admin-config.json'&&request.method==='GET')return Response.json({apiBase:url.origin,siteOrigin:site},{headers:{'Cache-Control':'no-store'}});
+ const assets=new Set(['/rewrite/','/rewrite/admin/','/rewrite/admin/index.html','/rewrite/admin/editor.js','/rewrite/admin/editor.css','/rewrite/admin/suggestions.js','/rewrite/admin-runtime.js','/rewrite/shared-content.js','/rewrite/content-engine.js','/rewrite/admin-pages.json','/rewrite/assets/alice-400.woff']);
+ if(!assets.has(url.pathname)&&!/^\/rewrite\/admin-source\/[a-z0-9_-]+\.json$/.test(url.pathname))return null;
+ if(!['GET','HEAD'].includes(request.method))return new Response('Method not allowed',{status:405,headers:{Allow:'GET,HEAD'}});
+ const upstream=await fetcher(new URL(url.pathname+url.search,site),{method:request.method,redirect:'error',cache:'no-store'});
+ const headers=new Headers(upstream.headers);headers.set('Cache-Control','no-store');headers.set('X-Content-Type-Options','nosniff');
+ return new Response(upstream.body,{status:upstream.status,headers});
+}
+export default {async fetch(request,env){return await serveEditor(request,env)||env.ADMIN_SERVICE.get(env.ADMIN_SERVICE.idFromName('rewrite')).fetch(request);}};
