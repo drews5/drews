@@ -1,4 +1,4 @@
-import {initializeSuggestions} from './suggestions.js?v=suggest1';
+import {initializeSuggestions} from './suggestions.js?v=suggest2';
 import {applyEdits} from '../admin-runtime.js';
 import {sharedFields,parseSharedValue,sharedBinding,contentState} from '../shared-content.js';
 const $=s=>document.querySelector(s),empty=()=>({pages:{},shared:{},values:{}});let api='',token=sessionStorage.getItem('rewrite-admin-session')||'',content=empty(),revision=0,route='',selected=null,frame=null,history=[],future=[],dirty=false,loadedHtml='',pendingSelection='',settingsBaseline={},selectedField='',view=matchMedia('(max-width:650px)').matches?'content':'preview';
