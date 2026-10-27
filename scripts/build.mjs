@@ -4,6 +4,8 @@ import {resolve,join} from 'node:path';
 import {createHash} from 'node:crypto';
 import {applySiteContent,defaults,readValues} from '../source/lib/site-content.mjs';
 import {rewriteMountText} from '../source/lib/path-mount.mjs';
+import {parseHTML} from 'linkedom';
+import {applyEdits} from '../public/rewrite/admin-runtime.js';
 const root=resolve(import.meta.dirname,'..'),out=join(root,'_site'),origin='https://drews.click';
 execFileSync('python3',[join(root,'source/build.py')],{stdio:'inherit'});
 const pages=JSON.parse(await readFile(join(root,'source/pages.json'),'utf8'));
@@ -37,13 +39,28 @@ await writeFile(join(out,'rewrite/live-content.js'),liveCode);
 const liveConfig={feedUrl:config.csv_url,fields:fields.map(({key,type})=>({key,type,value:values[key]})),initialValues:values,original:{email:defaults.email,chapter_email:defaults.chapter_email,kit_price:defaults.kit_price}};
 const liveScripts=`<script type="application/json" id="site-content-state">${JSON.stringify(liveConfig).replace(/</g,'\\u003c')}</script><script type="module" src="/rewrite/live-content.js?v=${liveVersion}"></script>`;
 const checkoutScript=`(()=>{const p=new URLSearchParams(location.search);if(!p.has('amount'))return;const a=Number(p.get('custom')||p.get('amount'));const u=new URL(${JSON.stringify(values.donation_url)});if(Number.isFinite(a)&&a>=1&&a<=100000)u.searchParams.set('amount',String(Math.round(a*100)/100));u.searchParams.set('default_interval',p.get('interval')==='m'?'m':'o');location.replace(u.href)})();`;
+const adminConfig=JSON.parse(await readFile(join(root,'public/rewrite/admin-config.json'),'utf8'));
+let publishedEdits=null;
+if(adminConfig.apiBase&&!process.env.SKIP_LIVE_CONTENT){const response=await fetch(adminConfig.apiBase+'/published',{signal:AbortSignal.timeout(10000)});if(!response.ok)throw Error('Admin content feed unavailable; preserving the published site');publishedEdits=(await response.json()).document;}
+const pageDirectory=[];
 for(const [route,template] of Object.entries(pages)){
  let html=rewriteMountText(applySiteContent(template,values),'text/html',origin);
  html=html.replace('</head>',liveScripts+'</head>');
  if(['/give','/donate','/copy-of-donate'].includes(route))html=html.replace('</head>',`<script>${checkoutScript}</script></head>`);
+ const {document}=parseHTML(html),canonical=new URL(document.querySelector('link[rel="canonical"]')?.href||origin+'/rewrite/');
+ const adminRoute='/'+canonical.pathname.replace(/^\/rewrite\/?/,'').replace(/\/$/,'');document.body.dataset.adminRoute=adminRoute;
+ for(const container of document.querySelectorAll('main,header.site-header,footer.site-footer')){
+  const shared=container.tagName!=='MAIN';
+  const assign=(element,path)=>{element.dataset.adminId=createHash('sha256').update((shared?'shared':adminRoute)+':'+path).digest('hex').slice(0,16);[...element.children].forEach((child,i)=>assign(child,path+'/'+child.tagName+':'+i));};assign(container,container.tagName);
+ }
+ if(publishedEdits)applyEdits(document,publishedEdits,adminRoute);
+ const runtime=document.createElement('script');runtime.type='module';runtime.src='/rewrite/admin-runtime.js?v='+createHash('sha256').update(await readFile(join(root,'public/rewrite/admin-runtime.js'))).digest('hex').slice(0,10);document.head.append(runtime);
+ html='<!doctype html>'+document.documentElement.outerHTML;
+ if(route===adminRoute&&!['/404','/home-grid','/home-scrolling','/message-received'].includes(route))pageDirectory.push({route,title:document.querySelector('title').textContent.split(' | ')[0]});
  const file=route==='/404'?join(out,'rewrite/404.html'):join(out,'rewrite',route.slice(1),'index.html');
  await mkdir(resolve(file,'..'),{recursive:true});await writeFile(file,html);
 }
+await writeFile(join(out,'rewrite/admin-pages.json'),JSON.stringify(pageDirectory));
 await cp(join(out,'rewrite/404.html'),join(out,'404.html'));
 await cp(join(out,'rewrite/sitemap.xml'),join(out,'sitemap.xml'));
 await cp(join(out,'rewrite/robots.txt'),join(out,'robots.txt'));
