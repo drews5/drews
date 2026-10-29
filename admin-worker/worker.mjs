@@ -80,4 +80,8 @@ export async function serveEditor(request,env,fetcher=fetch){
  const headers=new Headers(upstream.headers);headers.set('Cache-Control','no-store');headers.set('X-Content-Type-Options','nosniff');
  return new Response(upstream.body,{status:upstream.status,headers});
 }
-export default {async fetch(request,env){return await serveEditor(request,env)||env.ADMIN_SERVICE.get(env.ADMIN_SERVICE.idFromName('rewrite')).fetch(request);}};
+export default {async fetch(request,env){
+ const response=await serveEditor(request,env)||await env.ADMIN_SERVICE.get(env.ADMIN_SERVICE.idFromName('rewrite')).fetch(request);
+ const headers=new Headers(response.headers);headers.set('Alt-Svc','clear');
+ return new Response(response.body,{status:response.status,statusText:response.statusText,headers});
+}};

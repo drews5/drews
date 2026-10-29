@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {AdminService,serveEditor} from '../admin-worker/worker.mjs';
+import worker,{AdminService,serveEditor} from '../admin-worker/worker.mjs';
 import {parseHTML} from 'linkedom';
 import {applyEdits} from '../public/rewrite/admin-runtime.js';
 test('admin authenticates on the server, keeps drafts private, publishes explicitly, and rejects conflicting saves',async()=>{
@@ -49,4 +49,10 @@ test('the direct editor serves its assets and local API configuration without pr
  assert.equal(await serveEditor(new Request('https://admin.example/login'),env,fetcher),null);
  assert.equal(await serveEditor(new Request('https://admin.example/https://unrelated.example'),env,fetcher),null);
  assert.equal((await serveEditor(new Request('https://admin.example/rewrite/admin/editor.js',{method:'POST'}),env,fetcher)).status,405);
+});
+
+test('editor responses clear cached QUIC advertisements while preserving the API response',async()=>{
+ const env={ADMIN_SERVICE:{idFromName:()=> 'test',get:()=>({fetch:async()=>Response.json({ok:true},{headers:{'Alt-Svc':'h3=":443"; ma=86400','Access-Control-Allow-Origin':'https://drews.click'}})})}};
+ const response=await worker.fetch(new Request('https://admin.example/published'),env);
+ assert.equal(response.headers.get('Alt-Svc'),'clear');assert.equal(response.headers.get('Access-Control-Allow-Origin'),'https://drews.click');assert.deepEqual(await response.json(),{ok:true});
 });

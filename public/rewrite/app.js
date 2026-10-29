@@ -63,6 +63,16 @@ $$('.testimonials').forEach(carousel=>{const slides=$$('[data-slide]',carousel),
  function show(i){current=(i+slides.length)%slides.length;slides.forEach((s,j)=>s.hidden=j!==current);dots.forEach((d,j)=>d.setAttribute('aria-pressed',String(j===current)));}
  $('.slides',carousel).setAttribute('aria-live','off');$('.carousel-prev',carousel).addEventListener('click',()=>show(current-1));$('.carousel-next',carousel).addEventListener('click',()=>show(current+1));dots.forEach(b=>b.addEventListener('click',()=>show(Number(b.dataset.slideTo))));carousel.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();show(current+(e.key==='ArrowLeft'?-1:1));}});if(!reducedMotion)setInterval(()=>show(current+1),6500);
 });
+// A single value at a time; native scroll snapping also supports touch swipes.
+$$('.values-carousel').forEach(carousel=>{
+ const track=$('.values-track',carousel),slides=$$('[data-value-slide]',carousel),dots=$$('[data-value-to]',carousel);let current=0,scrollFrame=0;
+ function active(index){current=(index+slides.length)%slides.length;dots.forEach((dot,i)=>dot.setAttribute('aria-pressed',String(i===current)));}
+ function show(index){active(index);track.scrollTo({left:current*track.clientWidth,behavior:reducedMotion?'auto':'smooth'});}
+ $('[data-value-prev]',carousel).addEventListener('click',()=>show(current-1));$('[data-value-next]',carousel).addEventListener('click',()=>show(current+1));dots.forEach(dot=>dot.addEventListener('click',()=>show(Number(dot.dataset.valueTo))));
+ track.addEventListener('keydown',event=>{if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();show(current+(event.key==='ArrowLeft'?-1:1));}});
+ track.addEventListener('scroll',()=>{if(scrollFrame)return;scrollFrame=requestAnimationFrame(()=>{scrollFrame=0;if(track.clientWidth)active(Math.round(track.scrollLeft/track.clientWidth));});},{passive:true});
+ if(!reducedMotion)setInterval(()=>{const bounds=carousel.getBoundingClientRect();if(!document.hidden&&!carousel.contains(document.activeElement)&&bounds.bottom>0&&bounds.top<innerHeight)show(current+1);},7000);
+});
 $$('.process-tabs').forEach(tabs=>{const buttons=$$('[data-step]',tabs);function select(i,focus=false){buttons.forEach((b,j)=>{b.setAttribute('aria-selected',String(j===i));b.tabIndex=j===i?0:-1;$('#'+b.getAttribute('aria-controls')).hidden=j!==i;});if(focus)buttons[i].focus();}buttons.forEach((b,i)=>{b.addEventListener('click',()=>select(i));b.addEventListener('keydown',e=>{let index;if(e.key==='ArrowRight')index=(i+1)%buttons.length;else if(e.key==='ArrowLeft')index=(i-1+buttons.length)%buttons.length;else if(e.key==='Home')index=0;else if(e.key==='End')index=buttons.length-1;else return;e.preventDefault();select(index,true);});});});
 const normalizeDirectory=text=>String(text).normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/&/g,' and ').replace(/['’]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
 const matchesDirectory=(text,query)=>normalizeDirectory(query).split(/\s+/).every(word=>normalizeDirectory(text).includes(word));
