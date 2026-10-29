@@ -15,3 +15,11 @@ The password is verified by the Worker. Eight-hour session tokens remain in the 
 Images are compressed in the editor to WebP at a maximum 2,000-pixel edge. Uploads are limited to 3 MB. Photos added to the public site are public; drafts and draft text require authentication. Header and footer edits are shared across pages. Page text edits override matching spreadsheet copy; revert the element in the editor to return control to the spreadsheet.
 
 Cloudflare usage limits and billing belong to the site owner. The Worker must be connected before the admin login is enabled. Never replace backend authentication with a password embedded in the static site.
+
+## Edge reports ERR_QUIC_PROTOCOL_ERROR
+
+First verify that the editor and API respond over HTTP/2. If they do, test the affected Edge browser with Experimental QUIC protocol disabled in `edge://flags`, then relaunch Edge. This keeps HTTPS encryption and changes the transport used to reach Cloudflare. On managed computers, an administrator may need to set the Edge `QuicAllowed` policy instead.
+
+Cloudflare adds its own `Alt-Svc` advertisement on the `workers.dev` hostname. Setting `Alt-Svc: clear` in the Worker was tested and the edge overwrote it; do not treat that application header as a fix. A custom domain in an owner-controlled Cloudflare zone would allow HTTP/3 to be disabled at the zone level.
+
+References: [Cloudflare protocol troubleshooting](https://developers.cloudflare.com/speed/optimization/protocol/troubleshooting/protocol-troubleshooting/) and [Microsoft Edge QUIC policy](https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/QuicAllowed).
