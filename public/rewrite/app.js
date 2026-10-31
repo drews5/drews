@@ -3,6 +3,11 @@ function initializeSite(){
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 document.documentElement.classList.add('js');
+const header=$('.site-header');
+function updateHeader(){header?.classList.toggle('is-scrolled',window.scrollY>24);}
+updateHeader();
+window.addEventListener('scroll',updateHeader,{passive:true});
+window.addEventListener('pageshow',updateHeader);
 const menu=$('.menu-toggle'),nav=$('.main-nav'),drop=$('.nav-dropdown'),dropButton=$('.nav-dropdown-toggle');
 function setDrop(open){drop?.classList.toggle('open',open);dropButton?.setAttribute('aria-expanded',String(open));}
 function closeMenu(){menu?.setAttribute('aria-expanded','false');menu?.setAttribute('aria-label','Open navigation');nav?.classList.remove('open');document.body.classList.remove('menu-open');$('#main')?.removeAttribute('inert');$('.site-footer')?.removeAttribute('inert');setDrop(false);}

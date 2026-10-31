@@ -610,11 +610,13 @@ body,input,select,textarea,button{font-family:Alice,Georgia,serif}body{line-heig
 .hero-mobile-film{display:none}
 
 /* October team review: shared header, legible impact art, and shorter sections. */
-.site-header{background:#eaeff1;color:var(--navy);box-shadow:0 1px #103a711a}
-.site-header .brand,.site-header .menu-toggle,.site-header .nav-dropdown-toggle{color:var(--navy)}
-.site-header .main-nav>a:not(.nav-give),.site-header .main-nav .dropdown-menu a{color:var(--navy)}
-.site-header .main-nav>a[aria-current=page]:not(.nav-give),.site-header .nav-dropdown-toggle.is-current{color:var(--navy);font-weight:700}
-.site-header .main-nav>a:hover,.site-header .nav-dropdown-toggle:hover{color:#315b8c}
+.site-header{--header-background:var(--navy);--header-foreground:#fff;--header-hover:var(--coral);background:var(--header-background);color:var(--header-foreground);box-shadow:0 1px #ffffff20;transition:background-color .25s ease,color .25s ease,box-shadow .25s ease}
+.site-header.is-scrolled{--header-background:#eaeff1;--header-foreground:var(--navy);--header-hover:#315b8c;box-shadow:0 1px #103a711a}
+.site-header .brand,.site-header .menu-toggle,.site-header .nav-dropdown-toggle{color:var(--header-foreground)}
+.site-header .main-nav>a:not(.nav-give){color:var(--header-foreground)}
+.site-header .main-nav .dropdown-menu a{color:var(--navy)}
+.site-header .main-nav>a[aria-current=page]:not(.nav-give),.site-header .nav-dropdown-toggle.is-current{color:var(--header-foreground);font-weight:700}
+.site-header .main-nav>a:not(.nav-give):hover,.site-header .nav-dropdown-toggle:hover{color:var(--header-hover)}
 .site-header .dropdown-menu{background:#fff;border-color:#d4dfe5}
 .site-header .main-nav .dropdown-menu a:hover,.site-header .main-nav .dropdown-menu a[aria-current=page]{background:#eaeff1;color:var(--navy)}
 .hero-ticker{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;width:fit-content;min-width:230px;margin:24px auto 0;padding:12px 28px 15px;border:1px solid #fff6;border-radius:14px;background:#103a71eb;text-align:center}
@@ -670,9 +672,10 @@ body,input,select,textarea,button{font-family:Alice,Georgia,serif}body{line-heig
 .participation-list h2,.participation-list>article:first-child>div+div>h3{font:400 34px/1.2 Alice,Georgia,serif;margin:0 0 20px}
 .participation-list>article>div>p{margin-top:0}
 @media(max-width:700px){
- .site-header .main-nav{background:#eaeff1;color:var(--navy)}
- .site-header .main-nav>a:not(.nav-give){border-color:#ccd8e2}
- .site-header .main-nav .dropdown-menu a,.site-header .main-nav .dropdown-menu a:hover,.site-header .main-nav .dropdown-menu a[aria-current=page]{color:var(--navy)}
+ .site-header .main-nav{background:var(--header-background);color:var(--header-foreground)}
+ .site-header .main-nav>a:not(.nav-give){border-color:currentColor}
+ .site-header .main-nav .dropdown-menu a{color:var(--header-foreground)}
+ .site-header .main-nav .dropdown-menu a:hover,.site-header .main-nav .dropdown-menu a[aria-current=page]{color:var(--navy)}
  .site-header .main-nav .dropdown-menu a:hover,.site-header .main-nav .dropdown-menu a[aria-current=page]{background:#fff}
  .hero-ticker{min-width:205px;gap:2px;margin:22px auto 0;padding:11px 22px 13px}
  .hero-ticker strong{font-size:40px;min-width:0}
@@ -710,3 +713,5 @@ body,input,select,textarea,button{font-family:Alice,Georgia,serif}body{line-heig
  .participation-list h2,.participation-list>article:first-child>div+div>h3{font-size:29px;margin:0 0 16px}
 }
 @media(prefers-reduced-motion:reduce){.home-hero-scrolling .hero-film-track,.hero-mobile-film-track{animation:none}}
+
+@media(prefers-reduced-motion:reduce){.site-header{transition:none}}
