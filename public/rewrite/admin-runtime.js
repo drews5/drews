@@ -1,5 +1,20 @@
 import {applyLiveContent} from './content-engine.js';
 import {contentState,sharedBinding} from './shared-content.js';
+export function projectPublishedUrls(doc){
+ const origin=doc.documentElement?.dataset.publicSiteOrigin;if(!origin)return;
+ const project=value=>{
+  try{
+   const url=new URL(value,origin);
+   if(['https://drews.click','https://www.drews.click'].includes(url.origin)&&(url.pathname==='/rewrite'||url.pathname.startsWith('/rewrite/'))){url.pathname=url.pathname.slice(8)||'/';return origin+url.pathname+url.search+url.hash;}
+   if(value.startsWith('/rewrite/'))return value.slice(8);
+  }catch{}
+  return value;
+ };
+ for(const el of doc.querySelectorAll('[href],[src],[action],[poster],[srcset]')){
+  for(const key of ['href','src','action','poster'])if(el.hasAttribute(key))el.setAttribute(key,project(el.getAttribute(key)));
+  if(el.hasAttribute('srcset'))el.setAttribute('srcset',el.getAttribute('srcset').split(',').map(part=>part.replace(/^(\s*)(\S+)/,(all,space,value)=>space+project(value))).join(','));
+ }
+}
 export function applyEdits(doc,document,route){
  const state=contentState(doc),base=doc.adminSheetValues||state.initialValues;
  doc.adminSharedValues=document.values||{};
@@ -17,11 +32,13 @@ export function applyEdits(doc,document,route){
   for(const old of doc.querySelectorAll('[data-admin-added="'+id+'"]'))old.remove();
   let after=el;for(const image of op.additions||[]){const img=doc.createElement('img');img.src=image.src;img.alt=image.alt;img.setAttribute('data-admin-added',id);img.style.cssText='display:block;max-width:100%;height:auto;margin:20px auto';after.after(img);after=img;}
  }
+ projectPublishedUrls(doc);
 }
-if(typeof location!=='undefined'&&!location.pathname.startsWith('/rewrite/admin/')){
+const publicBase=typeof document!=='undefined'&&document.documentElement?.dataset.publicSiteOrigin?'':'/rewrite';
+if(typeof location!=='undefined'&&!location.pathname.startsWith(publicBase+'/admin/')){
  let count=0,last=0;
- document.addEventListener('click',event=>{if(!event.target.matches('.footer-city img'))return;const now=Date.now();count=now-last<2000?count+1:1;last=now;if(count===5)location.href='/rewrite/admin/';});
- fetch('/rewrite/admin-config.json',{cache:'no-store'}).then(r=>r.json()).then(async config=>{
+ document.addEventListener('click',event=>{if(!event.target.matches('.footer-city img'))return;const now=Date.now();count=now-last<2000?count+1:1;last=now;if(count===5)location.href=publicBase+'/admin/';});
+ fetch(publicBase+'/admin-config.json',{cache:'no-store'}).then(r=>r.json()).then(async config=>{
   if(!config.apiBase)return;let content;
   const apply=()=>{if(content)applyEdits(document,content,document.body.dataset.adminRoute||'/');};
   const refresh=async()=>{if(document.hidden)return;try{const response=await fetch(config.apiBase+'/published',{cache:'no-store'});if(response.ok){content=(await response.json()).document;apply();}}catch{/* Keep the existing site available when the editor service is offline. */}};

@@ -4,6 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
+    "build:production": "node scripts/build-production.mjs",
+    "check:production": "node scripts/check-production.mjs",
     "check": "node scripts/check.mjs",
     "test": "node --test tests/*.test.mjs"
   },

@@ -1,4 +1,7 @@
 _site/
+_production/
+source/pages.json
+source/__pycache__/
 node_modules/
 .DS_Store
 source/.generated-pages/

@@ -20,6 +20,9 @@ function validate(document){
 async function handle(request,env){
  const url=new URL(request.url),origin=request.headers.get('Origin'),allowed=env.SITE_ORIGIN||'https://drews.click';
  const origins=new Set([allowed,url.origin]);if(allowed==='https://drews.click')origins.add('https://www.drews.click');
+ // The production site reads the public feed; authentication remains on the editor origin.
+ const productionRead=['https://therewriteitproject.org','https://www.therewriteitproject.org'].includes(origin)&&url.pathname==='/published'&&(request.method==='GET'||request.method==='OPTIONS'&&request.headers.get('Access-Control-Request-Method')==='GET');
+ if(productionRead)origins.add(origin);
  const headers={'Access-Control-Allow-Origin':origins.has(origin)?origin:allowed,'Access-Control-Allow-Methods':'GET,POST,PUT,OPTIONS','Access-Control-Allow-Headers':'Content-Type,Authorization,If-Match','Access-Control-Expose-Headers':'ETag','Vary':'Origin','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'};
  const json=(body,status=200,extra={})=>new Response(JSON.stringify(body),{status,headers:{...headers,'Content-Type':'application/json',...extra}});
  if(origin&&!origins.has(origin))return json({error:'Origin not allowed'},403);

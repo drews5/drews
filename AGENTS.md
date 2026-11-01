@@ -15,6 +15,12 @@ This repository is the source of truth for Drew's project website. Host it on Gi
 - Keep DNS on Spaceship pointing to GitHub Pages. Never restore the former ChatGPT custom-domain mapping.
 - Future project pages belong in `public/<project>/` with links from `public/index.html`.
 
+## Nonprofit production export
+
+- `npm run build:production` builds the nonprofit at the root of `therewriteitproject.org` in `_production/`. This is a separate deployment; keep the personal domain and demo unchanged.
+- `scripts/build-production.mjs` exports after editor identities and published edits have been applied. Preserve those identities and production URL projection when modifying the build or editor.
+- Follow `deployment/README.md` for production hosting. Do not point the nonprofit domain at the portfolio's existing Pages site.
+
 ## Shared website editing
 
 - The GitHub Pages editor entry redirects to the existing admin Worker's `/rewrite/admin/` URL. Keep authentication, drafts, publishing, and uploads on that same origin; the Worker serves the editor's public assets from GitHub Pages. Use the configured `siteOrigin` for page sources, previews, and saved relative links.
