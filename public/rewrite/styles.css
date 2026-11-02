@@ -619,7 +619,7 @@ body,input,select,textarea,button{font-family:Alice,Georgia,serif}body{line-heig
 .site-header .main-nav>a:not(.nav-give):hover,.site-header .nav-dropdown-toggle:hover{color:var(--header-hover)}
 .site-header .dropdown-menu{background:#fff;border-color:#d4dfe5}
 .site-header .main-nav .dropdown-menu a:hover,.site-header .main-nav .dropdown-menu a[aria-current=page]{background:#eaeff1;color:var(--navy)}
-.hero-ticker{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;width:fit-content;min-width:230px;margin:24px auto 0;padding:12px 28px 15px;border:1px solid #fff6;border-radius:14px;background:#103a71eb;text-align:center}
+.hero-ticker{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;width:fit-content;min-width:230px;margin:24px auto 0;padding:12px 28px 15px;border:0;border-radius:0;background:transparent;text-align:center}
 .hero-ticker strong{min-width:0;text-align:center;font-size:49px;line-height:1.1;color:var(--coral)}
 .hero-ticker span{font-size:18px;line-height:1.3;color:#fffaf5}
 .metrics .metric-visual{height:auto;display:flex;flex-direction:column-reverse;gap:17px;margin:0 auto 16px}
