@@ -1,4 +1,4 @@
-const normalized=src=>src.replace(/^https:\/\/www\.therewriteitproject\.org/,'').replace(/^https:\/\/drews\.click\/rewrite/,'').replace(/^\/rewrite\//,'/');
+const normalized=src=>{try{const path=new URL(src,'https://www.therewriteitproject.org').pathname,mount=['','rewrite',''].join('/');return path.startsWith(mount)?path.slice(mount.length-1):path;}catch{return src;}};
 export function bindSheetImages(doc,catalog){
  const bySource=new Map(catalog.flatMap(item=>item.aliases.map(src=>[src,item])));
  for(const image of doc.querySelectorAll('img[src]')){

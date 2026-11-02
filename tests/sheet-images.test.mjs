@@ -1,3 +1,6 @@
+import vm from 'node:vm';
+import {readFile} from 'node:fs/promises';
+import {productionText} from '../source/lib/production-export.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {parseHTML} from 'linkedom';
@@ -12,3 +15,5 @@ test('image URL validation rejects unsafe links and clearing the sheet restores 
 test('published editor image overrides win over live spreadsheet updates and reverting restores the sheet',()=>{const doc=fixture(),image=doc.querySelector('img');doc.adminSheetValues={image_test:'https://images.example/sheet.jpg',image_test_alt:'Sheet description'};doc.adminEffectiveValues={...doc.adminSheetValues};const op={key:image.dataset.adminKey,tag:'IMG',src:'https://images.example/editor.jpg',alt:'Editor description'};applyEdits(doc,{pages:{'/':{[image.dataset.adminId]:op}},shared:{},values:{}},'/');applySheetImages(doc,{image_test:'https://images.example/later.jpg',image_test_alt:'Later description'});assert.equal(image.src,op.src);assert.equal(image.alt,op.alt);applyEdits(doc,{pages:{},shared:{},values:{}},'/');assert.equal(image.src,'https://images.example/sheet.jpg');assert.equal(image.alt,'Sheet description');});
 
 test('an unavailable replacement falls back to its original and a different URL can be tried',()=>{const doc=fixture(),image=doc.querySelector('img');applySheetImages(doc,{image_test:'https://images.example/missing.jpg'});image.dispatchEvent(new doc.defaultView.Event('error'));assert.equal(image.getAttribute('src'),'/rewrite/assets/photo-640.webp');assert.ok(image.getAttribute('srcset'));applySheetImages(doc,{image_test:'https://images.example/missing.jpg'});assert.equal(image.getAttribute('src'),'/rewrite/assets/photo-640.webp');applySheetImages(doc,{image_test:'https://images.example/valid.jpg'});assert.equal(image.src,'https://images.example/valid.jpg');});
+
+test('the production URL export leaves the image module executable',async()=>{const source=await readFile(new URL('../public/rewrite/sheet-images.js',import.meta.url),'utf8');assert.doesNotThrow(()=>new vm.Script(productionText(source).replace(/^export /gm,'')));});
