@@ -27,7 +27,7 @@ export class InquiryService {
  constructor(ctx,env){this.ctx=ctx;this.env=env;}
  async fetch(request){
   try{
-   if(request.method==='GET'){const id=new URL(request.url).pathname.split('/').at(-1),receipt=await this.ctx.storage.get('receipt:'+id);return Response.json(receipt?{id,status:receipt.status}:{error:'Receipt not found'},{status:receipt?200:404});}
+   if(request.method==='GET'){const id=new URL(request.url).pathname.split('/').at(-1),receipt=await this.ctx.storage.get('receipt:'+id);const job=receipt?await this.ctx.storage.get('job:'+id):null;return Response.json(receipt?{id,status:receipt.status,...(job?{attempts:job.attempts,nextAttempt:job.nextAttempt,delivery:job.delivery||'pending'}:{})}:{error:'Receipt not found'},{status:receipt?200:404});}
    if(Number(request.headers.get('Content-Length'))>16000)return Response.json({error:'Message is too large'}, {status:413});
    const raw=await request.text();if(raw.length>16000)return Response.json({error:'Message is too large'},{status:413});
    const input=JSON.parse(raw),payload=inquiryPayload(input),fingerprint=await hash(JSON.stringify(payload));
@@ -57,10 +57,10 @@ export class InquiryService {
     const response=await fetch('https://formsubmit.co/ajax/'+recipient,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({...job.payload,'Submission reference':job.id}),signal:AbortSignal.timeout(20000)});
     const result=await response.json();
     if(/activat|confirm.*email|email.*confirm/i.test(result?.message||''))throw Error('activation');
-    if(!response.ok||!(result?.success===true||result?.success==='true'))throw Error('Delivery not confirmed');
+    if(!response.ok||!(result?.success===true||result?.success==='true'))throw Error('upstream_rejected');
     const receipt=await storage.get('receipt:'+job.id);await storage.put('receipt:'+job.id,{...receipt,status:'sent',sentAt:Date.now()});await storage.delete(key);
    }catch(error){
-    job.attempts++;job.nextAttempt=Date.now()+(error.message==='activation'?3600000:Math.min(3600000,60000*2**Math.min(job.attempts-1,6)));await storage.put(key,job);await storage.put('retryAfter',job.nextAttempt);
+    job.attempts++;job.delivery=error.message==='activation'?'activation_required':error.name==='TimeoutError'||error.name==='AbortError'?'upstream_timeout':'retrying';job.nextAttempt=Date.now()+(error.message==='activation'?3600000:Math.min(3600000,60000*2**Math.min(job.attempts-1,6)));await storage.put(key,job);await storage.put('retryAfter',job.nextAttempt);
     // One failed service request is enough; do not flood an unavailable provider.
     break;
    }
