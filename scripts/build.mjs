@@ -38,8 +38,15 @@ async function rewriteAssets(dir){
  }
 }
 await rewriteAssets(join(out,'rewrite'));
+const imageVersion=createHash('sha256').update(await readFile(join(root,'public/rewrite/sheet-images.js'))).digest('hex').slice(0,10);
+const engineCode=(await readFile(join(root,'public/rewrite/content-engine.js'),'utf8')).replace("'./sheet-images.js'","'./sheet-images.js?v="+imageVersion+"'");
+const engineVersion=createHash('sha256').update(engineCode).digest('hex').slice(0,10);
+await writeFile(join(out,'rewrite/content-engine.js'),engineCode);
+const runtimeCode=(await readFile(join(root,'public/rewrite/admin-runtime.js'),'utf8')).replace("'./content-engine.js'","'./content-engine.js?v="+engineVersion+"'");
+const runtimeVersion=createHash('sha256').update(runtimeCode).digest('hex').slice(0,10);
+await writeFile(join(out,'rewrite/admin-runtime.js'),runtimeCode);
 const readerCode=(await readFile(join(root,'source/lib/content-values.mjs'),'utf8')).replace(/^export /gm,'');
-const clientCode=(await readFile(join(root,'source/client/live-content.mjs'),'utf8')).replace(/^import .*content-values\.mjs';\n/m,'').replace("../../public/rewrite/content-engine.js","./content-engine.js");
+const clientCode=(await readFile(join(root,'source/client/live-content.mjs'),'utf8')).replace(/^import .*content-values\.mjs';\n/m,'').replace("../../public/rewrite/content-engine.js","./content-engine.js?v="+engineVersion);
 const liveCode=readerCode+'\n'+clientCode;
 const liveVersion=createHash('sha256').update(liveCode).digest('hex').slice(0,10);
 await writeFile(join(out,'rewrite/live-content.js'),liveCode);
@@ -58,7 +65,7 @@ for(const [route,template] of Object.entries(pages)){
  for(const el of document.querySelectorAll('[data-admin-id]')){const key=sharedBinding(el,document);if(key)el.dataset.adminField=key;}
  if(route===adminRoute){await mkdir(join(out,'rewrite/admin-source'),{recursive:true});await writeFile(join(out,'rewrite/admin-source', (adminRoute==='/'?'home':adminRoute.slice(1).replaceAll('/','_'))+'.json'),JSON.stringify({html:'<!doctype html>'+document.documentElement.outerHTML}));}
  if(publishedEdits)applyEdits(document,publishedEdits,adminRoute);
- const runtime=document.createElement('script');runtime.type='module';runtime.src='/rewrite/admin-runtime.js?v='+createHash('sha256').update(await readFile(join(root,'public/rewrite/admin-runtime.js'))).digest('hex').slice(0,10);document.head.append(runtime);
+ const runtime=document.createElement('script');runtime.type='module';runtime.src='/rewrite/admin-runtime.js?v='+runtimeVersion;document.head.append(runtime);
  html='<!doctype html>'+document.documentElement.outerHTML;
  if(route===adminRoute&&!['/404','/home-grid','/home-scrolling','/message-received'].includes(route))pageDirectory.push({route,title:document.querySelector('title').textContent.split(' | ')[0]});
  const file=route==='/404'?join(out,'rewrite/404.html'):join(out,'rewrite',route.slice(1),'index.html');
