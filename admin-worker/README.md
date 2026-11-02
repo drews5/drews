@@ -23,3 +23,9 @@ First verify that the editor and API respond over HTTP/2. If they do, test the a
 Cloudflare adds its own `Alt-Svc` advertisement on the `workers.dev` hostname. Setting `Alt-Svc: clear` in the Worker was tested and the edge overwrote it; do not treat that application header as a fix. A custom domain in an owner-controlled Cloudflare zone would allow HTTP/3 to be disabled at the zone level.
 
 References: [Cloudflare protocol troubleshooting](https://developers.cloudflare.com/speed/optimization/protocol/troubleshooting/protocol-troubleshooting/) and [Microsoft Edge QUIC policy](https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/QuicAllowed).
+
+## Public form delivery
+
+`POST /inquiries` accepts validated contact, supply, and volunteer submissions from the production and demo origins. A separate SQLite Durable Object saves each request before returning HTTP 202. Its alarm forwards requests to the fixed FormSubmit recipient, retries service failures with backoff, and pauses for an hour if activation is required. Visitors do not need to open an email client. Success on the site means the request was received and stored, not that email delivery has completed.
+
+Client submission IDs prevent a retry of the same in-progress message from creating a second queued request. Pending message contents are private and removed after FormSubmit confirms acceptance; an opaque receipt retains only its fingerprint, status, and timestamps. `GET /inquiries/receipt/<random-submission-id>` exposes status only, with no form fields. The public API cannot choose recipients, access editor drafts, upload files, or authenticate editors. Requests are size limited and rate limited. The existing editor Durable Object and its migration remain unchanged.

@@ -1,3 +1,5 @@
+import {routeInquiry} from './inquiries.mjs';
+export {InquiryService} from './inquiries.mjs';
 import {parseSharedValue} from '../public/rewrite/shared-content.js';
 const empty=()=>({pages:{},shared:{},values:{}});
 const encoder=new TextEncoder();
@@ -83,4 +85,4 @@ export async function serveEditor(request,env,fetcher=fetch){
  const headers=new Headers(upstream.headers);headers.set('Cache-Control','no-store');headers.set('X-Content-Type-Options','nosniff');
  return new Response(upstream.body,{status:upstream.status,headers});
 }
-export default {async fetch(request,env){return await serveEditor(request,env)||env.ADMIN_SERVICE.get(env.ADMIN_SERVICE.idFromName('rewrite')).fetch(request);}};
+export default {async fetch(request,env){return await routeInquiry(request,env)||await serveEditor(request,env)||env.ADMIN_SERVICE.get(env.ADMIN_SERVICE.idFromName('rewrite')).fetch(request);}};
