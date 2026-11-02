@@ -1,3 +1,5 @@
+import imageCatalog from '../source/content/site-images.json' with {type:'json'};
+import {bindSheetImages,applySheetImages} from '../public/rewrite/sheet-images.js';
 import {execFileSync} from 'node:child_process';
 import {cp,mkdir,readFile,writeFile,rm,readdir} from 'node:fs/promises';
 import {resolve,join} from 'node:path';
@@ -52,6 +54,7 @@ for(const [route,template] of Object.entries(pages)){
  const {document}=parseHTML(html),canonical=new URL(document.querySelector('link[rel="canonical"]')?.href||origin+'/rewrite/');
  const adminRoute='/'+canonical.pathname.replace(/^\/rewrite\/?/,'').replace(/\/$/,'');document.body.dataset.adminRoute=adminRoute;
  assignAdminIdentity(document,adminRoute);
+ bindSheetImages(document,imageCatalog);applySheetImages(document,values);
  for(const el of document.querySelectorAll('[data-admin-id]')){const key=sharedBinding(el,document);if(key)el.dataset.adminField=key;}
  if(route===adminRoute){await mkdir(join(out,'rewrite/admin-source'),{recursive:true});await writeFile(join(out,'rewrite/admin-source', (adminRoute==='/'?'home':adminRoute.slice(1).replaceAll('/','_'))+'.json'),JSON.stringify({html:'<!doctype html>'+document.documentElement.outerHTML}));}
  if(publishedEdits)applyEdits(document,publishedEdits,adminRoute);

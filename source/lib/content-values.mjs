@@ -22,7 +22,7 @@ export function createContentReader(fields){
   const result={...defaults,...baseline};
   for(const row of rows){
    const key=row[4]?.trim(),definition=definitions.get(key);if(!definition)continue;
-   let v=row[2]?.trim();if(!v)continue;
+   let v=row[2]?.trim()||'';if(!v){if(['image','image_alt'].includes(definition.type))result[key]=definition.value;continue;}
    if(['integer','number','currency','percent'].includes(definition.type)){
     const n=Number(v.replace(/[$,%\s,]/g,''));if(!Number.isFinite(n)||n<0)continue;
     if(definition.type==='percent'){v=v.includes('%')||n>1?n/100:n;if(v>1)continue;}
@@ -30,7 +30,7 @@ export function createContentReader(fields){
     else{if(n>1e9||(definition.type==='integer'&&!Number.isInteger(n)))continue;v=n;}
    }else if(definition.type==='email'){
     if(!/^[^\s@<>"']+@[^\s@<>"']+\.[^\s@<>"']+$/.test(v))continue;
-   }else if(['url','donorbox'].includes(definition.type)){
+   }else if(['url','donorbox','image'].includes(definition.type)){
     try{const u=new URL(v);if(u.protocol!=='https:'||u.username||u.password||(definition.type==='donorbox'&&!['donorbox.org','www.donorbox.org'].includes(u.hostname)))continue;v=u.href;}catch{continue;}
    }else if(v.length>2000)continue;
    result[key]=v;

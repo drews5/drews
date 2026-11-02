@@ -16,6 +16,12 @@ export function projectPublishedUrls(doc){
  }
 }
 export function applyEdits(doc,document,route){
+ const groupsForImages=[document.shared||{},document.pages?.[route]||{}];doc.adminImageOverrides=new Map();
+ for(const group of groupsForImages)for(const [id,op] of Object.entries(group)){
+  if(op.src===undefined&&op.alt===undefined)continue;
+  const image=op.key?doc.querySelector('[data-admin-key="'+op.key+'"]'):doc.querySelector('[data-admin-id="'+id+'"]');
+  if(image?.tagName==='IMG')doc.adminImageOverrides.set(image,{src:op.src!==undefined,alt:op.alt!==undefined});
+ }
  const state=contentState(doc),base=doc.adminSheetValues||state.initialValues;
  doc.adminSharedValues=document.values||{};
  if(base){const next={...base,...doc.adminSharedValues};const previous=doc.adminEffectiveValues||state.initialValues;doc.adminEffectiveValues=next;applyLiveContent(doc,previous,next,state.original);const script=doc.querySelector('#site-content-state');if(script){state.adminValues=doc.adminSharedValues;script.textContent=JSON.stringify(state).replace(/</g,'\\u003c');}}

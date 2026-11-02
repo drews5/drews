@@ -1,3 +1,4 @@
+import {applySheetImages} from './sheet-images.js';
 const numberText=n=>Number(n).toLocaleString('en-US',{maximumFractionDigits:2});
 const dollarText=n=>'$'+numberText(n);
 const emailPattern=/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
@@ -28,6 +29,7 @@ function changedUrl(raw,oldValue,newValue){
 }
 
 export function applyLiveContent(doc,previous,next,original={kit_price:5}){
+ applySheetImages(doc,next);
  const changed=Object.keys(next).filter(key=>next[key]!==previous[key]);
  // Keep the original artwork, with its dot proportions matching the editable figure.
  const dots=[...doc.querySelectorAll('.metric-districts-piece')],gray=Math.round(Number(next.underfunded_percent)*dots.length);
