@@ -97,24 +97,6 @@ if(partnerSearch){const cards=$$('.partner-cloud [data-partner-name]'),clear=$('
  function resetPartners(){partnerSearch.value='';filterPartners();partnerSearch.focus();}partnerSearch.addEventListener('input',filterPartners);partnerSearch.addEventListener('keydown',e=>{if(e.key==='Escape')resetPartners();});clear.addEventListener('click',resetPartners);$('[data-reset-partners]').addEventListener('click',resetPartners);filterPartners();
 }
 if(!reducedMotion&&'IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(!entry.isIntersecting)return;observer.unobserve(entry.target);const el=entry.target,started=performance.now();function tick(now){const target=Number(el.dataset.count),p=Math.min((now-started)/1800,1);el.textContent=Math.round(target*(1-Math.pow(1-p,3))).toLocaleString('en-US');if(p<1)requestAnimationFrame(tick);}requestAnimationFrame(tick);}),{threshold:.4});$$('[data-count]').forEach(el=>observer.observe(el));const reveal=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){reveal.unobserve(entry.target);entry.target.classList.add('section-enter');}}),{threshold:.15});$$('.work-photo-grid,.impact-feature,.chapter-practical,.involved-photo-banner').forEach(el=>reveal.observe(el));}
-$$('[data-inquiry]').forEach(form=>{
- const submit=$('[type=submit]',form),error=$('.form-error',form),fields=$('.form-fields',form),success=$('.submission-success',form),interest=$('[name=interest]',form);
- if(interest&&params.get('topic')){const option=[...interest.options].find(o=>o.value.toLowerCase()===params.get('topic').toLowerCase());if(option)interest.value=option.value;}
- form.addEventListener('submit',async event=>{
-  event.preventDefault();if(submit.disabled||!form.reportValidity())return;error.textContent='';const data=new FormData(form);
-  if(data.get('_honey')||data.get('website')){error.textContent='Your message could not be sent. Please email our team.';error.focus();return;}
-  const payload=Object.fromEntries(data.entries());delete payload.website;payload.supplies=data.getAll('supplies').join(', ');payload._replyto=String(data.get('email')||'').trim();
-  const label=submit.textContent;submit.disabled=true;submit.textContent='Sending…';const abort=new AbortController(),timer=setTimeout(()=>abort.abort(),30000);
-  try{
-   const response=await fetch(form.action.replace('https://formsubmit.co/','https://formsubmit.co/ajax/'),{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(payload),signal:abort.signal});
-   const result=await response.json();const accepted=result.success===true||result.success==='true'||/needs activation|activation.*email|activate.*form/i.test(result.message||'');
-   if(!response.ok||!accepted)throw new Error('Delivery could not be confirmed. Please try again, or email therewriteitproject@gmail.com.');
-   fields.hidden=true;success.hidden=false;const heading=$('h3',success);heading.tabIndex=-1;heading.focus();form.reset();
-  }catch(e){error.textContent=e.name==='AbortError'?'Delivery is taking longer than expected. Your form details are still here. Please try again or email our team.':e.name==='SyntaxError'?'Delivery could not be confirmed. Your form details are still here. Please try again or email our team.':e.message==='Failed to fetch'?'Your message could not be sent. Check your connection and try again. Your form details are still here.':e.message;error.focus();}
-  finally{clearTimeout(timer);submit.disabled=false;submit.textContent=label;}
- });
- $('.send-another',form)?.addEventListener('click',()=>{success.hidden=true;fields.hidden=false;error.textContent='';$('[name=name]',form).focus();});
-});
 document.addEventListener('click',async event=>{const button=event.target.closest('[data-copy-email]');if(!button)return;const text=button.dataset.copyEmail,status=$('.copy-status',button.parentElement);try{if(!navigator.clipboard)throw new Error();await navigator.clipboard.writeText(text);status.textContent='Email address copied.';button.dataset.copied='true';button.title='Copied';button.setAttribute('aria-label','Email address copied');clearTimeout(button.copyFeedbackTimer);button.copyFeedbackTimer=setTimeout(()=>{delete button.dataset.copied;button.title='Copy email address';button.setAttribute('aria-label','Copy '+text);},1800);}catch{let input=$('.copy-email-fallback',button.parentElement);if(!input){input=document.createElement('input');input.className='copy-email-fallback';input.readOnly=true;input.setAttribute('aria-label','Email address to copy');button.after(input);}input.value=text;input.focus();input.select();status.textContent='Select and copy the email address above.';}});
 // Stagger the figures; let quiet artwork overlap the count after a short lead.
 if(!reducedMotion&&'IntersectionObserver' in window){
