@@ -8,7 +8,7 @@ that repository's Pages domain or its `public/CNAME`.
 
 Run `npm ci` and `npm run build:production`. This fetches the current spreadsheet
 and published editor content, builds the demo, and exports only the nonprofit to
-`_production/` at `https://therewriteitproject.org/`.
+`_production/` at `https://www.therewriteitproject.org/`.
 
 Every normal main-branch build also validates this export and uploads it as the
 `rewrite-production` Actions artifact. No portfolio files are included. Internal
@@ -31,7 +31,7 @@ It builds from the current shared source and checks for code updates every half
 hour; a manual run publishes sooner. Live sheet and published editor values still
 refresh in the browser independently of that schedule.
 
-Before changing DNS, configure `therewriteitproject.org` as the production
+Before changing DNS, configure `www.therewriteitproject.org` as the production
 repository's Pages custom domain. Verify the deployed artifact is the nonprofit
 root export, not the personal portfolio. Preserve the Wix DNS screenshot/records
 as a rollback reference.

@@ -1,4 +1,4 @@
-export const productionOrigin='https://therewriteitproject.org';
+export const productionOrigin='https://www.therewriteitproject.org';
 const demoOrigin='https://drews.click';
 
 // Run after assigning editor identities so saved edits retain their original keys.

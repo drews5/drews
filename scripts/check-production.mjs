@@ -29,7 +29,7 @@ async function visit(dir){
 }
 await visit(root);
 assert(pages>=30);
-assert.equal((await readFile(join(root,'CNAME'),'utf8')).trim(),'therewriteitproject.org');
+assert.equal((await readFile(join(root,'CNAME'),'utf8')).trim(),new URL(productionOrigin).hostname);
 const home=await readFile(join(root,'index.html'),'utf8');
 assert(home.includes('data-public-site-origin="'+productionOrigin+'"'));
 assert(home.includes('https://donorbox.org/'));
