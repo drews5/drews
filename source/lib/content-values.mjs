@@ -19,9 +19,11 @@ export function createContentReader(fields){
   if(typeof csv!=='string'||csv.length>150000)throw Error('Invalid content feed');
   const rows=parseCsv(csv);
   if(!rows.some(r=>r[4]?.trim()==='Key'&&r[2]?.trim()==='Value')||!rows.some(r=>r[4]?.trim()==='hero_heading'))throw Error('Invalid spreadsheet columns');
+  const inlineDescriptions=rows.some(row=>row[4]?.trim()==='Key'&&row[6]?.trim()==='Description');
   const result={...defaults,...baseline};
   for(const row of rows){
    const key=row[4]?.trim(),definition=definitions.get(key);if(!definition)continue;
+   if(definition.type==='image'&&inlineDescriptions){const alt=definitions.get(key+'_alt'),description=row[6]?.trim()||'';if(alt&&description.length<=500)result[key+'_alt']=description||alt.value;}
    let v=row[2]?.trim()||'';if(!v){if(['image','image_alt'].includes(definition.type))result[key]=definition.value;continue;}
    if(['integer','number','currency','percent'].includes(definition.type)){
     const n=Number(v.replace(/[$,%\s,]/g,''));if(!Number.isFinite(n)||n<0)continue;

@@ -6,8 +6,8 @@
     "aliases": [
       "/assets/logo.webp"
     ],
-    "label": "logo",
-    "alt": "",
+    "label": "Site logo",
+    "alt": "The Re-Write It Project logo",
     "pages": [
       "/",
       "/about",
@@ -34,8 +34,8 @@
       "/assets/responsive/volunteers-960.webp",
       "/assets/responsive/volunteers-1280.webp"
     ],
-    "label": "volunteers",
-    "alt": "",
+    "label": "Homepage: volunteer group",
+    "alt": "RWIP volunteers together",
     "pages": [
       "/"
     ]
@@ -51,8 +51,8 @@
       "/assets/responsive/chapter-delivery-960.webp",
       "/assets/responsive/chapter-delivery-1280.webp"
     ],
-    "label": "chapter delivery",
-    "alt": "",
+    "label": "Homepage: chapter delivery",
+    "alt": "Volunteers delivering school supplies",
     "pages": [
       "/"
     ]
@@ -68,8 +68,8 @@
       "/assets/responsive/packing-kits-960.webp",
       "/assets/responsive/packing-kits-1280.webp"
     ],
-    "label": "packing kits",
-    "alt": "",
+    "label": "Homepage: packing kits",
+    "alt": "Volunteers packing school supply kits",
     "pages": [
       "/"
     ]
@@ -85,8 +85,8 @@
       "/assets/responsive/supply-delivery-960.webp",
       "/assets/responsive/supply-delivery-1280.webp"
     ],
-    "label": "supply delivery",
-    "alt": "",
+    "label": "Homepage: supply delivery",
+    "alt": "A school supply delivery",
     "pages": [
       "/"
     ]
@@ -101,8 +101,8 @@
       "/assets/responsive/supplies-320.webp",
       "/assets/responsive/supplies-883.webp"
     ],
-    "label": "supplies",
-    "alt": "",
+    "label": "Homepage: school supplies",
+    "alt": "Donated school supplies",
     "pages": [
       "/"
     ]
@@ -118,8 +118,8 @@
       "/assets/responsive/community-960.webp",
       "/assets/responsive/community-1280.webp"
     ],
-    "label": "community",
-    "alt": "",
+    "label": "Homepage: community event",
+    "alt": "Volunteers at a community event",
     "pages": [
       "/"
     ]
@@ -135,8 +135,8 @@
       "/assets/responsive/means-volunteers-960.webp",
       "/assets/responsive/means-volunteers-1280.webp"
     ],
-    "label": "MEANS volunteers gathered at their 2019 retreat",
-    "alt": "MEANS volunteers gathered at their 2019 retreat",
+    "label": "MEANS testimonial photo",
+    "alt": "MEANS Foundation volunteers together",
     "pages": [
       "/"
     ]
@@ -152,8 +152,8 @@
       "/assets/responsive/photos__rohingya-cultural-center-volunteers-960.webp",
       "/assets/responsive/photos__rohingya-cultural-center-volunteers-1096.webp"
     ],
-    "label": "Volunteers at the Rohingya Culture Center of Chicago",
-    "alt": "Volunteers at the Rohingya Culture Center of Chicago",
+    "label": "Rohingya Cultural Center photo",
+    "alt": "Volunteers at the Rohingya Cultural Center",
     "pages": [
       "/",
       "/impact",
@@ -170,113 +170,8 @@
       "/assets/responsive/erie-family-health-320.webp",
       "/assets/responsive/erie-family-health-720.webp"
     ],
-    "label": "A doctor with a family and three children at Erie Family Health",
-    "alt": "A doctor with a family and three children at Erie Family Health",
-    "pages": [
-      "/"
-    ]
-  },
-  {
-    "key": "image_a854bf4926a9",
-    "original": "/assets/partner-after-school.webp",
-    "source": "/assets/partner-after-school.webp",
-    "aliases": [
-      "/assets/partner-after-school.webp"
-    ],
-    "label": "After School Matters",
-    "alt": "After School Matters",
-    "pages": [
-      "/"
-    ]
-  },
-  {
-    "key": "image_eb5c47bb2715",
-    "original": "/assets/partner-gap.webp",
-    "source": "/assets/partner-gap.webp",
-    "aliases": [
-      "/assets/partner-gap.webp"
-    ],
-    "label": "GAP Community Child Care Center",
-    "alt": "GAP Community Child Care Center",
-    "pages": [
-      "/",
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_1c7be9a215ef",
-    "original": "/assets/partner-reduce-waste.webp",
-    "source": "/assets/partner-reduce-waste.webp",
-    "aliases": [
-      "/assets/partner-reduce-waste.webp"
-    ],
-    "label": "Reduce Waste Chicago",
-    "alt": "Reduce Waste Chicago",
-    "pages": [
-      "/"
-    ]
-  },
-  {
-    "key": "image_05897931634e",
-    "original": "/assets/partner-bernies.webp",
-    "source": "/assets/partner-bernies.webp",
-    "aliases": [
-      "/assets/partner-bernies.webp"
-    ],
-    "label": "Bernie's Book Bank",
-    "alt": "Bernie's Book Bank",
-    "pages": [
-      "/"
-    ]
-  },
-  {
-    "key": "image_08a67c923a29",
-    "original": "/assets/partner-connecting.webp",
-    "source": "/assets/partner-connecting.webp",
-    "aliases": [
-      "/assets/partner-connecting.webp"
-    ],
-    "label": "Connecting Chicago",
-    "alt": "Connecting Chicago",
-    "pages": [
-      "/"
-    ]
-  },
-  {
-    "key": "image_1ec57ad62027",
-    "original": "/assets/partner-fanari.webp",
-    "source": "/assets/partner-fanari.webp",
-    "aliases": [
-      "/assets/partner-fanari.webp"
-    ],
-    "label": "Fanari Camp",
-    "alt": "Fanari Camp",
-    "pages": [
-      "/"
-    ]
-  },
-  {
-    "key": "image_7254399f2747",
-    "original": "/assets/partner-northwestern.webp",
-    "source": "/assets/partner-northwestern.webp",
-    "aliases": [
-      "/assets/partner-northwestern.webp"
-    ],
-    "label": "Northwestern Medicine Feinberg School of Medicine",
-    "alt": "Northwestern Medicine Feinberg School of Medicine",
-    "pages": [
-      "/"
-    ]
-  },
-  {
-    "key": "image_ef0ce8f262c9",
-    "original": "/assets/roscoe-books.webp",
-    "source": "/assets/roscoe-books.webp",
-    "aliases": [
-      "/assets/roscoe-books.webp"
-    ],
-    "label": "Roscoe Books",
-    "alt": "Roscoe Books",
+    "label": "Erie testimonial photo",
+    "alt": "A doctor with a family at Erie Family Health",
     "pages": [
       "/"
     ]
@@ -288,7 +183,7 @@
     "aliases": [
       "/assets/chicago-skyline.webp"
     ],
-    "label": "Chicago skyline",
+    "label": "Footer skyline",
     "alt": "Chicago skyline",
     "pages": [
       "/",
@@ -316,8 +211,8 @@
       "/assets/responsive/photos__volunteers-with-finished-kits-960.webp",
       "/assets/responsive/photos__volunteers-with-finished-kits-1280.webp"
     ],
-    "label": "Two volunteers showing completed supply kits beside boxes of donated materials.",
-    "alt": "Two volunteers showing completed supply kits beside boxes of donated materials.",
+    "label": "Volunteers with finished kits",
+    "alt": "Two volunteers holding finished school supply kits",
     "pages": [
       "/about"
     ]
@@ -333,8 +228,8 @@
       "/assets/responsive/photos__sorting-books-at-table-960.webp",
       "/assets/responsive/photos__sorting-books-at-table-1280.webp"
     ],
-    "label": "Two masked volunteers sorting donated books and materials at a table.",
-    "alt": "Two masked volunteers sorting donated books and materials at a table.",
+    "label": "Book sorting",
+    "alt": "Volunteers sorting donated books",
     "pages": [
       "/about",
       "/get-involved",
@@ -351,8 +246,8 @@
       "/assets/responsive/photos__preparing-supply-bags-320.webp",
       "/assets/responsive/photos__preparing-supply-bags-820.webp"
     ],
-    "label": "A masked volunteer packing school supplies into bags on a table.",
-    "alt": "A masked volunteer packing school supplies into bags on a table.",
+    "label": "Packing supply bags",
+    "alt": "A volunteer packing bags of school supplies",
     "pages": [
       "/about"
     ]
@@ -367,8 +262,8 @@
       "/assets/responsive/photos__volunteers-carrying-donation-boxes-320.webp",
       "/assets/responsive/photos__volunteers-carrying-donation-boxes-960.webp"
     ],
-    "label": "Two masked volunteers carrying open boxes of donated supplies.",
-    "alt": "Two masked volunteers carrying open boxes of donated supplies.",
+    "label": "Carrying donations",
+    "alt": "Two volunteers carrying boxes of donated supplies",
     "pages": [
       "/about",
       "/contact"
@@ -385,8 +280,8 @@
       "/assets/responsive/photos__donation-boxes-at-door-960.webp",
       "/assets/responsive/photos__donation-boxes-at-door-1280.webp"
     ],
-    "label": "A collection of supply donation boxes stacked beside a building entrance.",
-    "alt": "A collection of supply donation boxes stacked beside a building entrance.",
+    "label": "Donation boxes",
+    "alt": "Boxes of donated supplies by a doorway",
     "pages": [
       "/about",
       "/chapters"
@@ -403,8 +298,8 @@
       "/assets/responsive/photos__volunteers-sorting-on-floor-960.webp",
       "/assets/responsive/photos__volunteers-sorting-on-floor-1024.webp"
     ],
-    "label": "Volunteers seated on the floor sorting pencils, notebooks, and other donated materials.",
-    "alt": "Volunteers seated on the floor sorting pencils, notebooks, and other donated materials.",
+    "label": "Sorting supplies",
+    "alt": "Volunteers sorting school supplies on the floor",
     "pages": [
       "/about",
       "/chapters"
@@ -421,8 +316,8 @@
       "/assets/responsive/photos__sorting-and-packing-materials-960.webp",
       "/assets/responsive/photos__sorting-and-packing-materials-1280.webp"
     ],
-    "label": "A volunteer sorting school supplies into bags and storage bins.",
-    "alt": "A volunteer sorting school supplies into bags and storage bins.",
+    "label": "Packing materials",
+    "alt": "A volunteer sorting supplies into bags and bins",
     "pages": [
       "/about"
     ]
@@ -438,8 +333,8 @@
       "/assets/responsive/photos__loading-supply-bin-960.webp",
       "/assets/responsive/photos__loading-supply-bin-1280.webp"
     ],
-    "label": "A masked volunteer holding a storage bin beside an open vehicle trunk.",
-    "alt": "A masked volunteer holding a storage bin beside an open vehicle trunk.",
+    "label": "Loading donations",
+    "alt": "A volunteer loading a bin of supplies into a car",
     "pages": [
       "/about",
       "/chapters"
@@ -456,8 +351,8 @@
       "/assets/responsive/photos__finished-supply-kit-960.webp",
       "/assets/responsive/photos__finished-supply-kit-1200.webp"
     ],
-    "label": "A clear bag packed with notebooks, colored pencils, pens, and other school supplies.",
-    "alt": "A clear bag packed with notebooks, colored pencils, pens, and other school supplies.",
+    "label": "Completed kit",
+    "alt": "A finished school supply kit",
     "pages": [
       "/impact"
     ]
@@ -473,336 +368,11 @@
       "/assets/responsive/photos__donated-books-and-supplies-960.webp",
       "/assets/responsive/photos__donated-books-and-supplies-1170.webp"
     ],
-    "label": "Open boxes filled with donated books and school supplies.",
-    "alt": "Open boxes filled with donated books and school supplies.",
+    "label": "Books and supplies",
+    "alt": "Boxes of donated books and school supplies",
     "pages": [
       "/impact",
       "/give"
-    ]
-  },
-  {
-    "key": "image_f5c3b4f31873",
-    "original": "/assets/partners/copy-of-our-impact-02.webp",
-    "source": "/assets/partners/copy-of-our-impact-02.webp",
-    "aliases": [
-      "/assets/partners/copy-of-our-impact-02.webp"
-    ],
-    "label": "After School Matters",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_0b7cebe371d8",
-    "original": "/assets/partners/trimmed-alderman-matt-martin-47th-ward.webp",
-    "source": "/assets/partners/trimmed-alderman-matt-martin-47th-ward.webp",
-    "aliases": [
-      "/assets/partners/trimmed-alderman-matt-martin-47th-ward.webp"
-    ],
-    "label": "Alderman Matt Martin, 47th Ward",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_08e6014b9d61",
-    "original": "/assets/partners/trimmed-bernie-s-book-bank.webp",
-    "source": "/assets/partners/trimmed-bernie-s-book-bank.webp",
-    "aliases": [
-      "/assets/partners/trimmed-bernie-s-book-bank.webp"
-    ],
-    "label": "Bernie's Book Bank",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_aeebd2713c37",
-    "original": "/assets/partners/copy-of-our-impact-25.webp",
-    "source": "/assets/partners/copy-of-our-impact-25.webp",
-    "aliases": [
-      "/assets/partners/copy-of-our-impact-25.webp"
-    ],
-    "label": "Brown Books & Paintbrushes",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_254e2765d7ee",
-    "original": "/assets/partners/copy-of-our-impact-01.webp",
-    "source": "/assets/partners/copy-of-our-impact-01.webp",
-    "aliases": [
-      "/assets/partners/copy-of-our-impact-01.webp"
-    ],
-    "label": "By The Hand Club For Kids",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_1ba2f7ec354e",
-    "original": "/assets/partners/trimmed-chicago-public-library.webp",
-    "source": "/assets/partners/trimmed-chicago-public-library.webp",
-    "aliases": [
-      "/assets/partners/trimmed-chicago-public-library.webp"
-    ],
-    "label": "Chicago Public Library",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_6fab0c8969f2",
-    "original": "/assets/partners/chicago-youth-programs.webp",
-    "source": "/assets/partners/chicago-youth-programs.webp",
-    "aliases": [
-      "/assets/partners/chicago-youth-programs.webp"
-    ],
-    "label": "Chicago Youth Programs",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_8a01ca9f8f87",
-    "original": "/assets/partners/copy-of-our-impact-03.webp",
-    "source": "/assets/partners/copy-of-our-impact-03.webp",
-    "aliases": [
-      "/assets/partners/copy-of-our-impact-03.webp"
-    ],
-    "label": "Connecting Chicago",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_a35ef01fe262",
-    "original": "/assets/partners/trimmed-erie-family-health.webp",
-    "source": "/assets/partners/trimmed-erie-family-health.webp",
-    "aliases": [
-      "/assets/partners/trimmed-erie-family-health.webp"
-    ],
-    "label": "Erie Family Health",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_75bb0ccdb19f",
-    "original": "/assets/partners/copy-of-our-impact-12.webp",
-    "source": "/assets/partners/copy-of-our-impact-12.webp",
-    "aliases": [
-      "/assets/partners/copy-of-our-impact-12.webp"
-    ],
-    "label": "Fanari Camp",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_b4efcabc53c8",
-    "original": "/assets/partners/trimmed-jesse-white-foundation.webp",
-    "source": "/assets/partners/trimmed-jesse-white-foundation.webp",
-    "aliases": [
-      "/assets/partners/trimmed-jesse-white-foundation.webp"
-    ],
-    "label": "Jesse White Foundation",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_c3ab071a51cf",
-    "original": "/assets/partners/trimmed-lillstreet-art-center.webp",
-    "source": "/assets/partners/trimmed-lillstreet-art-center.webp",
-    "aliases": [
-      "/assets/partners/trimmed-lillstreet-art-center.webp"
-    ],
-    "label": "Lillstreet Art Center",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_fa62983469f0",
-    "original": "/assets/partners/trimmed-lou-malnati-s.webp",
-    "source": "/assets/partners/trimmed-lou-malnati-s.webp",
-    "aliases": [
-      "/assets/partners/trimmed-lou-malnati-s.webp"
-    ],
-    "label": "Lou Malnati's",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_d23d259d5c39",
-    "original": "/assets/partners/mercy-home.webp",
-    "source": "/assets/partners/mercy-home.webp",
-    "aliases": [
-      "/assets/partners/mercy-home.webp"
-    ],
-    "label": "Mercy Home for Boys & Girls",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_de83fbb61a20",
-    "original": "/assets/partners/trimmed-neighbor-to-neighbor-literacy.webp",
-    "source": "/assets/partners/trimmed-neighbor-to-neighbor-literacy.webp",
-    "aliases": [
-      "/assets/partners/trimmed-neighbor-to-neighbor-literacy.webp"
-    ],
-    "label": "Neighbor to Neighbor Literacy",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_9084222db37e",
-    "original": "/assets/partners/trimmed-neighborhood-parents-network.webp",
-    "source": "/assets/partners/trimmed-neighborhood-parents-network.webp",
-    "aliases": [
-      "/assets/partners/trimmed-neighborhood-parents-network.webp"
-    ],
-    "label": "Neighborhood Parents Network",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_ca90965bbadc",
-    "original": "/assets/partners/trimmed-northwestern-feinberg-school-of-medicine.webp",
-    "source": "/assets/partners/trimmed-northwestern-feinberg-school-of-medicine.webp",
-    "aliases": [
-      "/assets/partners/trimmed-northwestern-feinberg-school-of-medicine.webp"
-    ],
-    "label": "Northwestern Feinberg School of Medicine",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_a6dda2d65ee8",
-    "original": "/assets/partners/copy-of-our-impact-14.webp",
-    "source": "/assets/partners/copy-of-our-impact-14.webp",
-    "aliases": [
-      "/assets/partners/copy-of-our-impact-14.webp"
-    ],
-    "label": "Open Books",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_36ce750bb317",
-    "original": "/assets/partners/copy-of-our-impact-09.webp",
-    "source": "/assets/partners/copy-of-our-impact-09.webp",
-    "aliases": [
-      "/assets/partners/copy-of-our-impact-09.webp"
-    ],
-    "label": "Reduce Waste Chicago",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_bc2e8dc1462e",
-    "original": "/assets/partners/trimmed-rohingya-cultural-center.webp",
-    "source": "/assets/partners/trimmed-rohingya-cultural-center.webp",
-    "aliases": [
-      "/assets/partners/trimmed-rohingya-cultural-center.webp"
-    ],
-    "label": "Rohingya Cultural Center",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_6a46890000b1",
-    "original": "/assets/partners/trimmed-roscoe-books.webp",
-    "source": "/assets/partners/trimmed-roscoe-books.webp",
-    "aliases": [
-      "/assets/partners/trimmed-roscoe-books.webp"
-    ],
-    "label": "Roscoe Books",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_2f7c880e9779",
-    "original": "/assets/partners/upcycling-colors.webp",
-    "source": "/assets/partners/upcycling-colors.webp",
-    "aliases": [
-      "/assets/partners/upcycling-colors.webp"
-    ],
-    "label": "Upcycling Colors",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_dc0520c718ac",
-    "original": "/assets/partners/copy-of-our-impact-08.webp",
-    "source": "/assets/partners/copy-of-our-impact-08.webp",
-    "aliases": [
-      "/assets/partners/copy-of-our-impact-08.webp"
-    ],
-    "label": "Walter Payton College Prep",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_5e4de25cda50",
-    "original": "/assets/partners/copy-of-our-impact-06.webp",
-    "source": "/assets/partners/copy-of-our-impact-06.webp",
-    "aliases": [
-      "/assets/partners/copy-of-our-impact-06.webp"
-    ],
-    "label": "Yates Elementary",
-    "alt": "",
-    "pages": [
-      "/impact"
-    ]
-  },
-  {
-    "key": "image_e7bb1a4d5470",
-    "original": "/assets/partners/trimmed-young-jains-of-america.webp",
-    "source": "/assets/partners/trimmed-young-jains-of-america.webp",
-    "aliases": [
-      "/assets/partners/trimmed-young-jains-of-america.webp"
-    ],
-    "label": "Young Jains of America",
-    "alt": "",
-    "pages": [
-      "/impact"
     ]
   },
   {
@@ -816,8 +386,8 @@
       "/assets/responsive/photos__collected-donation-boxes-960.webp",
       "/assets/responsive/photos__collected-donation-boxes-1280.webp"
     ],
-    "label": "Collected donation boxes and storage tubs filled with school supplies.",
-    "alt": "Collected donation boxes and storage tubs filled with school supplies.",
+    "label": "Collected donations",
+    "alt": "Boxes and bins of donated school supplies",
     "pages": [
       "/impact"
     ]
@@ -833,8 +403,8 @@
       "/assets/responsive/photos__car-loaded-with-supplies-960.webp",
       "/assets/responsive/photos__car-loaded-with-supplies-1280.webp"
     ],
-    "label": "A vehicle loaded with boxes and bins of school supplies.",
-    "alt": "A vehicle loaded with boxes and bins of school supplies.",
+    "label": "Supplies ready for delivery",
+    "alt": "A car packed with school supplies",
     "pages": [
       "/impact"
     ]
@@ -850,8 +420,8 @@
       "/assets/responsive/photos__volunteer-donation-handoff-960.webp",
       "/assets/responsive/photos__volunteer-donation-handoff-1280.webp"
     ],
-    "label": "Volunteer standing beside boxes and bags of donated supplies.",
-    "alt": "Volunteer standing beside boxes and bags of donated supplies.",
+    "label": "Donation handoff",
+    "alt": "A volunteer with donated supplies",
     "pages": [
       "/impact",
       "/receive"
@@ -868,8 +438,8 @@
       "/assets/responsive/photos__chapter-supply-packing-960.webp",
       "/assets/responsive/photos__chapter-supply-packing-1280.webp"
     ],
-    "label": "A group of volunteers seated on the floor assembling school supplies.",
-    "alt": "A group of volunteers seated on the floor assembling school supplies.",
+    "label": "Chapter packing event",
+    "alt": "Chapter volunteers assembling kits",
     "pages": [
       "/chapters"
     ]
@@ -885,379 +455,10 @@
       "/assets/responsive/photos__outdoor-volunteer-group-960.webp",
       "/assets/responsive/photos__outdoor-volunteer-group-1280.webp"
     ],
-    "label": "Re-Write It Project volunteers standing together outside.",
-    "alt": "Re-Write It Project volunteers standing together outside.",
+    "label": "Chapter group photo",
+    "alt": "Chapter volunteers together outdoors",
     "pages": [
       "/chapters"
-    ]
-  },
-  {
-    "key": "image_e924320a09b9",
-    "original": "/assets/team/lindsey-prochot.webp",
-    "source": "/assets/responsive/team__lindsey-prochot-600.webp",
-    "aliases": [
-      "/assets/team/lindsey-prochot.webp",
-      "/assets/responsive/team__lindsey-prochot-600.webp",
-      "/assets/responsive/team__lindsey-prochot-320.webp"
-    ],
-    "label": "Lindsey Prochot",
-    "alt": "Lindsey Prochot",
-    "pages": [
-      "/team",
-      "/join"
-    ]
-  },
-  {
-    "key": "image_fe88017a149b",
-    "original": "/assets/team/quintana-weisgerber.webp",
-    "source": "/assets/responsive/team__quintana-weisgerber-600.webp",
-    "aliases": [
-      "/assets/team/quintana-weisgerber.webp",
-      "/assets/responsive/team__quintana-weisgerber-600.webp",
-      "/assets/responsive/team__quintana-weisgerber-320.webp"
-    ],
-    "label": "Quintana Weisgerber",
-    "alt": "Quintana Weisgerber",
-    "pages": [
-      "/team",
-      "/join"
-    ]
-  },
-  {
-    "key": "image_d47ee3110059",
-    "original": "/assets/team/melissa-penafiel.webp",
-    "source": "/assets/responsive/team__melissa-penafiel-600.webp",
-    "aliases": [
-      "/assets/team/melissa-penafiel.webp",
-      "/assets/responsive/team__melissa-penafiel-600.webp",
-      "/assets/responsive/team__melissa-penafiel-320.webp"
-    ],
-    "label": "Melissa Penafiel",
-    "alt": "Melissa Penafiel",
-    "pages": [
-      "/team",
-      "/join"
-    ]
-  },
-  {
-    "key": "image_3a3185ea0cd7",
-    "original": "/assets/team/robert-strauss.webp",
-    "source": "/assets/responsive/team__robert-strauss-600.webp",
-    "aliases": [
-      "/assets/team/robert-strauss.webp",
-      "/assets/responsive/team__robert-strauss-600.webp",
-      "/assets/responsive/team__robert-strauss-320.webp"
-    ],
-    "label": "Robert Strauss",
-    "alt": "Robert Strauss",
-    "pages": [
-      "/team"
-    ]
-  },
-  {
-    "key": "image_80b1cae17484",
-    "original": "/assets/team/jay-shah.webp",
-    "source": "/assets/responsive/team__jay-shah-600.webp",
-    "aliases": [
-      "/assets/team/jay-shah.webp",
-      "/assets/responsive/team__jay-shah-600.webp",
-      "/assets/responsive/team__jay-shah-320.webp"
-    ],
-    "label": "Jay Shah",
-    "alt": "Jay Shah",
-    "pages": [
-      "/team"
-    ]
-  },
-  {
-    "key": "image_8b1c7e18d880",
-    "original": "/assets/team/niko-vasilopoulos.webp",
-    "source": "/assets/responsive/team__niko-vasilopoulos-600.webp",
-    "aliases": [
-      "/assets/team/niko-vasilopoulos.webp",
-      "/assets/responsive/team__niko-vasilopoulos-600.webp",
-      "/assets/responsive/team__niko-vasilopoulos-320.webp"
-    ],
-    "label": "Niko Vasilopoulos",
-    "alt": "Niko Vasilopoulos",
-    "pages": [
-      "/team"
-    ]
-  },
-  {
-    "key": "image_fba880347276",
-    "original": "/assets/team/kristin-mckay.webp",
-    "source": "/assets/responsive/team__kristin-mckay-600.webp",
-    "aliases": [
-      "/assets/team/kristin-mckay.webp",
-      "/assets/responsive/team__kristin-mckay-600.webp",
-      "/assets/responsive/team__kristin-mckay-320.webp"
-    ],
-    "label": "Kristin McKay",
-    "alt": "Kristin McKay",
-    "pages": [
-      "/team"
-    ]
-  },
-  {
-    "key": "image_3c64cb1508dc",
-    "original": "/assets/team/saloni-nahar.webp",
-    "source": "/assets/responsive/team__saloni-nahar-600.webp",
-    "aliases": [
-      "/assets/team/saloni-nahar.webp",
-      "/assets/responsive/team__saloni-nahar-600.webp",
-      "/assets/responsive/team__saloni-nahar-320.webp"
-    ],
-    "label": "Saloni Nahar",
-    "alt": "Saloni Nahar",
-    "pages": [
-      "/team"
-    ]
-  },
-  {
-    "key": "image_e76eea3f7ded",
-    "original": "/assets/team/sou-lynn-beneteau.webp",
-    "source": "/assets/responsive/team__sou-lynn-beneteau-600.webp",
-    "aliases": [
-      "/assets/team/sou-lynn-beneteau.webp",
-      "/assets/responsive/team__sou-lynn-beneteau-600.webp",
-      "/assets/responsive/team__sou-lynn-beneteau-320.webp"
-    ],
-    "label": "Sou Lynn Beneteau",
-    "alt": "Sou Lynn Beneteau",
-    "pages": [
-      "/team",
-      "/join"
-    ]
-  },
-  {
-    "key": "image_c96c058a0a0a",
-    "original": "/assets/team/rifaa-meghani.webp",
-    "source": "/assets/responsive/team__rifaa-meghani-600.webp",
-    "aliases": [
-      "/assets/team/rifaa-meghani.webp",
-      "/assets/responsive/team__rifaa-meghani-600.webp",
-      "/assets/responsive/team__rifaa-meghani-320.webp"
-    ],
-    "label": "Rifaa Meghani",
-    "alt": "Rifaa Meghani",
-    "pages": [
-      "/team",
-      "/join"
-    ]
-  },
-  {
-    "key": "image_d297013f47c8",
-    "original": "/assets/team/amesha-banjara.webp",
-    "source": "/assets/responsive/team__amesha-banjara-600.webp",
-    "aliases": [
-      "/assets/team/amesha-banjara.webp",
-      "/assets/responsive/team__amesha-banjara-600.webp",
-      "/assets/responsive/team__amesha-banjara-320.webp"
-    ],
-    "label": "Amesha Banjara",
-    "alt": "Amesha Banjara",
-    "pages": [
-      "/team"
-    ]
-  },
-  {
-    "key": "image_23a0c5d4ceb9",
-    "original": "/assets/team/caylie-kromelow.webp",
-    "source": "/assets/responsive/team__caylie-kromelow-600.webp",
-    "aliases": [
-      "/assets/team/caylie-kromelow.webp",
-      "/assets/responsive/team__caylie-kromelow-600.webp",
-      "/assets/responsive/team__caylie-kromelow-320.webp"
-    ],
-    "label": "Caylie Kromelow",
-    "alt": "Caylie Kromelow",
-    "pages": [
-      "/team",
-      "/join"
-    ]
-  },
-  {
-    "key": "image_aa892224ea1d",
-    "original": "/assets/team/kennedy-bolton.webp",
-    "source": "/assets/responsive/team__kennedy-bolton-600.webp",
-    "aliases": [
-      "/assets/team/kennedy-bolton.webp",
-      "/assets/responsive/team__kennedy-bolton-600.webp",
-      "/assets/responsive/team__kennedy-bolton-320.webp"
-    ],
-    "label": "Kennedy Bolton",
-    "alt": "Kennedy Bolton",
-    "pages": [
-      "/team",
-      "/join"
-    ]
-  },
-  {
-    "key": "image_41a265cf166a",
-    "original": "/assets/team/adi-singh.webp",
-    "source": "/assets/responsive/team__adi-singh-600.webp",
-    "aliases": [
-      "/assets/team/adi-singh.webp",
-      "/assets/responsive/team__adi-singh-600.webp",
-      "/assets/responsive/team__adi-singh-320.webp"
-    ],
-    "label": "Adi Singh",
-    "alt": "Adi Singh",
-    "pages": [
-      "/team"
-    ]
-  },
-  {
-    "key": "image_1f0e23b6d5bb",
-    "original": "/assets/team/amelie-lynde.webp",
-    "source": "/assets/responsive/team__amelie-lynde-600.webp",
-    "aliases": [
-      "/assets/team/amelie-lynde.webp",
-      "/assets/responsive/team__amelie-lynde-600.webp",
-      "/assets/responsive/team__amelie-lynde-320.webp"
-    ],
-    "label": "Amelie Lynde",
-    "alt": "Amelie Lynde",
-    "pages": [
-      "/team"
-    ]
-  },
-  {
-    "key": "image_c437484b56c3",
-    "original": "/assets/team/oriana-bradley.webp",
-    "source": "/assets/responsive/team__oriana-bradley-600.webp",
-    "aliases": [
-      "/assets/team/oriana-bradley.webp",
-      "/assets/responsive/team__oriana-bradley-600.webp",
-      "/assets/responsive/team__oriana-bradley-320.webp"
-    ],
-    "label": "Oriana Bradley",
-    "alt": "Oriana Bradley",
-    "pages": [
-      "/team",
-      "/join"
-    ]
-  },
-  {
-    "key": "image_ca2fdb37e389",
-    "original": "/assets/team/norah-marinelli.webp",
-    "source": "/assets/responsive/team__norah-marinelli-600.webp",
-    "aliases": [
-      "/assets/team/norah-marinelli.webp",
-      "/assets/responsive/team__norah-marinelli-600.webp",
-      "/assets/responsive/team__norah-marinelli-320.webp"
-    ],
-    "label": "Norah Marinelli",
-    "alt": "Norah Marinelli",
-    "pages": [
-      "/team",
-      "/join"
-    ]
-  },
-  {
-    "key": "image_fa32ca4f0d91",
-    "original": "/assets/team/christopher-naglestad.webp",
-    "source": "/assets/responsive/team__christopher-naglestad-600.webp",
-    "aliases": [
-      "/assets/team/christopher-naglestad.webp",
-      "/assets/responsive/team__christopher-naglestad-600.webp",
-      "/assets/responsive/team__christopher-naglestad-320.webp"
-    ],
-    "label": "Christopher Naglestad",
-    "alt": "Christopher Naglestad",
-    "pages": [
-      "/team"
-    ]
-  },
-  {
-    "key": "image_d368377c83f9",
-    "original": "/assets/team/kate-murray.webp",
-    "source": "/assets/responsive/team__kate-murray-600.webp",
-    "aliases": [
-      "/assets/team/kate-murray.webp",
-      "/assets/responsive/team__kate-murray-600.webp",
-      "/assets/responsive/team__kate-murray-320.webp"
-    ],
-    "label": "Kate Murray",
-    "alt": "Kate Murray",
-    "pages": [
-      "/team"
-    ]
-  },
-  {
-    "key": "image_21af5f5097d9",
-    "original": "/assets/team/jayen-datta.webp",
-    "source": "/assets/responsive/team__jayen-datta-600.webp",
-    "aliases": [
-      "/assets/team/jayen-datta.webp",
-      "/assets/responsive/team__jayen-datta-600.webp",
-      "/assets/responsive/team__jayen-datta-320.webp"
-    ],
-    "label": "Jayen Datta",
-    "alt": "Jayen Datta",
-    "pages": [
-      "/team"
-    ]
-  },
-  {
-    "key": "image_6d95d17a4aec",
-    "original": "/assets/team/sareena-shah.webp",
-    "source": "/assets/responsive/team__sareena-shah-600.webp",
-    "aliases": [
-      "/assets/team/sareena-shah.webp",
-      "/assets/responsive/team__sareena-shah-600.webp",
-      "/assets/responsive/team__sareena-shah-320.webp"
-    ],
-    "label": "Sareena Shah",
-    "alt": "Sareena Shah",
-    "pages": [
-      "/team"
-    ]
-  },
-  {
-    "key": "image_c4621c6bb0c3",
-    "original": "/assets/team/maya-jha.webp",
-    "source": "/assets/responsive/team__maya-jha-600.webp",
-    "aliases": [
-      "/assets/team/maya-jha.webp",
-      "/assets/responsive/team__maya-jha-600.webp",
-      "/assets/responsive/team__maya-jha-320.webp"
-    ],
-    "label": "Maya Jha",
-    "alt": "Maya Jha",
-    "pages": [
-      "/team"
-    ]
-  },
-  {
-    "key": "image_1f517c3b0ba2",
-    "original": "/assets/team/ana-parikh.webp",
-    "source": "/assets/responsive/team__ana-parikh-600.webp",
-    "aliases": [
-      "/assets/team/ana-parikh.webp",
-      "/assets/responsive/team__ana-parikh-600.webp",
-      "/assets/responsive/team__ana-parikh-320.webp"
-    ],
-    "label": "Ana Parikh",
-    "alt": "Ana Parikh",
-    "pages": [
-      "/team"
-    ]
-  },
-  {
-    "key": "image_c765ef4ca101",
-    "original": "/assets/team/raina-koshal.webp",
-    "source": "/assets/responsive/team__raina-koshal-600.webp",
-    "aliases": [
-      "/assets/team/raina-koshal.webp",
-      "/assets/responsive/team__raina-koshal-600.webp",
-      "/assets/responsive/team__raina-koshal-320.webp"
-    ],
-    "label": "Raina Koshal",
-    "alt": "Raina Koshal",
-    "pages": [
-      "/team"
     ]
   },
   {
@@ -1271,8 +472,8 @@
       "/assets/responsive/photos__classroom-volunteer-group-960.webp",
       "/assets/responsive/photos__classroom-volunteer-group-1280.webp"
     ],
-    "label": "Volunteers holding completed school supply kits in a classroom.",
-    "alt": "Volunteers holding completed school supply kits in a classroom.",
+    "label": "Classroom group photo",
+    "alt": "Volunteers holding kits in a classroom",
     "pages": [
       "/get-involved"
     ]
@@ -1287,8 +488,8 @@
       "/assets/responsive/photos__organized-art-supplies-320.webp",
       "/assets/responsive/photos__organized-art-supplies-824.webp"
     ],
-    "label": "Pencils, scissors, glue, and colored craft supplies arranged in a storage box.",
-    "alt": "Pencils, scissors, glue, and colored craft supplies arranged in a storage box.",
+    "label": "Art supplies",
+    "alt": "Art supplies sorted in a storage box",
     "pages": [
       "/get-involved"
     ]
@@ -1304,8 +505,8 @@
       "/assets/responsive/photos__volunteers-with-collected-donations-960.webp",
       "/assets/responsive/photos__volunteers-with-collected-donations-1280.webp"
     ],
-    "label": "Four volunteers standing beside stacked boxes of collected donations.",
-    "alt": "Four volunteers standing beside stacked boxes of collected donations.",
+    "label": "Volunteers with donations",
+    "alt": "Four volunteers with collected donations",
     "pages": [
       "/get-involved"
     ]

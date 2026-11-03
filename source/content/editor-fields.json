@@ -376,1379 +376,467 @@
     "notes": ""
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_75963b0b7a75",
-    "label": "logo — image URL",
+    "label": "Site logo",
     "value": "https://www.therewriteitproject.org/assets/logo.webp",
     "type": "image",
-    "notes": "Used on /, /about, /impact, /chapters, /team, /get-involved, /give, /receive, /contact, /join, /privacy, /message-received. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_75963b0b7a75_alt",
-    "label": "logo — description",
-    "value": "",
+    "label": "Site logo description",
+    "value": "The Re-Write It Project logo",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_fdca983f58c0",
-    "label": "volunteers — image URL",
+    "label": "Homepage: volunteer group",
     "value": "https://www.therewriteitproject.org/assets/responsive/volunteers-640.webp",
     "type": "image",
-    "notes": "Used on /. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_fdca983f58c0_alt",
-    "label": "volunteers — description",
-    "value": "",
+    "label": "Homepage: volunteer group description",
+    "value": "RWIP volunteers together",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_77b584f4e414",
-    "label": "chapter delivery — image URL",
+    "label": "Homepage: chapter delivery",
     "value": "https://www.therewriteitproject.org/assets/responsive/chapter-delivery-640.webp",
     "type": "image",
-    "notes": "Used on /. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_77b584f4e414_alt",
-    "label": "chapter delivery — description",
-    "value": "",
+    "label": "Homepage: chapter delivery description",
+    "value": "Volunteers delivering school supplies",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_bfcb9d9205dc",
-    "label": "packing kits — image URL",
+    "label": "Homepage: packing kits",
     "value": "https://www.therewriteitproject.org/assets/responsive/packing-kits-640.webp",
     "type": "image",
-    "notes": "Used on /. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_bfcb9d9205dc_alt",
-    "label": "packing kits — description",
-    "value": "",
+    "label": "Homepage: packing kits description",
+    "value": "Volunteers packing school supply kits",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_a1b8e596c86a",
-    "label": "supply delivery — image URL",
+    "label": "Homepage: supply delivery",
     "value": "https://www.therewriteitproject.org/assets/responsive/supply-delivery-640.webp",
     "type": "image",
-    "notes": "Used on /. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_a1b8e596c86a_alt",
-    "label": "supply delivery — description",
-    "value": "",
+    "label": "Homepage: supply delivery description",
+    "value": "A school supply delivery",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_ec84d78c3cd3",
-    "label": "supplies — image URL",
+    "label": "Homepage: school supplies",
     "value": "https://www.therewriteitproject.org/assets/responsive/supplies-640.webp",
     "type": "image",
-    "notes": "Used on /. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_ec84d78c3cd3_alt",
-    "label": "supplies — description",
-    "value": "",
+    "label": "Homepage: school supplies description",
+    "value": "Donated school supplies",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_41831109e30c",
-    "label": "community — image URL",
+    "label": "Homepage: community event",
     "value": "https://www.therewriteitproject.org/assets/responsive/community-640.webp",
     "type": "image",
-    "notes": "Used on /. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_41831109e30c_alt",
-    "label": "community — description",
-    "value": "",
+    "label": "Homepage: community event description",
+    "value": "Volunteers at a community event",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_4534b7b3e169",
-    "label": "MEANS volunteers gathered at their 2019 retreat — image URL",
+    "label": "MEANS testimonial photo",
     "value": "https://www.therewriteitproject.org/assets/responsive/means-volunteers-640.webp",
     "type": "image",
-    "notes": "Used on /. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_4534b7b3e169_alt",
-    "label": "MEANS volunteers gathered at their 2019 retreat — description",
-    "value": "MEANS volunteers gathered at their 2019 retreat",
+    "label": "MEANS testimonial photo description",
+    "value": "MEANS Foundation volunteers together",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_78a4de829337",
-    "label": "Volunteers at the Rohingya Culture Center of Chicago — image URL",
+    "label": "Rohingya Cultural Center photo",
     "value": "https://www.therewriteitproject.org/assets/responsive/photos__rohingya-cultural-center-volunteers-640.webp",
     "type": "image",
-    "notes": "Used on /, /impact, /get-involved. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_78a4de829337_alt",
-    "label": "Volunteers at the Rohingya Culture Center of Chicago — description",
-    "value": "Volunteers at the Rohingya Culture Center of Chicago",
+    "label": "Rohingya Cultural Center photo description",
+    "value": "Volunteers at the Rohingya Cultural Center",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_b8e5b5773b69",
-    "label": "A doctor with a family and three children at Erie Family Health — image URL",
+    "label": "Erie testimonial photo",
     "value": "https://www.therewriteitproject.org/assets/responsive/erie-family-health-640.webp",
     "type": "image",
-    "notes": "Used on /. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_b8e5b5773b69_alt",
-    "label": "A doctor with a family and three children at Erie Family Health — description",
-    "value": "A doctor with a family and three children at Erie Family Health",
+    "label": "Erie testimonial photo description",
+    "value": "A doctor with a family at Erie Family Health",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
-    "key": "image_a854bf4926a9",
-    "label": "After School Matters — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partner-after-school.webp",
-    "type": "image",
-    "notes": "Used on /. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_a854bf4926a9_alt",
-    "label": "After School Matters — description",
-    "value": "After School Matters",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_eb5c47bb2715",
-    "label": "GAP Community Child Care Center — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partner-gap.webp",
-    "type": "image",
-    "notes": "Used on /, /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_eb5c47bb2715_alt",
-    "label": "GAP Community Child Care Center — description",
-    "value": "GAP Community Child Care Center",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_1c7be9a215ef",
-    "label": "Reduce Waste Chicago — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partner-reduce-waste.webp",
-    "type": "image",
-    "notes": "Used on /. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_1c7be9a215ef_alt",
-    "label": "Reduce Waste Chicago — description",
-    "value": "Reduce Waste Chicago",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_05897931634e",
-    "label": "Bernie's Book Bank — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partner-bernies.webp",
-    "type": "image",
-    "notes": "Used on /. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_05897931634e_alt",
-    "label": "Bernie's Book Bank — description",
-    "value": "Bernie's Book Bank",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_08a67c923a29",
-    "label": "Connecting Chicago — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partner-connecting.webp",
-    "type": "image",
-    "notes": "Used on /. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_08a67c923a29_alt",
-    "label": "Connecting Chicago — description",
-    "value": "Connecting Chicago",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_1ec57ad62027",
-    "label": "Fanari Camp — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partner-fanari.webp",
-    "type": "image",
-    "notes": "Used on /. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_1ec57ad62027_alt",
-    "label": "Fanari Camp — description",
-    "value": "Fanari Camp",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_7254399f2747",
-    "label": "Northwestern Medicine Feinberg School of Medicine — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partner-northwestern.webp",
-    "type": "image",
-    "notes": "Used on /. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_7254399f2747_alt",
-    "label": "Northwestern Medicine Feinberg School of Medicine — description",
-    "value": "Northwestern Medicine Feinberg School of Medicine",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_ef0ce8f262c9",
-    "label": "Roscoe Books — image URL",
-    "value": "https://www.therewriteitproject.org/assets/roscoe-books.webp",
-    "type": "image",
-    "notes": "Used on /. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_ef0ce8f262c9_alt",
-    "label": "Roscoe Books — description",
-    "value": "Roscoe Books",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_5c9b0fa38ddd",
-    "label": "Chicago skyline — image URL",
+    "label": "Footer skyline",
     "value": "https://www.therewriteitproject.org/assets/chicago-skyline.webp",
     "type": "image",
-    "notes": "Used on /, /about, /impact, /chapters, /team, /get-involved, /give, /receive, /contact, /join, /privacy, /message-received. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_5c9b0fa38ddd_alt",
-    "label": "Chicago skyline — description",
+    "label": "Footer skyline description",
     "value": "Chicago skyline",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_07528c92fbbf",
-    "label": "Two volunteers showing completed supply kits beside boxes of donated materials. — image URL",
+    "label": "Volunteers with finished kits",
     "value": "https://www.therewriteitproject.org/assets/responsive/photos__volunteers-with-finished-kits-640.webp",
     "type": "image",
-    "notes": "Used on /about. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_07528c92fbbf_alt",
-    "label": "Two volunteers showing completed supply kits beside boxes of donated materials. — description",
-    "value": "Two volunteers showing completed supply kits beside boxes of donated materials.",
+    "label": "Volunteers with finished kits description",
+    "value": "Two volunteers holding finished school supply kits",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_5cd2a8a0458e",
-    "label": "Two masked volunteers sorting donated books and materials at a table. — image URL",
+    "label": "Book sorting",
     "value": "https://www.therewriteitproject.org/assets/responsive/photos__sorting-books-at-table-640.webp",
     "type": "image",
-    "notes": "Used on /about, /get-involved, /join. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_5cd2a8a0458e_alt",
-    "label": "Two masked volunteers sorting donated books and materials at a table. — description",
-    "value": "Two masked volunteers sorting donated books and materials at a table.",
+    "label": "Book sorting description",
+    "value": "Volunteers sorting donated books",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_4e4ed7987524",
-    "label": "A masked volunteer packing school supplies into bags on a table. — image URL",
+    "label": "Packing supply bags",
     "value": "https://www.therewriteitproject.org/assets/responsive/photos__preparing-supply-bags-640.webp",
     "type": "image",
-    "notes": "Used on /about. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_4e4ed7987524_alt",
-    "label": "A masked volunteer packing school supplies into bags on a table. — description",
-    "value": "A masked volunteer packing school supplies into bags on a table.",
+    "label": "Packing supply bags description",
+    "value": "A volunteer packing bags of school supplies",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_c27abc581322",
-    "label": "Two masked volunteers carrying open boxes of donated supplies. — image URL",
+    "label": "Carrying donations",
     "value": "https://www.therewriteitproject.org/assets/responsive/photos__volunteers-carrying-donation-boxes-640.webp",
     "type": "image",
-    "notes": "Used on /about, /contact. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_c27abc581322_alt",
-    "label": "Two masked volunteers carrying open boxes of donated supplies. — description",
-    "value": "Two masked volunteers carrying open boxes of donated supplies.",
+    "label": "Carrying donations description",
+    "value": "Two volunteers carrying boxes of donated supplies",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_04f9d94d4b71",
-    "label": "A collection of supply donation boxes stacked beside a building entrance. — image URL",
+    "label": "Donation boxes",
     "value": "https://www.therewriteitproject.org/assets/responsive/photos__donation-boxes-at-door-640.webp",
     "type": "image",
-    "notes": "Used on /about, /chapters. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_04f9d94d4b71_alt",
-    "label": "A collection of supply donation boxes stacked beside a building entrance. — description",
-    "value": "A collection of supply donation boxes stacked beside a building entrance.",
+    "label": "Donation boxes description",
+    "value": "Boxes of donated supplies by a doorway",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_f057d2e0156f",
-    "label": "Volunteers seated on the floor sorting pencils, notebooks, and other donated materials. — image URL",
+    "label": "Sorting supplies",
     "value": "https://www.therewriteitproject.org/assets/responsive/photos__volunteers-sorting-on-floor-640.webp",
     "type": "image",
-    "notes": "Used on /about, /chapters. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_f057d2e0156f_alt",
-    "label": "Volunteers seated on the floor sorting pencils, notebooks, and other donated materials. — description",
-    "value": "Volunteers seated on the floor sorting pencils, notebooks, and other donated materials.",
+    "label": "Sorting supplies description",
+    "value": "Volunteers sorting school supplies on the floor",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_4aa6efce97d6",
-    "label": "A volunteer sorting school supplies into bags and storage bins. — image URL",
+    "label": "Packing materials",
     "value": "https://www.therewriteitproject.org/assets/responsive/photos__sorting-and-packing-materials-640.webp",
     "type": "image",
-    "notes": "Used on /about. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_4aa6efce97d6_alt",
-    "label": "A volunteer sorting school supplies into bags and storage bins. — description",
-    "value": "A volunteer sorting school supplies into bags and storage bins.",
+    "label": "Packing materials description",
+    "value": "A volunteer sorting supplies into bags and bins",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_16da250b58d7",
-    "label": "A masked volunteer holding a storage bin beside an open vehicle trunk. — image URL",
+    "label": "Loading donations",
     "value": "https://www.therewriteitproject.org/assets/responsive/photos__loading-supply-bin-640.webp",
     "type": "image",
-    "notes": "Used on /about, /chapters. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_16da250b58d7_alt",
-    "label": "A masked volunteer holding a storage bin beside an open vehicle trunk. — description",
-    "value": "A masked volunteer holding a storage bin beside an open vehicle trunk.",
+    "label": "Loading donations description",
+    "value": "A volunteer loading a bin of supplies into a car",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_f89e00d856a8",
-    "label": "A clear bag packed with notebooks, colored pencils, pens, and other school supplies. — image URL",
+    "label": "Completed kit",
     "value": "https://www.therewriteitproject.org/assets/responsive/photos__finished-supply-kit-640.webp",
     "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_f89e00d856a8_alt",
-    "label": "A clear bag packed with notebooks, colored pencils, pens, and other school supplies. — description",
-    "value": "A clear bag packed with notebooks, colored pencils, pens, and other school supplies.",
+    "label": "Completed kit description",
+    "value": "A finished school supply kit",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_d4b3b749890d",
-    "label": "Open boxes filled with donated books and school supplies. — image URL",
+    "label": "Books and supplies",
     "value": "https://www.therewriteitproject.org/assets/responsive/photos__donated-books-and-supplies-640.webp",
     "type": "image",
-    "notes": "Used on /impact, /give. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_d4b3b749890d_alt",
-    "label": "Open boxes filled with donated books and school supplies. — description",
-    "value": "Open boxes filled with donated books and school supplies.",
+    "label": "Books and supplies description",
+    "value": "Boxes of donated books and school supplies",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
-    "key": "image_f5c3b4f31873",
-    "label": "After School Matters — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/copy-of-our-impact-02.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_f5c3b4f31873_alt",
-    "label": "After School Matters — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_0b7cebe371d8",
-    "label": "Alderman Matt Martin, 47th Ward — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/trimmed-alderman-matt-martin-47th-ward.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_0b7cebe371d8_alt",
-    "label": "Alderman Matt Martin, 47th Ward — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_08e6014b9d61",
-    "label": "Bernie's Book Bank — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/trimmed-bernie-s-book-bank.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_08e6014b9d61_alt",
-    "label": "Bernie's Book Bank — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_aeebd2713c37",
-    "label": "Brown Books & Paintbrushes — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/copy-of-our-impact-25.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_aeebd2713c37_alt",
-    "label": "Brown Books & Paintbrushes — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_254e2765d7ee",
-    "label": "By The Hand Club For Kids — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/copy-of-our-impact-01.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_254e2765d7ee_alt",
-    "label": "By The Hand Club For Kids — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_1ba2f7ec354e",
-    "label": "Chicago Public Library — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/trimmed-chicago-public-library.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_1ba2f7ec354e_alt",
-    "label": "Chicago Public Library — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_6fab0c8969f2",
-    "label": "Chicago Youth Programs — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/chicago-youth-programs.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_6fab0c8969f2_alt",
-    "label": "Chicago Youth Programs — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_8a01ca9f8f87",
-    "label": "Connecting Chicago — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/copy-of-our-impact-03.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_8a01ca9f8f87_alt",
-    "label": "Connecting Chicago — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_a35ef01fe262",
-    "label": "Erie Family Health — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/trimmed-erie-family-health.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_a35ef01fe262_alt",
-    "label": "Erie Family Health — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_75bb0ccdb19f",
-    "label": "Fanari Camp — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/copy-of-our-impact-12.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_75bb0ccdb19f_alt",
-    "label": "Fanari Camp — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_b4efcabc53c8",
-    "label": "Jesse White Foundation — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/trimmed-jesse-white-foundation.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_b4efcabc53c8_alt",
-    "label": "Jesse White Foundation — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_c3ab071a51cf",
-    "label": "Lillstreet Art Center — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/trimmed-lillstreet-art-center.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_c3ab071a51cf_alt",
-    "label": "Lillstreet Art Center — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_fa62983469f0",
-    "label": "Lou Malnati's — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/trimmed-lou-malnati-s.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_fa62983469f0_alt",
-    "label": "Lou Malnati's — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_d23d259d5c39",
-    "label": "Mercy Home for Boys & Girls — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/mercy-home.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_d23d259d5c39_alt",
-    "label": "Mercy Home for Boys & Girls — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_de83fbb61a20",
-    "label": "Neighbor to Neighbor Literacy — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/trimmed-neighbor-to-neighbor-literacy.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_de83fbb61a20_alt",
-    "label": "Neighbor to Neighbor Literacy — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_9084222db37e",
-    "label": "Neighborhood Parents Network — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/trimmed-neighborhood-parents-network.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_9084222db37e_alt",
-    "label": "Neighborhood Parents Network — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_ca90965bbadc",
-    "label": "Northwestern Feinberg School of Medicine — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/trimmed-northwestern-feinberg-school-of-medicine.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_ca90965bbadc_alt",
-    "label": "Northwestern Feinberg School of Medicine — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_a6dda2d65ee8",
-    "label": "Open Books — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/copy-of-our-impact-14.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_a6dda2d65ee8_alt",
-    "label": "Open Books — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_36ce750bb317",
-    "label": "Reduce Waste Chicago — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/copy-of-our-impact-09.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_36ce750bb317_alt",
-    "label": "Reduce Waste Chicago — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_bc2e8dc1462e",
-    "label": "Rohingya Cultural Center — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/trimmed-rohingya-cultural-center.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_bc2e8dc1462e_alt",
-    "label": "Rohingya Cultural Center — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_6a46890000b1",
-    "label": "Roscoe Books — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/trimmed-roscoe-books.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_6a46890000b1_alt",
-    "label": "Roscoe Books — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_2f7c880e9779",
-    "label": "Upcycling Colors — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/upcycling-colors.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_2f7c880e9779_alt",
-    "label": "Upcycling Colors — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_dc0520c718ac",
-    "label": "Walter Payton College Prep — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/copy-of-our-impact-08.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_dc0520c718ac_alt",
-    "label": "Walter Payton College Prep — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_5e4de25cda50",
-    "label": "Yates Elementary — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/copy-of-our-impact-06.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_5e4de25cda50_alt",
-    "label": "Yates Elementary — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_e7bb1a4d5470",
-    "label": "Young Jains of America — image URL",
-    "value": "https://www.therewriteitproject.org/assets/partners/trimmed-young-jains-of-america.webp",
-    "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_e7bb1a4d5470_alt",
-    "label": "Young Jains of America — description",
-    "value": "",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_e755080c2c30",
-    "label": "Collected donation boxes and storage tubs filled with school supplies. — image URL",
+    "label": "Collected donations",
     "value": "https://www.therewriteitproject.org/assets/responsive/photos__collected-donation-boxes-640.webp",
     "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_e755080c2c30_alt",
-    "label": "Collected donation boxes and storage tubs filled with school supplies. — description",
-    "value": "Collected donation boxes and storage tubs filled with school supplies.",
+    "label": "Collected donations description",
+    "value": "Boxes and bins of donated school supplies",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_c9f6890aaac3",
-    "label": "A vehicle loaded with boxes and bins of school supplies. — image URL",
+    "label": "Supplies ready for delivery",
     "value": "https://www.therewriteitproject.org/assets/responsive/photos__car-loaded-with-supplies-640.webp",
     "type": "image",
-    "notes": "Used on /impact. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_c9f6890aaac3_alt",
-    "label": "A vehicle loaded with boxes and bins of school supplies. — description",
-    "value": "A vehicle loaded with boxes and bins of school supplies.",
+    "label": "Supplies ready for delivery description",
+    "value": "A car packed with school supplies",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_b6d28be7cc08",
-    "label": "Volunteer standing beside boxes and bags of donated supplies. — image URL",
+    "label": "Donation handoff",
     "value": "https://www.therewriteitproject.org/assets/responsive/photos__volunteer-donation-handoff-640.webp",
     "type": "image",
-    "notes": "Used on /impact, /receive. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_b6d28be7cc08_alt",
-    "label": "Volunteer standing beside boxes and bags of donated supplies. — description",
-    "value": "Volunteer standing beside boxes and bags of donated supplies.",
+    "label": "Donation handoff description",
+    "value": "A volunteer with donated supplies",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_777bc3b53e83",
-    "label": "A group of volunteers seated on the floor assembling school supplies. — image URL",
+    "label": "Chapter packing event",
     "value": "https://www.therewriteitproject.org/assets/responsive/photos__chapter-supply-packing-640.webp",
     "type": "image",
-    "notes": "Used on /chapters. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_777bc3b53e83_alt",
-    "label": "A group of volunteers seated on the floor assembling school supplies. — description",
-    "value": "A group of volunteers seated on the floor assembling school supplies.",
+    "label": "Chapter packing event description",
+    "value": "Chapter volunteers assembling kits",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_b9dcc1bcdd11",
-    "label": "Re-Write It Project volunteers standing together outside. — image URL",
+    "label": "Chapter group photo",
     "value": "https://www.therewriteitproject.org/assets/responsive/photos__outdoor-volunteer-group-640.webp",
     "type": "image",
-    "notes": "Used on /chapters. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_b9dcc1bcdd11_alt",
-    "label": "Re-Write It Project volunteers standing together outside. — description",
-    "value": "Re-Write It Project volunteers standing together outside.",
+    "label": "Chapter group photo description",
+    "value": "Chapter volunteers together outdoors",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
-    "key": "image_e924320a09b9",
-    "label": "Lindsey Prochot — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__lindsey-prochot-600.webp",
-    "type": "image",
-    "notes": "Used on /team, /join. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_e924320a09b9_alt",
-    "label": "Lindsey Prochot — description",
-    "value": "Lindsey Prochot",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_fe88017a149b",
-    "label": "Quintana Weisgerber — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__quintana-weisgerber-600.webp",
-    "type": "image",
-    "notes": "Used on /team, /join. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_fe88017a149b_alt",
-    "label": "Quintana Weisgerber — description",
-    "value": "Quintana Weisgerber",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_d47ee3110059",
-    "label": "Melissa Penafiel — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__melissa-penafiel-600.webp",
-    "type": "image",
-    "notes": "Used on /team, /join. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_d47ee3110059_alt",
-    "label": "Melissa Penafiel — description",
-    "value": "Melissa Penafiel",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_3a3185ea0cd7",
-    "label": "Robert Strauss — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__robert-strauss-600.webp",
-    "type": "image",
-    "notes": "Used on /team. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_3a3185ea0cd7_alt",
-    "label": "Robert Strauss — description",
-    "value": "Robert Strauss",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_80b1cae17484",
-    "label": "Jay Shah — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__jay-shah-600.webp",
-    "type": "image",
-    "notes": "Used on /team. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_80b1cae17484_alt",
-    "label": "Jay Shah — description",
-    "value": "Jay Shah",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_8b1c7e18d880",
-    "label": "Niko Vasilopoulos — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__niko-vasilopoulos-600.webp",
-    "type": "image",
-    "notes": "Used on /team. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_8b1c7e18d880_alt",
-    "label": "Niko Vasilopoulos — description",
-    "value": "Niko Vasilopoulos",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_fba880347276",
-    "label": "Kristin McKay — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__kristin-mckay-600.webp",
-    "type": "image",
-    "notes": "Used on /team. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_fba880347276_alt",
-    "label": "Kristin McKay — description",
-    "value": "Kristin McKay",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_3c64cb1508dc",
-    "label": "Saloni Nahar — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__saloni-nahar-600.webp",
-    "type": "image",
-    "notes": "Used on /team. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_3c64cb1508dc_alt",
-    "label": "Saloni Nahar — description",
-    "value": "Saloni Nahar",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_e76eea3f7ded",
-    "label": "Sou Lynn Beneteau — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__sou-lynn-beneteau-600.webp",
-    "type": "image",
-    "notes": "Used on /team, /join. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_e76eea3f7ded_alt",
-    "label": "Sou Lynn Beneteau — description",
-    "value": "Sou Lynn Beneteau",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_c96c058a0a0a",
-    "label": "Rifaa Meghani — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__rifaa-meghani-600.webp",
-    "type": "image",
-    "notes": "Used on /team, /join. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_c96c058a0a0a_alt",
-    "label": "Rifaa Meghani — description",
-    "value": "Rifaa Meghani",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_d297013f47c8",
-    "label": "Amesha Banjara — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__amesha-banjara-600.webp",
-    "type": "image",
-    "notes": "Used on /team. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_d297013f47c8_alt",
-    "label": "Amesha Banjara — description",
-    "value": "Amesha Banjara",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_23a0c5d4ceb9",
-    "label": "Caylie Kromelow — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__caylie-kromelow-600.webp",
-    "type": "image",
-    "notes": "Used on /team, /join. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_23a0c5d4ceb9_alt",
-    "label": "Caylie Kromelow — description",
-    "value": "Caylie Kromelow",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_aa892224ea1d",
-    "label": "Kennedy Bolton — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__kennedy-bolton-600.webp",
-    "type": "image",
-    "notes": "Used on /team, /join. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_aa892224ea1d_alt",
-    "label": "Kennedy Bolton — description",
-    "value": "Kennedy Bolton",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_41a265cf166a",
-    "label": "Adi Singh — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__adi-singh-600.webp",
-    "type": "image",
-    "notes": "Used on /team. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_41a265cf166a_alt",
-    "label": "Adi Singh — description",
-    "value": "Adi Singh",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_1f0e23b6d5bb",
-    "label": "Amelie Lynde — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__amelie-lynde-600.webp",
-    "type": "image",
-    "notes": "Used on /team. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_1f0e23b6d5bb_alt",
-    "label": "Amelie Lynde — description",
-    "value": "Amelie Lynde",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_c437484b56c3",
-    "label": "Oriana Bradley — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__oriana-bradley-600.webp",
-    "type": "image",
-    "notes": "Used on /team, /join. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_c437484b56c3_alt",
-    "label": "Oriana Bradley — description",
-    "value": "Oriana Bradley",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_ca2fdb37e389",
-    "label": "Norah Marinelli — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__norah-marinelli-600.webp",
-    "type": "image",
-    "notes": "Used on /team, /join. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_ca2fdb37e389_alt",
-    "label": "Norah Marinelli — description",
-    "value": "Norah Marinelli",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_fa32ca4f0d91",
-    "label": "Christopher Naglestad — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__christopher-naglestad-600.webp",
-    "type": "image",
-    "notes": "Used on /team. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_fa32ca4f0d91_alt",
-    "label": "Christopher Naglestad — description",
-    "value": "Christopher Naglestad",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_d368377c83f9",
-    "label": "Kate Murray — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__kate-murray-600.webp",
-    "type": "image",
-    "notes": "Used on /team. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_d368377c83f9_alt",
-    "label": "Kate Murray — description",
-    "value": "Kate Murray",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_21af5f5097d9",
-    "label": "Jayen Datta — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__jayen-datta-600.webp",
-    "type": "image",
-    "notes": "Used on /team. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_21af5f5097d9_alt",
-    "label": "Jayen Datta — description",
-    "value": "Jayen Datta",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_6d95d17a4aec",
-    "label": "Sareena Shah — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__sareena-shah-600.webp",
-    "type": "image",
-    "notes": "Used on /team. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_6d95d17a4aec_alt",
-    "label": "Sareena Shah — description",
-    "value": "Sareena Shah",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_c4621c6bb0c3",
-    "label": "Maya Jha — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__maya-jha-600.webp",
-    "type": "image",
-    "notes": "Used on /team. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_c4621c6bb0c3_alt",
-    "label": "Maya Jha — description",
-    "value": "Maya Jha",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_1f517c3b0ba2",
-    "label": "Ana Parikh — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__ana-parikh-600.webp",
-    "type": "image",
-    "notes": "Used on /team. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_1f517c3b0ba2_alt",
-    "label": "Ana Parikh — description",
-    "value": "Ana Parikh",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
-    "key": "image_c765ef4ca101",
-    "label": "Raina Koshal — image URL",
-    "value": "https://www.therewriteitproject.org/assets/responsive/team__raina-koshal-600.webp",
-    "type": "image",
-    "notes": "Used on /team. Public HTTPS image URL; blank restores the original."
-  },
-  {
-    "section": "Image descriptions",
-    "key": "image_c765ef4ca101_alt",
-    "label": "Raina Koshal — description",
-    "value": "Raina Koshal",
-    "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
-  },
-  {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_b17ab163dee3",
-    "label": "Volunteers holding completed school supply kits in a classroom. — image URL",
+    "label": "Classroom group photo",
     "value": "https://www.therewriteitproject.org/assets/responsive/photos__classroom-volunteer-group-640.webp",
     "type": "image",
-    "notes": "Used on /get-involved. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_b17ab163dee3_alt",
-    "label": "Volunteers holding completed school supply kits in a classroom. — description",
-    "value": "Volunteers holding completed school supply kits in a classroom.",
+    "label": "Classroom group photo description",
+    "value": "Volunteers holding kits in a classroom",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_6d8d4a12ea0e",
-    "label": "Pencils, scissors, glue, and colored craft supplies arranged in a storage box. — image URL",
+    "label": "Art supplies",
     "value": "https://www.therewriteitproject.org/assets/responsive/photos__organized-art-supplies-640.webp",
     "type": "image",
-    "notes": "Used on /get-involved. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_6d8d4a12ea0e_alt",
-    "label": "Pencils, scissors, glue, and colored craft supplies arranged in a storage box. — description",
-    "value": "Pencils, scissors, glue, and colored craft supplies arranged in a storage box.",
+    "label": "Art supplies description",
+    "value": "Art supplies sorted in a storage box",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   },
   {
-    "section": "Site images",
+    "section": "Photos",
     "key": "image_21f50244b1f0",
-    "label": "Four volunteers standing beside stacked boxes of collected donations. — image URL",
+    "label": "Volunteers with donations",
     "value": "https://www.therewriteitproject.org/assets/responsive/photos__volunteers-with-collected-donations-640.webp",
     "type": "image",
-    "notes": "Used on /get-involved. Public HTTPS image URL; blank restores the original."
+    "notes": "Public image link; clear to use the original."
   },
   {
-    "section": "Image descriptions",
+    "section": "Photos",
     "key": "image_21f50244b1f0_alt",
-    "label": "Four volunteers standing beside stacked boxes of collected donations. — description",
-    "value": "Four volunteers standing beside stacked boxes of collected donations.",
+    "label": "Volunteers with donations description",
+    "value": "Four volunteers with collected donations",
     "type": "image_alt",
-    "notes": "Describe the photo for screen readers. Decorative images stay decorative."
+    "notes": "Description in column G of the same image row."
   }
 ]
