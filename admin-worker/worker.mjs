@@ -21,6 +21,8 @@ function validate(document){
 }
 async function handle(request,env){
  const url=new URL(request.url),origin=request.headers.get('Origin'),allowed=env.SITE_ORIGIN||'https://drews.click';
+ const apiPath=url.pathname.startsWith('/admin/api/')?'/admin/api':'';
+ if(apiPath)url.pathname=url.pathname.slice(apiPath.length);
  const origins=new Set([allowed,url.origin]);if(allowed==='https://drews.click')origins.add('https://www.drews.click');
  // The production site reads the public feed; authentication remains on the editor origin.
  const productionRead=['https://therewriteitproject.org','https://www.therewriteitproject.org'].includes(origin)&&url.pathname==='/published'&&(request.method==='GET'||request.method==='OPTIONS'&&request.headers.get('Access-Control-Request-Method')==='GET');
@@ -59,7 +61,7 @@ async function handle(request,env){
    const type=request.headers.get('Content-Type');if(!['image/jpeg','image/png','image/webp'].includes(type))return json({error:'Choose a JPEG, PNG, or WebP image'},400);
    if(Number(request.headers.get('Content-Length'))>3000000)return json({error:'Image must be smaller than 3 MB'},413);
    const bytes=await request.arrayBuffer();if(bytes.byteLength>3000000)return json({error:'Image must be smaller than 3 MB'},413);
-   const key='images/'+crypto.randomUUID();await env.CONTENT.put(key,bytes,{metadata:{type}});return json({src:url.origin+'/'+key});
+   const key='images/'+crypto.randomUUID();await env.CONTENT.put(key,bytes,{metadata:{type}});return json({src:url.origin+apiPath+'/'+key});
   }
   return json({error:'Not found'},404);
  }catch(error){return json({error:error.message||'Request failed'},400);}

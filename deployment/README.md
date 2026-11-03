@@ -17,9 +17,11 @@ return URLs use the production root. Legacy Wix page aliases remain available.
 Saved editor identities do not change. Published future links and images are
 rebased in the production browser while remaining unchanged on the demo.
 
-The production `/admin/` entry opens the existing authenticated Worker editor.
-Its public feed accepts GET requests from the production and www origins; those
-origins do not gain cross-origin access to login, drafts, or publishing.
+The production editor is served at `/admin/`, with its API at `/admin/api/*`
+on the same hostname. Cloudflare routes that API path to the existing Worker;
+GitHub Pages continues to serve the public pages. See
+[`same-domain-editor.md`](same-domain-editor.md) for activation order. Do not
+publish the new editor configuration before that route is working.
 
 ## GitHub Pages deployment
 
