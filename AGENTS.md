@@ -23,7 +23,8 @@ This repository is the source of truth for Drew's project website. Host it on Gi
 
 ## Shared website editing
 
-- The GitHub Pages editor entry redirects to the existing admin Worker's `/rewrite/admin/` URL. Keep authentication, drafts, publishing, and uploads on that same origin; the Worker serves the editor's public assets from GitHub Pages. Use the configured `siteOrigin` for page sources, previews, and saved relative links.
+- The production editor lives at `/admin/` on the nonprofit domain. Its API lives at `/admin/api/*`, routed to the existing `rewrite-admin` Worker. Keep authentication, drafts, publishing, and new uploads on that same origin. Use the configured `siteOrigin` and `sitePath` for page sources and previews; production has an empty sitePath and the demo uses `/rewrite`. Do not restore the redirect to workers.dev.
+- Activate the Cloudflare route and validate HTTPS before publishing the production editor configuration. Preserve the existing Worker name, Durable Object bindings, migrations and stored content. Follow `deployment/same-domain-editor.md`; do not publish the new production configuration while its API route is absent.
 - Important metrics, kit price, contact details, and social/donation links use the admin document's `values` map; definitions and validation are in `public/rewrite/shared-content.js`. Never replace these with separate page text overrides.
 - Explicit admin values override spreadsheet fields. Clearing an override with Use spreadsheet restores live spreadsheet updates. Keep this precedence in the browser and static builds.
 - `source/lib/admin-identity.mjs` assigns legacy IDs and semantic keys. Preserve stable keys when changing templates so saved text, link, image, header, and footer edits survive future builds. Do not apply an edit to a different element if its key disappears.

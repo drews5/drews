@@ -22,10 +22,9 @@ async function convert(dir){
  }
 }
 await convert(out);
-// Authentication remains on the existing same-origin editor service.
+// The public editor and its authenticated API share the production hostname.
 const config=JSON.parse(await readFile(join(root,'public/rewrite/admin-config.json'),'utf8'));
-const editorUrl=new URL('/rewrite/admin/',config.apiBase).href;
-await writeFile(join(out,'admin/index.html'),`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Website editor</title><meta http-equiv="refresh" content="0;url=${editorUrl}"></head><body><a href="${editorUrl}">Open website editor</a><script>location.replace(${JSON.stringify(editorUrl)}+location.search+location.hash)</script></body></html>`);
+await writeFile(join(out,'admin-config.json'),JSON.stringify({...config,apiBase:productionOrigin+'/admin/api',siteOrigin:productionOrigin,sitePath:''})+'\n');
 await writeFile(join(out,'CNAME'),new URL(productionOrigin).hostname+'\n');
 await writeFile(join(out,'.nojekyll'),'');
 execFileSync(process.execPath,[join(root,'scripts/check-production.mjs')],{stdio:'inherit'});
