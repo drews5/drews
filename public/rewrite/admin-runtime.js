@@ -40,14 +40,45 @@ export function applyEdits(doc,document,route){
  }
  projectPublishedUrls(doc);
 }
+// The editor stays inside the public site; private requests stay on its existing service.
+export function openSiteEditor(config,{doc=document,win=window,production=!!doc.documentElement?.dataset.publicSiteOrigin,onPublished=()=>{}}={}){
+ const existing=doc.querySelector('#site-editor-dialog');if(existing){existing.querySelector('iframe').focus();return existing;}
+ const origin=new URL(config.apiBase).origin,src=new URL('/rewrite/admin/',origin);
+ src.searchParams.set('embedded','1');src.searchParams.set('site',production?'production':'demo');src.searchParams.set('parent',win.location.origin);
+ const previousFocus=doc.activeElement,dialog=doc.createElement('dialog');dialog.id='site-editor-dialog';dialog.setAttribute('aria-labelledby','site-editor-title');
+ const style=doc.createElement('style');style.textContent=`
+ #site-editor-dialog{box-sizing:border-box;width:min(1500px,96vw);max-width:none;height:94dvh;max-height:none;margin:auto;padding:0;border:0;border-radius:16px;background:#fffaf5;color:#103a71;box-shadow:0 16px 64px #0004;overflow:hidden}
+ #site-editor-dialog::backdrop{background:rgb(10 31 58 / 65%)}
+ #site-editor-dialog[open]{display:flex;flex-direction:column}
+ #site-editor-dialog .site-editor-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 20px;background:#103a71;color:white;flex:none}
+ #site-editor-dialog h2{margin:0;font:20px Alice,Georgia,serif;color:inherit}
+ #site-editor-dialog button{font:16px Alice,Georgia,serif;background:transparent;color:inherit;border:1px solid #ffffff80;border-radius:8px;padding:8px 14px;cursor:pointer}
+ #site-editor-dialog button:focus-visible{outline:3px solid #ff9686;outline-offset:2px}
+ #site-editor-dialog iframe{width:100%;min-height:0;flex:1;border:0;background:#fffaf5}
+ @media(max-width:650px){#site-editor-dialog{width:100%;height:100dvh;border-radius:0}#site-editor-dialog .site-editor-top{padding:8px 14px}}
+ `;
+ const top=doc.createElement('div');top.className='site-editor-top';const title=doc.createElement('h2');title.id='site-editor-title';title.textContent='Website editor';
+ const close=doc.createElement('button');close.type='button';close.textContent='Close editor';
+ const frame=doc.createElement('iframe');frame.title='Re-Write It website editor';frame.src=src.href;
+ let dirty=false;const overflow=doc.documentElement.style.overflow;
+ const beforeUnload=event=>{if(dirty){event.preventDefault();event.returnValue='';}};
+ const receive=event=>{if(event.origin!==origin||event.source!==frame.contentWindow||event.data?.type!=='rewrite-editor')return;if(typeof event.data.dirty==='boolean')dirty=event.data.dirty;if(event.data.published===true)onPublished();};
+ const dismiss=()=>{if(dirty&&!win.confirm('Close the editor without saving your changes?'))return;dialog.close();};
+ close.addEventListener('click',dismiss);dialog.addEventListener('cancel',event=>{event.preventDefault();dismiss();});
+ dialog.addEventListener('close',()=>{win.removeEventListener('message',receive);win.removeEventListener('beforeunload',beforeUnload);doc.documentElement.style.overflow=overflow;dialog.remove();previousFocus?.focus();const url=new URL(win.location.href);if(url.searchParams.has('edit')){url.searchParams.delete('edit');win.history.replaceState(null,'',url.href);}});
+ top.append(title,close);dialog.append(style,top,frame);doc.body.append(dialog);win.addEventListener('message',receive);win.addEventListener('beforeunload',beforeUnload);doc.documentElement.style.overflow='hidden';dialog.showModal();close.focus();return dialog;
+}
 const publicBase=typeof document!=='undefined'&&document.documentElement?.dataset.publicSiteOrigin?'':'/rewrite';
 if(typeof location!=='undefined'&&!location.pathname.startsWith(publicBase+'/admin/')){
- let count=0,last=0;
- document.addEventListener('click',event=>{if(!event.target.matches('.footer-city img'))return;const now=Date.now();count=now-last<2000?count+1:1;last=now;if(count===5)location.href=publicBase+'/admin/';});
- fetch(publicBase+'/admin-config.json',{cache:'no-store'}).then(r=>r.json()).then(async config=>{
+ let count=0,last=0,refresh=()=>{};
+ const configPromise=fetch(publicBase+'/admin-config.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Editor configuration unavailable');return r.json();});
+ const open=async()=>{try{const config=await configPromise;if(config.apiBase)openSiteEditor(config,{onPublished:()=>refresh()});}catch{window.alert('The editor could not be opened. Reload the page and try again.');}};
+ document.addEventListener('click',event=>{if(!event.target.matches('.footer-city img'))return;const now=Date.now();count=now-last<2000?count+1:1;last=now;if(count===5){count=0;open();}});
+ if(new URLSearchParams(location.search).get('edit')==='1')open();
+ configPromise.then(async config=>{
   if(!config.apiBase)return;let content;
   const apply=()=>{if(content)applyEdits(document,content,document.body.dataset.adminRoute||'/');};
-  const refresh=async()=>{if(document.hidden)return;try{const response=await fetch(config.apiBase+'/published',{cache:'no-store'});if(response.ok){content=(await response.json()).document;apply();}}catch{/* Keep the existing site available when the editor service is offline. */}};
+  refresh=async()=>{if(document.hidden)return;try{const response=await fetch(config.apiBase+'/published',{cache:'no-store'});if(response.ok){content=(await response.json()).document;apply();}}catch{/* Keep the existing site available when the editor service is offline. */}};
   document.addEventListener('site-content-updated',apply);document.addEventListener('visibilitychange',refresh);await refresh();setInterval(refresh,30000);
  }).catch(()=>{});
 }

@@ -1,0 +1,68 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import vm from 'node:vm';
+import {parseHTML} from 'linkedom';
+import {openSiteEditor,applyEdits} from '../public/rewrite/admin-runtime.js';
+import {sharedFields,parseSharedValue,sharedBinding,contentState} from '../public/rewrite/shared-content.js';
+
+test('main site editor stays in a dialog, protects unsaved changes, and refreshes after publishing',()=>{
+ const {document,window}=parseHTML('<html data-public-site-origin="https://www.therewriteitproject.org"><body><button id="previous">Page</button></body></html>');
+ const events=new Map();let confirmed=false,published=0,returnedFocus=false,cleaned='';
+ const win={location:{origin:'https://www.therewriteitproject.org',href:'https://www.therewriteitproject.org/?edit=1'},history:{replaceState(a,b,url){cleaned=url;}},confirm:()=>confirmed,addEventListener:(name,fn)=>events.set(name,fn),removeEventListener:name=>events.delete(name)};
+ const create=document.createElement.bind(document);document.createElement=name=>{const el=create(name);if(name==='dialog'){el.showModal=()=>el.setAttribute('open','');el.close=()=>el.dispatchEvent(new window.Event('close'));}return el;};
+ Object.defineProperty(document,'activeElement',{value:{focus(){returnedFocus=true;}}});
+ const dialog=openSiteEditor({apiBase:'https://editor.example'},{doc:document,win,onPublished:()=>published++});
+ const frame=dialog.querySelector('iframe'),source={};Object.defineProperty(frame,'contentWindow',{value:source});
+ assert.equal(new URL(frame.src).searchParams.get('site'),'production');assert.equal(dialog.hasAttribute('open'),true);
+ assert.equal(document.documentElement.style.overflow,'hidden');
+ assert.equal(openSiteEditor({apiBase:'https://editor.example'},{doc:document,win}),dialog);
+ const receive=events.get('message');
+ receive({origin:'https://other.example',source,data:{type:'rewrite-editor',dirty:true,published:true}});assert.equal(published,0);
+ receive({origin:'https://editor.example',source:{},data:{type:'rewrite-editor',published:true}});assert.equal(published,0);
+ receive({origin:'https://editor.example',source,data:{type:'rewrite-editor',dirty:true,published:true}});assert.equal(published,1);
+ let prevented=false;events.get('beforeunload')({preventDefault(){prevented=true;}});assert.equal(prevented,true);
+ dialog.querySelector('button').click();assert.ok(document.querySelector('#site-editor-dialog'));
+ confirmed=true;dialog.querySelector('button').click();assert.equal(document.querySelector('#site-editor-dialog'),null);
+ assert.equal(returnedFocus,true);assert.equal(events.size,0);assert.equal(cleaned,'https://www.therewriteitproject.org/');
+});
+
+test('embedded editor works without browser storage and edits production pages while keeping private requests on its service',async()=>{
+ const html=await readFile(new URL('../public/rewrite/admin/index.html',import.meta.url),'utf8');
+ const script=(await readFile(new URL('../public/rewrite/admin/editor.js',import.meta.url),'utf8')).replace(/^import .*;\n/gm,'');
+ const {document,window}=parseHTML(html),messages=[],calls=[];
+ window.parent={postMessage:(message,origin)=>messages.push({message,origin})};
+ const preview=document.querySelector('#preview'),frame=parseHTML('<html data-public-site-origin="https://www.therewriteitproject.org"><head></head><body><main><h1 data-admin-id="1111111111111111">Our mission</h1></main></body></html>').document;
+ Object.defineProperty(preview,'contentDocument',{get:()=>frame});
+ let saved,revision=0;
+ const fetch=async(url,options={})=>{calls.push({url,options});let data;
+  if(url.endsWith('admin-config.json'))data={apiBase:'https://editor.example',siteOrigin:'https://drews.click'};
+  else if(url.endsWith('/login'))data={token:'test-session'};
+  else if(url.endsWith('/draft')&&options.method==='PUT'){saved=JSON.parse(options.body);data={revision:++revision};}
+  else if(url.endsWith('/draft'))data={document:{pages:{},shared:{},values:{}},revision};
+  else if(url.endsWith('/publish'))data={ok:true};
+  else if(url.endsWith('/admin-pages.json'))data=[{route:'/about',title:'About'}];
+  else if(url.includes('/admin-source/'))data={html:frame.documentElement.outerHTML};
+  else return {ok:true,text:async()=>frame.documentElement.outerHTML};
+  return {ok:true,json:async()=>data};
+ };
+ const context=vm.createContext({document,window,location:{origin:'https://editor.example',href:'https://editor.example/rewrite/admin/?embedded=1&site=production&parent=https%3A%2F%2Fwww.therewriteitproject.org'},sessionStorage:{getItem(){throw Error('Storage blocked');},setItem(){throw Error('Storage blocked');},removeItem(){throw Error('Storage blocked');}},matchMedia:()=>({matches:true}),fetch,initializeSuggestions:()=>{},applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,AbortSignal,DOMParser:window.DOMParser,confirm:()=>true,console});
+ const editor=await new vm.Script('(async()=>{'+script+';return {openPage};})()').runInContext(context);
+ document.querySelector('#password').value=crypto.randomUUID();await document.querySelector('#login-form').onsubmit({preventDefault(){}});
+ assert.equal(document.querySelector('#dashboard').hidden,false);
+ assert.ok(calls.some(c=>c.url==='https://www.therewriteitproject.org/admin-pages.json'));
+ assert.equal(document.querySelector('.page-art iframe').src,'https://www.therewriteitproject.org/about/');
+ await editor.openPage({route:'/about',title:'About'});preview.dispatchEvent(new window.Event('load'));
+ assert.ok(calls.some(c=>c.url==='https://www.therewriteitproject.org/admin-source/about.json'));
+ assert.match(preview.srcdoc,/<base href="https:\/\/www.therewriteitproject.org\/about\/">/);
+ [...document.querySelectorAll('.content-item')].find(x=>x.textContent.includes('Our mission')).click();
+ document.querySelector('#text').value='Updated mission';document.querySelector('#text').dispatchEvent(new window.Event('input'));
+ assert.equal(messages.at(-1).message.dirty,true);
+ await document.querySelector('#publish-page').onclick();
+ assert.equal(saved.pages['/about']['1111111111111111'].text,'Updated mission');
+ assert.equal(messages.at(-1).message.published,true);assert.equal(messages.at(-1).origin,'https://www.therewriteitproject.org');
+ const privateCalls=calls.filter(c=>['PUT','POST'].includes(c.options.method));
+ assert.ok(privateCalls.every(c=>new URL(c.url).origin==='https://editor.example'));
+ assert.equal(privateCalls.find(c=>c.url.endsWith('/publish')).options.headers.Authorization,'Bearer test-session');
+ assert.equal(document.querySelector('#edit-status').textContent,'Published');
+});

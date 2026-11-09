@@ -59,7 +59,7 @@ test('the public entry opens the direct editor and login sends no stale authoriz
   const context=vm.createContext({document,window,location:{origin,search:'?v=login3',replace:url=>redirects.push(url)},sessionStorage:{getItem:()=>'',setItem(){},removeItem(){}},matchMedia:()=>({matches:true}),fetch,initializeSuggestions:()=>{},applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,AbortSignal,DOMParser:window.DOMParser,confirm:()=>true,console});
   await new vm.Script('(async()=>{'+script+'})()').runInContext(context);return {document,calls,redirects};
  }
- const entry=await setup('https://drews.click');assert.deepEqual(entry.redirects,['https://admin.example/rewrite/admin/?v=login3']);assert.equal(entry.calls.length,1);
+ const entry=await setup('https://drews.click');assert.deepEqual(entry.redirects,['https://drews.click/rewrite/?edit=1']);assert.equal(entry.calls.length,1);
  const direct=await setup('https://admin.example');assert.equal(direct.redirects.length,0);direct.document.querySelector('#password').value=crypto.randomUUID();await direct.document.querySelector('#login-form').onsubmit({preventDefault(){}});
  const login=direct.calls.find(call=>call.url.endsWith('/login'));assert.equal(login.options.headers.Authorization,undefined);assert.equal(login.options.headers['Content-Type'],'text/plain;charset=UTF-8');assert.equal(login.options.credentials,'omit');assert.equal(direct.document.querySelector('#dashboard').hidden,false);
 });
