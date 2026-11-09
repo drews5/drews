@@ -27,9 +27,10 @@ test('main site editor stays in a dialog, protects unsaved changes, and refreshe
  assert.equal(returnedFocus,true);assert.equal(events.size,0);assert.equal(cleaned,'https://www.therewriteitproject.org/');
 });
 
-test('embedded editor works without browser storage and edits production pages while keeping private requests on its service',async()=>{
+for(const artifact of ['source','bundle'])test(artifact+': embedded editor works without browser storage and edits production pages while keeping private requests on its service',async()=>{
  const html=await readFile(new URL('../public/rewrite/admin/index.html',import.meta.url),'utf8');
- const script=(await readFile(new URL('../public/rewrite/admin/editor.js',import.meta.url),'utf8')).replace(/^import .*;\n/gm,'');
+ const script=(await readFile(new URL(artifact==='bundle'?'../_site/rewrite/admin/editor.js':'../public/rewrite/admin/editor.js',import.meta.url),'utf8')).replace(/^import .*;\n/gm,'');
+ if(artifact==='bundle')assert.doesNotMatch(script,/^\s*import\s/m);
  const {document,window}=parseHTML(html),messages=[],calls=[];
  window.parent={postMessage:(message,origin)=>messages.push({message,origin})};
  const preview=document.querySelector('#preview'),frame=parseHTML('<html data-public-site-origin="https://www.therewriteitproject.org"><head></head><body><main><h1 data-admin-id="1111111111111111">Our mission</h1></main></body></html>').document;
@@ -46,7 +47,7 @@ test('embedded editor works without browser storage and edits production pages w
   else return {ok:true,text:async()=>frame.documentElement.outerHTML};
   return {ok:true,json:async()=>data};
  };
- const context=vm.createContext({document,window,location:{origin:'https://editor.example',href:'https://editor.example/rewrite/admin/?embedded=1&site=production&parent=https%3A%2F%2Fwww.therewriteitproject.org'},sessionStorage:{getItem(){throw Error('Storage blocked');},setItem(){throw Error('Storage blocked');},removeItem(){throw Error('Storage blocked');}},matchMedia:()=>({matches:true}),fetch,initializeSuggestions:()=>{},applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,AbortSignal,DOMParser:window.DOMParser,confirm:()=>true,console});
+ const context=vm.createContext({document,window,location:{origin:'https://editor.example',pathname:'/rewrite/admin/',href:'https://editor.example/rewrite/admin/?embedded=1&site=production&parent=https%3A%2F%2Fwww.therewriteitproject.org'},sessionStorage:{getItem(){throw Error('Storage blocked');},setItem(){throw Error('Storage blocked');},removeItem(){throw Error('Storage blocked');}},matchMedia:()=>({matches:true}),fetch,initializeSuggestions:()=>{},applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,AbortSignal,DOMParser:window.DOMParser,confirm:()=>true,console});
  const editor=await new vm.Script('(async()=>{'+script+';return {openPage};})()').runInContext(context);
  document.querySelector('#password').value=crypto.randomUUID();await document.querySelector('#login-form').onsubmit({preventDefault(){}});
  assert.equal(document.querySelector('#dashboard').hidden,false);

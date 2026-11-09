@@ -17,7 +17,11 @@ return URLs use the production root. Legacy Wix page aliases remain available.
 Saved editor identities do not change. Published future links and images are
 rebased in the production browser while remaining unchanged on the demo.
 
-The production `/admin/` entry opens the existing authenticated Worker editor.
+The production `/admin/` entry opens the editor over the homepage at `/?edit=1`.
+Five clicks on the footer skyline open the same dialog. The editor uses its
+existing Worker service inside that dialog, with root-domain page previews.
+The build bundles editor JavaScript so new public-site dependencies cannot
+break login by requiring another asset on the Worker.
 Its public feed accepts GET requests from the production and www origins; those
 origins do not gain cross-origin access to login, drafts, or publishing.
 

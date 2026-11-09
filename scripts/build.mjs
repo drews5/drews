@@ -7,6 +7,7 @@ import {createHash} from 'node:crypto';
 import {applySiteContent,defaults,readValues} from '../source/lib/site-content.mjs';
 import {rewriteMountText} from '../source/lib/path-mount.mjs';
 import {parseHTML} from 'linkedom';
+import {build as bundle} from 'esbuild';
 import {applyEdits} from '../public/rewrite/admin-runtime.js';
 import {sharedBinding} from '../public/rewrite/shared-content.js';
 import {assignAdminIdentity} from '../source/lib/admin-identity.mjs';
@@ -38,6 +39,9 @@ async function rewriteAssets(dir){
  }
 }
 await rewriteAssets(join(out,'rewrite'));
+// The existing editor host proxies a fixed set of assets. Bundle its complete module
+// graph so adding a public-site feature cannot break the editor's login screen.
+await bundle({entryPoints:[join(root,'public/rewrite/admin/editor.js')],outfile:join(out,'rewrite/admin/editor.js'),bundle:true,format:'esm',target:'es2022',legalComments:'none'});
 const imageVersion=createHash('sha256').update(await readFile(join(root,'public/rewrite/sheet-images.js'))).digest('hex').slice(0,10);
 const engineCode=(await readFile(join(root,'public/rewrite/content-engine.js'),'utf8')).replace("'./sheet-images.js'","'./sheet-images.js?v="+imageVersion+"'");
 const engineVersion=createHash('sha256').update(engineCode).digest('hex').slice(0,10);
