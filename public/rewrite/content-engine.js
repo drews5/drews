@@ -54,7 +54,7 @@ export function applyLiveContent(doc,previous,next,original={kit_price:5}){
   doc.querySelectorAll('a[href]').forEach(link=>{if(link.getAttribute('href')==='mailto:'+previous[key]){link.href='mailto:'+next[key];if(link.textContent.trim()===previous[key])link.textContent=next[key];}});
   doc.querySelectorAll('[data-copy-email]').forEach(button=>{if(button.dataset.copyEmail===previous[key]){button.dataset.copyEmail=next[key];button.setAttribute('aria-label','Copy '+next[key]);delete button.dataset.copied;}});
  }
- if(changed.includes('address'))doc.querySelectorAll('.footer-legal p').forEach(p=>{if(p.textContent.trim()===previous.address)p.textContent=next.address;});
+ if(changed.includes('address'))doc.querySelectorAll('.footer-legal p').forEach(p=>{if(p.dataset.adminField==='address'||p.textContent.trim()===previous.address)p.textContent=next.address;});
  for(const key of ['donation_url','chapter_application','facebook','instagram','linkedin','budget_source_url'])if(changed.includes(key)){
   doc.querySelectorAll('a[href],form[action],[data-donation-url]').forEach(element=>{
    for(const attr of ['href','action','data-donation-url'])if(element.hasAttribute(attr)){const value=element.getAttribute(attr),updated=changedUrl(value,previous[key],next[key]);if(updated!==value)element.setAttribute(attr,updated);}
@@ -94,7 +94,8 @@ export function applyLiveContent(doc,previous,next,original={kit_price:5}){
  doc.querySelectorAll('script[type="application/ld+json"]:not([data-faq-schema])').forEach(script=>{
   try{const schema=JSON.parse(script.textContent);if(schema['@type']==='NGO'){schema.email=next.email;schema.sameAs=[next.facebook,next.instagram,next.linkedin];script.textContent=JSON.stringify(schema);}}catch{/* Leave unrelated schemas alone. */}
  });
- doc.dispatchEvent(new doc.defaultView.CustomEvent('site-content-updated',{detail:{changed,values:next}}));
+ // Parsed editor previews have no window. Refresh listeners only run on mounted pages.
+ if(doc.defaultView)doc.dispatchEvent(new doc.defaultView.CustomEvent('site-content-updated',{detail:{changed,values:next}}));
  return changed;
 }
 

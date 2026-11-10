@@ -64,3 +64,12 @@ test('adding a navigation item keeps an existing shared link edit attached to it
  const updated=make('<li><a class="nav-link" href="/rewrite/new/">New page</a></li>');assignAdminIdentity(updated,'/new-page');applyEdits(updated,edits,'/new-page');
  assert.equal(updated.querySelector('a[href="/rewrite/about/"]').textContent,'About the project');assert.equal(updated.querySelector('a[href="/rewrite/new/"]').textContent,'New page');
 });
+
+
+test('a saved address can be changed after the published page reloads',async()=>{
+ const first=await page('index.html');
+ applyEdits(first,{pages:{},shared:{},values:{address:'First saved address'}},'/');
+ const reloaded=parseHTML(first.documentElement.outerHTML).document;
+ applyEdits(reloaded,{pages:{},shared:{},values:{address:'Updated saved address'}},'/');
+ assert.equal(reloaded.querySelector('[data-admin-field="address"]').textContent,'Updated saved address');
+});

@@ -33,27 +33,32 @@ for(const artifact of ['source','bundle'])test(artifact+': embedded editor works
  if(artifact==='bundle')assert.doesNotMatch(script,/^\s*import\s/m);
  const {document,window}=parseHTML(html),messages=[],calls=[];
  window.parent={postMessage:(message,origin)=>messages.push({message,origin})};
- const preview=document.querySelector('#preview'),frame=parseHTML('<html data-public-site-origin="https://www.therewriteitproject.org"><head></head><body><main><h1 data-admin-id="1111111111111111">Our mission</h1></main></body></html>').document;
+ const preview=document.querySelector('#preview'),frame=parseHTML('<html data-public-site-origin="https://www.therewriteitproject.org"><head><script id="site-content-state" type="application/json">{"initialValues":{"kits":18576,"kit_price":5},"original":{"kit_price":5}}</script></head><body><main><h1 data-admin-id="1111111111111111">Our mission</h1><span data-site-number="kits">18,576</span></main></body></html>').document;
  Object.defineProperty(preview,'contentDocument',{get:()=>frame});
  let saved,revision=0;
  const fetch=async(url,options={})=>{calls.push({url,options});let data;
   if(url.endsWith('admin-config.json'))data={apiBase:'https://editor.example',siteOrigin:'https://drews.click'};
   else if(url.endsWith('/login'))data={token:'test-session'};
   else if(url.endsWith('/draft')&&options.method==='PUT'){saved=JSON.parse(options.body);data={revision:++revision};}
-  else if(url.endsWith('/draft'))data={document:{pages:{},shared:{},values:{}},revision};
+  else if(url.endsWith('/draft'))data={document:{pages:{},shared:{},values:{kits:20000}},revision};
   else if(url.endsWith('/publish'))data={ok:true};
   else if(url.endsWith('/admin-pages.json'))data=[{route:'/about',title:'About'}];
   else if(url.includes('/admin-source/'))data={html:frame.documentElement.outerHTML};
   else return {ok:true,text:async()=>frame.documentElement.outerHTML};
   return {ok:true,json:async()=>data};
  };
- const context=vm.createContext({document,window,location:{origin:'https://editor.example',pathname:'/rewrite/admin/',href:'https://editor.example/rewrite/admin/?embedded=1&site=production&parent=https%3A%2F%2Fwww.therewriteitproject.org'},sessionStorage:{getItem(){throw Error('Storage blocked');},setItem(){throw Error('Storage blocked');},removeItem(){throw Error('Storage blocked');}},matchMedia:()=>({matches:true}),fetch,initializeSuggestions:()=>{},applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,AbortSignal,DOMParser:window.DOMParser,confirm:()=>true,console});
+ class DetachedDOMParser {parseFromString(html,type){const doc=new window.DOMParser().parseFromString(html,type);Object.defineProperty(doc,'defaultView',{value:null});return doc;}}
+ const context=vm.createContext({document,window,location:{origin:'https://editor.example',pathname:'/rewrite/admin/',href:'https://editor.example/rewrite/admin/?embedded=1&site=production&parent=https%3A%2F%2Fwww.therewriteitproject.org'},sessionStorage:{getItem(){throw Error('Storage blocked');},setItem(){throw Error('Storage blocked');},removeItem(){throw Error('Storage blocked');}},matchMedia:()=>({matches:true}),fetch,initializeSuggestions:()=>{},applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,AbortSignal,DOMParser:DetachedDOMParser,confirm:()=>true,console});
  const editor=await new vm.Script('(async()=>{'+script+';return {openPage};})()').runInContext(context);
  document.querySelector('#password').value=crypto.randomUUID();await document.querySelector('#login-form').onsubmit({preventDefault(){}});
  assert.equal(document.querySelector('#dashboard').hidden,false);
  assert.ok(calls.some(c=>c.url==='https://www.therewriteitproject.org/admin-pages.json'));
  assert.equal(document.querySelector('.page-art iframe').src,'https://www.therewriteitproject.org/about/');
- await editor.openPage({route:'/about',title:'About'});preview.dispatchEvent(new window.Event('load'));
+ await editor.openPage({route:'/about',title:'About'});
+ assert.equal(document.querySelector('#edit-status').textContent,'');
+ assert.ok(preview.srcdoc,'Opening a page must render the preview with saved shared settings');
+ assert.match(preview.srcdoc,/>20,000<\/span>/);
+ preview.dispatchEvent(new window.Event('load'));
  assert.ok(calls.some(c=>c.url==='https://www.therewriteitproject.org/admin-source/about.json'));
  assert.match(preview.srcdoc,/<base href="https:\/\/www.therewriteitproject.org\/about\/">/);
  [...document.querySelectorAll('.content-item')].find(x=>x.textContent.includes('Our mission')).click();
