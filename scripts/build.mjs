@@ -11,7 +11,7 @@ import {build as bundle} from 'esbuild';
 import {applyEdits} from '../public/rewrite/admin-runtime.js';
 import {sharedBinding} from '../public/rewrite/shared-content.js';
 import {assignAdminIdentity} from '../source/lib/admin-identity.mjs';
-const root=resolve(import.meta.dirname,'..'),out=join(root,'_site'),origin='https://drews.click';
+const root=resolve(import.meta.dirname,'..'),out=join(process.env.RWIP_TEST_BUILD_ROOT||root,'_site'),origin='https://drews.click';
 execFileSync('python3',[join(root,'source/build.py')],{stdio:'inherit'});
 const pages=JSON.parse(await readFile(join(root,'source/pages.json'),'utf8'));
 const config=JSON.parse(await readFile(join(root,'source/content/live-sheet.json'),'utf8'));

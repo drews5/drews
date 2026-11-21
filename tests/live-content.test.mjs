@@ -7,12 +7,13 @@ import {fileURLToPath} from 'node:url';
 import {parseHTML} from 'linkedom';
 import {parseCsv,createContentReader} from '../source/lib/content-values.mjs';
 import {applyLiveContent,startLiveContent} from '../source/client/live-content.mjs';
+import {siteFixture} from './site-fixtures.mjs';
 import fields from '../source/content/editor-fields.json' with {type:'json'};
 const {defaults,readValues}=createContentReader(fields);
-const home=await readFile(new URL('../_site/rewrite/index.html',import.meta.url),'utf8');
-const give=await readFile(new URL('../_site/rewrite/give/index.html',import.meta.url),'utf8');
-const impact=await readFile(new URL('../_site/rewrite/impact/index.html',import.meta.url),'utf8');
-const contact=await readFile(new URL('../_site/rewrite/contact/index.html',import.meta.url),'utf8');
+const home=await readFile(siteFixture('index.html'),'utf8');
+const give=await readFile(siteFixture('give/index.html'),'utf8');
+const impact=await readFile(siteFixture('impact/index.html'),'utf8');
+const contact=await readFile(siteFixture('contact/index.html'),'utf8');
 const app=await readFile(new URL('../public/rewrite/app.js',import.meta.url),'utf8');
 const csv=values=>'Title,,,,\r\nSection,Field,Value,Notes,Key\r\n'+Object.entries({...defaults,...values}).map(([key,value])=>['Test',key,String(value),'',key].map(v=>'"'+v.replaceAll('"','""')+'"').join(',')).join('\r\n');
 function page(html){return parseHTML(html).document;}
@@ -118,7 +119,7 @@ test('direct refreshes bypass browser cache and retain current content on networ
 });
 
 test('an unavailable sheet fails the build without replacing the published snapshot',async()=>{
- const file=new URL('../_site/rewrite/index.html',import.meta.url),before=await readFile(file);
+ const file=siteFixture('index.html'),before=await readFile(file);
  const result=spawnSync(process.execPath,['--import',fileURLToPath(new URL('./offline-fetch.mjs',import.meta.url)),'scripts/build.mjs'],{cwd:fileURLToPath(new URL('../',import.meta.url)),env:{...process.env,SKIP_LIVE_CONTENT:''},encoding:'utf8',timeout:15000});
  assert.notEqual(result.status,0);assert.match(result.stderr,/keeping the previously published site/);assert.deepEqual(await readFile(file),before);
 });

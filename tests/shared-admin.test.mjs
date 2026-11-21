@@ -8,8 +8,9 @@ import {assignAdminIdentity} from '../source/lib/admin-identity.mjs';
 import {startLiveContent} from '../source/client/live-content.mjs';
 import fields from '../source/content/editor-fields.json' with {type:'json'};
 import {createContentReader} from '../source/lib/content-values.mjs';
+import {siteFixture} from './site-fixtures.mjs';
 const {defaults}=createContentReader(fields);
-const page=async name=>parseHTML(await readFile(new URL('../_site/rewrite/'+name,import.meta.url),'utf8')).document;
+const page=async name=>parseHTML(await readFile(siteFixture(name),'utf8')).document;
 const edits={pages:{},shared:{},values:{kits:23456,kit_price:7,underfunded_percent:.81,budget_gap_millions:412,email:'team@example.org',address:'New mailing address',donation_url:'https://donorbox.org/new-campaign'}};
 
 test('one shared edit updates homepage, impact, founding, giving and footer values with working donation links',async()=>{

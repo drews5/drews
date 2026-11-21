@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import vm from 'node:vm';
 import {parseHTML} from 'linkedom';
-const load=async path=>parseHTML(await readFile(new URL('../_site/rewrite/'+path,import.meta.url),'utf8')).document;
+import {siteFixture} from './site-fixtures.mjs';
+const load=async path=>parseHTML(await readFile(siteFixture(path),'utf8')).document;
 
 test('homepage FAQ follows the three calls to action and its schema remains readable',async()=>{
  const doc=await load('index.html'),sections=[...doc.querySelector('main').children];

@@ -5,6 +5,7 @@ import vm from 'node:vm';
 import {parseHTML} from 'linkedom';
 import {openSiteEditor,applyEdits} from '../public/rewrite/admin-runtime.js';
 import {sharedFields,parseSharedValue,sharedBinding,contentState} from '../public/rewrite/shared-content.js';
+import {siteFixture} from './site-fixtures.mjs';
 
 test('main site editor stays in a dialog, protects unsaved changes, and refreshes after publishing',()=>{
  const {document,window}=parseHTML('<html data-public-site-origin="https://www.therewriteitproject.org"><body><button id="previous">Page</button></body></html>');
@@ -29,7 +30,8 @@ test('main site editor stays in a dialog, protects unsaved changes, and refreshe
 
 for(const artifact of ['source','bundle'])test(artifact+': embedded editor works without browser storage and edits production pages while keeping private requests on its service',async()=>{
  const html=await readFile(new URL('../public/rewrite/admin/index.html',import.meta.url),'utf8');
- const script=(await readFile(new URL(artifact==='bundle'?'../_site/rewrite/admin/editor.js':'../public/rewrite/admin/editor.js',import.meta.url),'utf8')).replace(/^import .*;\n/gm,'');
+ const editorFile=artifact==='bundle'?siteFixture('admin/editor.js'):new URL('../public/rewrite/admin/editor.js',import.meta.url);
+ const script=(await readFile(editorFile,'utf8')).replace(/^import .*;\n/gm,'');
  if(artifact==='bundle')assert.doesNotMatch(script,/^\s*import\s/m);
  const {document,window}=parseHTML(html),messages=[],calls=[];
  window.parent={postMessage:(message,origin)=>messages.push({message,origin})};
