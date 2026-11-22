@@ -28,6 +28,20 @@ test('main site editor stays in a dialog, protects unsaved changes, and refreshe
  assert.equal(returnedFocus,true);assert.equal(events.size,0);assert.equal(cleaned,'https://www.therewriteitproject.org/');
 });
 
+test('refreshing published content leaves a mounted editor iframe on its current page',()=>{
+ const {document}=parseHTML('<html data-public-site-origin="https://www.therewriteitproject.org"><body><a href="/rewrite/team/">Team</a><iframe src="https://editor.example/rewrite/admin/?embedded=1"></iframe></body></html>');
+ const frame=document.querySelector('iframe');
+ const setAttribute=frame.setAttribute.bind(frame);
+ let sourceWrites=0;
+ frame.setAttribute=(name,value)=>{
+  if(name==='src')sourceWrites++;
+  setAttribute(name,value);
+ };
+ applyEdits(document,{pages:{},shared:{},values:{}},'/');
+ assert.equal(document.querySelector('a').getAttribute('href'),'/team/');
+ assert.equal(sourceWrites,0,'Assigning the same src reloads an iframe in browsers');
+});
+
 for(const artifact of ['source','bundle'])test(artifact+': embedded editor works without browser storage and edits production pages while keeping private requests on its service',async()=>{
  const html=await readFile(new URL('../public/rewrite/admin/index.html',import.meta.url),'utf8');
  const editorFile=artifact==='bundle'?siteFixture('admin/editor.js'):new URL('../public/rewrite/admin/editor.js',import.meta.url);

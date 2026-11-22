@@ -11,8 +11,13 @@ export function projectPublishedUrls(doc){
   return value;
  };
  for(const el of doc.querySelectorAll('[href],[src],[action],[poster],[srcset]')){
-  for(const key of ['href','src','action','poster'])if(el.hasAttribute(key))el.setAttribute(key,project(el.getAttribute(key)));
-  if(el.hasAttribute('srcset'))el.setAttribute('srcset',el.getAttribute('srcset').split(',').map(part=>part.replace(/^(\s*)(\S+)/,(all,space,value)=>space+project(value))).join(','));
+  for(const key of ['href','src','action','poster','srcset']){
+   const current=el.getAttribute(key);
+   if(current===null)continue;
+   const projected=key==='srcset'?current.split(',').map(part=>part.replace(/^(\s*)(\S+)/,(all,space,value)=>space+project(value))).join(','):project(current);
+   // Assigning the same iframe src still reloads the open editor.
+   if(projected!==current)el.setAttribute(key,projected);
+  }
  }
 }
 export function applyEdits(doc,document,route){
