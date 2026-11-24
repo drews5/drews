@@ -1,3 +1,4 @@
+import {applyTeamRoster} from './team-roster.js';
 import {applyLiveContent} from './content-engine.js';
 import {contentState,sharedBinding} from './shared-content.js';
 export function projectPublishedUrls(doc){
@@ -43,6 +44,7 @@ export function applyEdits(doc,document,route){
   for(const old of doc.querySelectorAll('[data-admin-added="'+id+'"]'))old.remove();
   let after=el;for(const image of op.additions||[]){const img=doc.createElement('img');img.src=image.src;img.alt=image.alt;img.setAttribute('data-admin-added',id);img.style.cssText='display:block;max-width:100%;height:auto;margin:20px auto';after.after(img);after=img;}
  }
+ if(route==='/team'){applyTeamRoster(doc,document.teamRoster);if(doc.defaultView)doc.dispatchEvent(new doc.defaultView.Event('team-roster-updated'));}
  projectPublishedUrls(doc);
 }
 // The editor stays inside the public site; private requests stay on its existing service.

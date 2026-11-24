@@ -83,10 +83,14 @@ const normalizeDirectory=text=>String(text).normalize('NFKD').replace(/[\u0300-\
 const matchesDirectory=(text,query)=>normalizeDirectory(query).split(/\s+/).every(word=>normalizeDirectory(text).includes(word));
 const teamSearch=$('#team-search'),teamFilter=$('#team-filter');function filterTeam(){if(!teamSearch||!teamFilter)return;const q=teamSearch.value.trim().toLowerCase(),f=teamFilter.value;let count=0;$$('.full-team-grid .person-card').forEach(card=>{const text=card.dataset.name+' '+card.dataset.role;const group=f==='all'||(f==='board'?card.dataset.group.includes('board'):card.dataset.role.includes(f));const show=matchesDirectory(text,q)&&group;card.hidden=!show;if(show)count++;});$('#team-results').textContent=count+' team member'+(count===1?'':'s');$('.no-results').hidden=count>0;}
 teamSearch?.addEventListener('input',filterTeam);teamFilter?.addEventListener('change',filterTeam);
+if(teamFilter)document.addEventListener('team-roster-updated',filterTeam);
 if(teamFilter){const f=params.get('team');if([...teamFilter.options].some(o=>o.value===f)){teamFilter.value=f;filterTeam();$('#full-team').open=true;}if(location.hash==='#full-team')$('#full-team').open=true;}
-$$('[data-open-dialog]').forEach(button=>button.addEventListener('click',()=>{const dialog=$('#'+button.dataset.openDialog);if(dialog&&!dialog.open)dialog.showModal();}));
-$$('dialog [data-close]').forEach(button=>button.addEventListener('click',()=>button.closest('dialog').close()));
-$$('dialog').forEach(dialog=>dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}}));
+document.addEventListener('click',e=>{
+ const button=e.target.closest('[data-open-dialog]');
+ if(button){const dialog=document.getElementById(button.dataset.openDialog);if(dialog&&!dialog.open)dialog.showModal();}
+ const close=e.target.closest('dialog [data-close]');if(close)close.closest('dialog').close();
+ if(e.target.matches('dialog[open]')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close();}
+});
 const viewer=$('#photo-viewer'),gallery=$$('[data-lightbox]');let photoIndex=0;
 function showPhoto(index){if(!viewer||!gallery.length)return;photoIndex=(index+gallery.length)%gallery.length;const link=gallery[photoIndex];$('#viewer-image').src=link.href;$('#viewer-image').alt=$('img',link)?.alt||link.dataset.caption;$('#viewer-caption').textContent=link.dataset.caption+' · '+(photoIndex+1)+' / '+gallery.length;}
 gallery.forEach((link,i)=>link.addEventListener('click',e=>{if(e.ctrlKey||e.metaKey||e.shiftKey)return;e.preventDefault();showPhoto(i);viewer.showModal();}));

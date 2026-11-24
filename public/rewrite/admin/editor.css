@@ -19,3 +19,20 @@
 
 /* The main site supplies the editor title and close control. */
 .embedded-editor>header{padding-top:10px;padding-bottom:10px}.embedded-editor>header>a,.embedded-editor>header>span{display:none}.embedded-editor>header:has(#logout[hidden]){display:none}.embedded-editor>header{justify-content:flex-end}
+
+#team-manager{box-sizing:border-box;width:min(680px,calc(100% - 24px));max-height:calc(100% - 24px);padding:20px;border:1px solid #ccd5e1;border-radius:14px;color:#103a71;background:#fff;overscroll-behavior:contain}
+#team-manager::backdrop{background:#061c3999}
+.team-manager-heading,.team-manager-tools,.team-manager-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.team-manager-heading h2{margin:0;font:28px Alice,Georgia,serif}
+.team-manager-tools{margin:14px 0;align-items:end}
+#team-manager button{min-height:44px}
+#team-manager label{display:grid;gap:5px}
+#team-manager select{font:inherit;color:inherit;border:1px solid #ccd5e1;border-radius:8px;padding:9px;background:white;max-width:100%}
+#team-person-list{list-style:none;padding:0;margin:0}
+#team-person-list li{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:10px 0;border-top:1px solid #e0e6ed}
+#team-person-list strong,#team-person-list small{display:block;overflow-wrap:anywhere}
+#team-person-list small{font-size:14px}
+.team-row-actions{display:flex;gap:6px;flex-wrap:wrap}
+.team-row-actions button{padding:7px 10px}
+#team-person-form label{margin:12px 0}
+#team-photo-help,#team-manager-status{font-size:14px;margin:8px 0}

@@ -24,7 +24,7 @@ test('mobile content selection opens reachable controls, edits text and saves be
   else return {ok:true,text:async()=>frame.documentElement.outerHTML};
   return {ok:true,json:async()=>value};
  };
- const context=vm.createContext({document,window,location:{origin:'https://admin.example',search:''},sessionStorage:{getItem:()=> 'test-session',setItem(){},removeItem(){}},matchMedia:()=>({matches:true}),fetch,initializeSuggestions:options=>initializeSuggestions({...options,doc:document,fetcher:fetch}),applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,AbortSignal,DOMParser:window.DOMParser,confirm:()=>true,console});
+ const context=vm.createContext({document,window,location:{origin:'https://admin.example',search:''},sessionStorage:{getItem:()=> 'test-session',setItem(){},removeItem(){}},matchMedia:()=>({matches:true}),fetch,initializeTeamManager:()=>{},initializeSuggestions:options=>initializeSuggestions({...options,doc:document,fetcher:fetch}),applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,AbortSignal,DOMParser:window.DOMParser,confirm:()=>true,console});
  const editor=await new vm.Script('(async()=>{'+script+';return {openPage};})()').runInContext(context);
  await editor.openPage({route:'/',title:'Home'});preview.dispatchEvent(new window.Event('load'));
  assert.equal(document.querySelector('#canvas').hidden,true);assert.equal(document.querySelector('#content-list').hidden,false);
@@ -56,7 +56,7 @@ test('the public entry opens the direct editor and login sends no stale authoriz
    else return {ok:true,text:async()=>'<html><body></body></html>'};
    return {ok:true,json:async()=>data};
   };
-  const context=vm.createContext({document,window,location:{origin,search:'?v=login3',replace:url=>redirects.push(url)},sessionStorage:{getItem:()=>'',setItem(){},removeItem(){}},matchMedia:()=>({matches:true}),fetch,initializeSuggestions:()=>{},applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,AbortSignal,DOMParser:window.DOMParser,confirm:()=>true,console});
+  const context=vm.createContext({document,window,location:{origin,search:'?v=login3',replace:url=>redirects.push(url)},sessionStorage:{getItem:()=>'',setItem(){},removeItem(){}},matchMedia:()=>({matches:true}),fetch,initializeTeamManager:()=>{},initializeSuggestions:()=>{},applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,AbortSignal,DOMParser:window.DOMParser,confirm:()=>true,console});
   await new vm.Script('(async()=>{'+script+'})()').runInContext(context);return {document,calls,redirects};
  }
  const entry=await setup('https://drews.click');assert.deepEqual(entry.redirects,['https://drews.click/rewrite/?edit=1']);assert.equal(entry.calls.length,1);

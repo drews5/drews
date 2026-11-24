@@ -9,7 +9,7 @@ test('admin authenticates on the server, keeps drafts private, publishes explici
  const call=(path,method='GET',body,token='',revision)=>service.fetch(new Request('https://admin.example'+path,{method,headers:{Origin:'https://drews.click','Content-Type':'application/json',Authorization:'Bearer '+token,...(revision===undefined?{}:{'If-Match':String(revision)})},body:body===undefined?undefined:JSON.stringify(body)}));
  assert.equal((await call('/draft')).status,401);assert.equal((await call('/login','POST',{password:'wrong'})).status,401);
  const {token}=await (await call('/login','POST',{password})).json();assert.equal(token.length,72);
- const document={pages:{'/':{'1234567890abcdef':{tag:'H1',key:'1111111111111111',text:'A team edit'}}},shared:{},values:{kits:23456,kit_price:7}};
+ const document={pages:{'/':{'1234567890abcdef':{tag:'H1',key:'1111111111111111',text:'A team edit'}}},shared:{},values:{kits:23456,kit_price:7},teamRoster:{records:{'2222222222222222':{added:true,name:'New person',role:'Volunteer',section:'full'}},removed:['3333333333333333'],order:{full:['2222222222222222']}}};
  assert.equal((await call('/draft','PUT',document,token,0)).status,200);
  assert.deepEqual((await (await call('/published')).json()).document.pages,{});
  assert.equal((await call('/draft','PUT',document,token,0)).status,409);
@@ -19,6 +19,7 @@ test('admin authenticates on the server, keeps drafts private, publishes explici
  assert.equal((await call('/publish','POST',undefined,token,1)).status,200);
  assert.equal((await (await call('/published')).json()).document.pages['/']['1234567890abcdef'].text,'A team edit');
  assert.equal((await (await call('/published')).json()).document.values.kits,23456);
+ assert.deepEqual((await (await call('/published')).json()).document.teamRoster,document.teamRoster);
  const image=new Uint8Array(150000).fill(42);const uploaded=await service.fetch(new Request('https://admin.example/upload',{method:'POST',headers:{Origin:'https://drews.click',Authorization:'Bearer '+token,'Content-Type':'image/webp'},body:image}));assert.equal(uploaded.status,200);const imageUrl=(await uploaded.json()).src;const restored=await service.fetch(new Request(imageUrl));assert.deepEqual(new Uint8Array(await restored.arrayBuffer()),image);
  await call('/logout','POST',undefined,token);assert.equal((await call('/draft','GET',undefined,token)).status,401);
 });

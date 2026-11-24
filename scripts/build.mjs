@@ -46,7 +46,8 @@ const imageVersion=createHash('sha256').update(await readFile(join(root,'public/
 const engineCode=(await readFile(join(root,'public/rewrite/content-engine.js'),'utf8')).replace("'./sheet-images.js'","'./sheet-images.js?v="+imageVersion+"'");
 const engineVersion=createHash('sha256').update(engineCode).digest('hex').slice(0,10);
 await writeFile(join(out,'rewrite/content-engine.js'),engineCode);
-const runtimeCode=(await readFile(join(root,'public/rewrite/admin-runtime.js'),'utf8')).replace("'./content-engine.js'","'./content-engine.js?v="+engineVersion+"'");
+const rosterVersion=createHash('sha256').update(await readFile(join(root,'public/rewrite/team-roster.js'))).digest('hex').slice(0,10);
+const runtimeCode=(await readFile(join(root,'public/rewrite/admin-runtime.js'),'utf8')).replace("'./content-engine.js'","'./content-engine.js?v="+engineVersion+"'").replace("'./team-roster.js'","'./team-roster.js?v="+rosterVersion+"'");
 const runtimeVersion=createHash('sha256').update(runtimeCode).digest('hex').slice(0,10);
 await writeFile(join(out,'rewrite/admin-runtime.js'),runtimeCode);
 const readerCode=(await readFile(join(root,'source/lib/content-values.mjs'),'utf8')).replace(/^export /gm,'');
