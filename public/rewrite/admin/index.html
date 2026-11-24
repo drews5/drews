@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Website editor | The Re-Write It Project</title><link rel="stylesheet" href="/rewrite/admin/editor.css?v=roster2"><script type="module" src="/rewrite/admin/editor.js?v=roster2"></script></head><body>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Website editor | The Re-Write It Project</title><link rel="stylesheet" href="/rewrite/admin/editor.css?v=roster3"><script type="module" src="/rewrite/admin/editor.js?v=roster3"></script></head><body>
 <header><a href="https://drews.click/rewrite/">The Re-Write It Project</a><span>Website editor</span><button id="logout" hidden>Sign out</button></header>
 <div id="suggestion-banner" class="suggestion-banner" hidden><p>Want more detailed edits?</p><button id="suggest-open" type="button" aria-haspopup="dialog" aria-controls="suggestion-dialog">Suggest</button></div>
 <main id="login"><div class="login-card"><h1>Website editor</h1><form id="login-form"><label>Password<input type="password" autocomplete="current-password" id="password" required></label><button class="primary">Sign in</button></form><p id="login-status" role="status"></p></div></main>
@@ -8,7 +8,7 @@
 <dialog id="team-manager" aria-labelledby="team-manager-title">
  <div class="team-manager-heading"><h2 id="team-manager-title">Manage team</h2><button type="button" id="team-done">Done</button></div>
  <div id="team-list-view">
-  <div class="team-manager-tools"><label>Section<select id="team-section"><option value="full">The full team</option><option value="leadership">Executive leadership</option><option value="board">Board of directors</option></select></label><button type="button" id="team-add" class="primary">Add person</button></div>
+  <div class="team-manager-tools"><label>Section<select id="team-section"><option value="full">The full team</option><option value="board">Board of directors</option><option value="leadership">Executive leadership</option></select></label><button type="button" id="team-add" class="primary">Add person</button></div>
   <ol id="team-person-list"></ol>
  </div>
  <form id="team-person-form" hidden>
@@ -19,7 +19,7 @@
   <label>Bio (optional)<textarea id="team-person-bio" maxlength="8000" rows="5"></textarea></label>
   <label>Headshot<input id="team-person-photo" type="file" accept="image/*"></label>
   <p id="team-photo-help"></p>
-  <label id="team-placement">Also show in<select id="team-person-section"><option value="full">The full team only</option><option value="leadership">Executive leadership</option><option value="board">Board of directors</option></select></label>
+  <label id="team-placement">Also show in<select id="team-person-section"><option value="full">The full team only</option><option value="board">Board of directors</option><option value="leadership">Executive leadership</option></select></label>
   <div class="team-manager-actions"><button type="button" id="team-cancel">Cancel</button><button type="submit" class="primary" id="team-apply">Add person</button></div>
  </form>
  <p id="team-manager-status" role="status"></p>

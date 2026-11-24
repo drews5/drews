@@ -82,3 +82,16 @@ test('a reused leadership card opens its own name and photo without borrowing th
  assert.equal(readProfile(reloaded,featuredId).bio,'Director bio');
  assert.deepEqual(readProfile(reloaded,id),original);
 });
+
+test('the Board appears before Executive Leadership without changing saved editor identities',async()=>{
+ const doc=parseHTML(await source()).document;
+ const groups=[...doc.querySelectorAll('.team-accordions > details')];
+ assert.ok(groups[0].querySelector('.board-grid'));
+ assert.ok(groups[1].querySelector('.leadership-grid'));
+ const card=groups[1].querySelector('.person-card');
+ const identity=[card.dataset.adminId,card.dataset.adminKey];
+ groups[0].before(groups[1]); // Reconstruct the pre-change order.
+ const {assignAdminIdentity}=await import('../source/lib/admin-identity.mjs');
+ assignAdminIdentity(doc,'/team');
+ assert.deepEqual([card.dataset.adminId,card.dataset.adminKey],identity);
+});

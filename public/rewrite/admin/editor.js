@@ -1,3 +1,4 @@
+import {preparePhoto} from './photo-upload.js';
 import {initializeTeamManager} from './team-manager.js';
 import {initializeSuggestions} from './suggestions.js?v=suggest2';
 import {applyEdits} from '../admin-runtime.js';
@@ -39,7 +40,11 @@ $('#revert').onclick=()=>{checkpoint();for(const [id,op] of Object.entries(scope
 $('#remove-image').onclick=()=>{checkpoint();operation().hidden=true;redraw();};
 $('#undo').onclick=()=>{if(!history.length)return;future.push(JSON.stringify(content));content=JSON.parse(history.pop());dirty=true;notifyParent();redraw();renderSettings();status('Undone');};
 $('#redo').onclick=()=>{if(!future.length)return;history.push(JSON.stringify(content));content=JSON.parse(future.pop());dirty=true;notifyParent();redraw();renderSettings();status('Redone');};
-async function upload(file){if(!file)return null;if(!file.type.startsWith('image/')||file.type==='image/svg+xml')throw Error('Choose a photo from your library');if(file.size>20000000)throw Error('Choose a photo smaller than 20 MB');let bitmap;try{bitmap=await createImageBitmap(file);}catch{const url=URL.createObjectURL(file);try{bitmap=await new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>reject(Error('This photo format is not supported. Choose a JPEG or PNG.'));image.src=url;});}finally{URL.revokeObjectURL(url);}}const ratio=Math.min(1,2000/Math.max(bitmap.width,bitmap.height)),canvas=document.createElement('canvas');canvas.width=Math.round(bitmap.width*ratio);canvas.height=Math.round(bitmap.height*ratio);canvas.getContext('2d').drawImage(bitmap,0,0,canvas.width,canvas.height);bitmap.close?.();const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/webp',.84));if(!blob||blob.size>3000000)throw Error('This image could not be compressed below 3 MB');return (await request('/upload',{method:'POST',headers:{'Content-Type':blob.type},body:blob})).src;}
+async function upload(file){
+ if(!file)return null;
+ const blob=await preparePhoto(file);
+ return (await request('/upload',{method:'POST',headers:{'Content-Type':blob.type},body:blob})).src;
+}
 for(const id of ['replace','add'])$('#'+id).onchange=async()=>{const input=$('#'+id),target=selected;input.disabled=true;try{status('Optimizing and uploading photo…');const src=await upload(input.files[0]);if(!src){status('');return;}if(selected!==target)throw Error('Select the original element before adding this photo');checkpoint();if(id==='replace'){operation().src=src;operation().alt=$('#alt').value;}else{(operation().additions||=[]).push({src,alt:prompt('Describe this image for visitors using a screen reader:')||''});}redraw();status('Image added. Unsaved changes.');}catch(e){status(e.message,true);}finally{input.disabled=false;input.value='';}};
 async function saveDraft(){const buttons=[$('#save'),$('#save-settings')];buttons.forEach(b=>b.disabled=true);try{const data=await request('/draft',{method:'PUT',headers:{'Content-Type':'application/json','If-Match':String(revision)},body:JSON.stringify(content)});revision=data.revision;dirty=false;notifyParent();status('Saved');return true;}catch(e){status(e.message,true);return false;}finally{buttons.forEach(b=>b.disabled=false);}}
 $('#save').onclick=saveDraft;$('#save-settings').onclick=saveDraft;
