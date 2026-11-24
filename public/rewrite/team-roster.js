@@ -25,7 +25,7 @@ export function readRoster(raw){
 }
 
 export function readProfile(doc,id){
- const card=doc.querySelector('.full-team-grid [data-team-member="'+id+'"]'),dialog=doc.querySelector('dialog[data-team-member="'+id+'"]');
+ const card=doc.querySelector('.full-team-grid [data-team-member="'+id+'"]')||doc.querySelector('.person-card[data-team-member="'+id+'"]'),dialog=doc.querySelector('dialog[data-team-member="'+id+'"]');
  if(!card||!dialog)return null;
  const read=(node,selector)=>node.querySelector(selector)?.textContent.trim()||'';
  const role=read(card,'.person-role'),bioRole=read(dialog,'.person-role');
@@ -50,6 +50,39 @@ function makeProfile(doc,id,profile,grids){
  }
 }
 
+// Old page edits could reuse a featured card for another person without also
+// replacing its shared directory profile. Give those cards their own profile.
+function splitLegacyCards(doc,fullGrid){
+ const directory=new Map([...fullGrid.querySelectorAll('.person-card[data-team-member]')].map(card=>[card.dataset.teamMember,card]));
+ const nameOf=node=>node?.querySelector('h2,h3')?.textContent.trim()||'';
+ const normalized=name=>name.normalize('NFKC').replace(/\s+/g,' ').toLowerCase();
+ for(const card of doc.querySelectorAll('.leadership-grid .person-card[data-team-member],.board-grid .person-card[data-team-member]')){
+  const oldId=card.dataset.teamMember,original=directory.get(oldId),id=card.dataset.adminKey||card.dataset.adminId;
+  const name=nameOf(card);
+  if(!original||!id||!keyPattern.test(id)||!name||normalized(name)===normalized(nameOf(original)))continue;
+  const oldBio=doc.querySelector('dialog[data-team-member="'+oldId+'"]');
+  if(!oldBio)continue;
+  const sameBio=normalized(nameOf(oldBio))===normalized(name);
+  const bio=oldBio.cloneNode(true),bioId='person-featured-'+id;
+  bio.id=bioId;bio.dataset.teamMember=id;bio.removeAttribute('open');bio.removeAttribute('hidden');
+  for(const node of [bio,...bio.querySelectorAll('[data-admin-id],[data-admin-key]')]){
+   node.removeAttribute('data-admin-id');node.removeAttribute('data-admin-key');
+  }
+  const title=bio.querySelector('h2');title.id=bioId+'-title';title.textContent=name;
+  bio.setAttribute('aria-labelledby',title.id);
+  if(!sameBio){
+   bio.querySelector('.person-role').textContent=card.querySelector('.person-role').textContent;
+   bio.querySelector('[data-team-bio]').textContent='';
+   bio.querySelector('.button')?.remove();
+   const photo=card.querySelector('img')?.cloneNode(false);
+   if(photo){photo.removeAttribute('data-admin-id');photo.removeAttribute('data-admin-key');photo.alt=name;bio.querySelector('img')?.replaceWith(photo);}
+  }
+  doc.querySelector('main').append(bio);
+  card.dataset.teamMember=id;
+  for(const button of card.querySelectorAll('[data-open-dialog]'))button.dataset.openDialog=bioId;
+ }
+}
+
 function updatePhoto(node,src,name){
  if(!node)return;
  if(src&&node.getAttribute('src')!==src){node.setAttribute('src',src);node.removeAttribute('srcset');node.removeAttribute('sizes');node.removeAttribute('width');node.removeAttribute('height');}
@@ -59,6 +92,7 @@ function updatePhoto(node,src,name){
 export function applyTeamRoster(doc,raw){
  const grids=new Map(rosterSections.map(([key,selector])=>[key,doc.querySelector(selector)]).filter(([,grid])=>grid));
  if(!grids.get('full')||!doc.querySelector('[data-team-member]')&&!raw)return;
+ splitLegacyCards(doc,grids.get('full'));
  let state=cached.get(doc);
  if(!state){state={members:new Map(),last:''};cached.set(doc,state);}
  const roster=readRoster(raw),signature=JSON.stringify(roster);
@@ -89,7 +123,7 @@ export function applyTeamRoster(doc,raw){
  }
  for(const [id,parts] of state.members){
   const profile=roster.records[id]||{};
-  const card=parts.nodes.find(([container,node])=>container===grids.get('full')&&node.matches('.person-card'))?.[1];
+  const card=parts.nodes.find(([container,node])=>container===grids.get('full')&&node.matches('.person-card'))?.[1]||parts.nodes.find(([,node])=>node.matches('.person-card'))?.[1];
   const dialog=parts.nodes.find(([,node])=>node.matches('dialog'))?.[1];
   const existingPronouns=dialog?.querySelector('.person-role')?.textContent.split(' · ').slice(1).join(' · ')||'';
   const role=profile.role??card?.querySelector('.person-role')?.textContent??'';

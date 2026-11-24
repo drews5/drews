@@ -58,3 +58,27 @@ test('Manage team adds an uploaded photo, moves the new profile, edits it, and r
  assert.equal(readProfile(getPage(),first),null);
  $('team-done').onclick();assert.equal(refreshed,true);
 });
+
+test('a reused leadership card opens its own name and photo without borrowing the old biography',async()=>{
+ const raw=await source(),doc=parseHTML(raw).document;
+ const featured=cards(doc,'.leadership-grid')[0],id=featured.dataset.teamMember;
+ const original=readProfile(doc,id);
+ const [heading,photo]=[featured.querySelector('h3'),featured.querySelector('img')];
+ const edits={pages:{'/team':{
+  [heading.dataset.adminId]:{key:heading.dataset.adminKey,text:'New executive director'},
+  [photo.dataset.adminId]:{key:photo.dataset.adminKey,src:'https://images.example/director.webp'}
+ }},shared:{}};
+ applyEdits(doc,edits,'/team');applyEdits(doc,edits,'/team');
+ const featuredId=featured.dataset.teamMember;
+ assert.notEqual(featuredId,id);
+ assert.equal(readProfile(doc,featuredId).name,'New executive director');
+ assert.equal(readProfile(doc,featuredId).photo,'https://images.example/director.webp');
+ assert.equal(readProfile(doc,featuredId).bio,'');
+ assert.deepEqual(readProfile(doc,id),original);
+ assert.equal(doc.querySelectorAll('dialog[data-team-member="'+featuredId+'"]').length,1);
+ const reloaded=parseHTML(doc.documentElement.outerHTML).document;
+ applyEdits(reloaded,{...edits,teamRoster:{records:{[featuredId]:{name:'Updated director',bio:'Director bio'}}}},'/team');
+ assert.equal(readProfile(reloaded,featuredId).name,'Updated director');
+ assert.equal(readProfile(reloaded,featuredId).bio,'Director bio');
+ assert.deepEqual(readProfile(reloaded,id),original);
+});
