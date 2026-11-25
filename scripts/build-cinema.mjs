@@ -40,7 +40,12 @@ try{
  const qrSource=await readFile(qrControls,'utf8');
  const manualLine='manualText.innerText = manualUrl && (displayCode || code) ? I18n.t("auth.qr.manualInstruction", { url: manualUrl }) : "";';
  if(!qrSource.includes(manualLine))throw Error('Upstream QR instructions changed');
- await writeFile(qrControls,qrSource.replace(manualLine,`${manualLine}
+ const expiryLabel='expiryNode.innerText = I18n.t("auth.qr.expires", {\n            duration: formatDuration(remaining)\n          });';
+ if(!qrSource.includes(expiryLabel))throw Error('Upstream QR countdown changed');
+ const qrWithCountdown=qrSource
+  .replace(expiryLabel,'expiryNode.textContent = "Expires in " + formatDuration(remaining);')
+  .replace('if (remaining <= 0) {\n          this.setStatus', 'if (remaining <= 0) {\n          this.clearQr();\n          this.setStatus');
+ await writeFile(qrControls,qrWithCountdown.replace(manualLine,`${manualLine}
         if (location.protocol === "https:" && /^https:\\/\\//i.test(content)) {
           const link = document.createElement("a");
           link.className = "cinema-pair-link";
