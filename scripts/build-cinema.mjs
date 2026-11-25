@@ -51,7 +51,9 @@ try{
  await cp(dist,staging,{recursive:true});
  await cp(join(source,'LICENSE'),join(staging,'LICENSE'));
  // Distribute the complete corresponding upstream source alongside the application.
- run('git',['add','-f','index.html','js/app.js','assets/cinema-mobile.css'],source);
+ await mkdir(join(source,'cinema-downstream'),{recursive:true});
+ for(const name of ['build-cinema.mjs','cinema-live.js'])await cp(join(root,'scripts',name),join(source,'cinema-downstream',name));
+ run('git',['add','-f','index.html','js/app.js','assets/cinema-mobile.css','cinema-downstream'],source);
  const sourceTree=execFileSync('git',['write-tree'],{cwd:source,encoding:'utf8'}).trim();
  run('git',['archive','--format=zip','--output='+join(staging,'source.zip'),sourceTree],source);
  const cssHash=createHash('sha256').update(await readFile(join(staging,'assets','cinema-mobile.css'))).digest('hex').slice(0,16);
