@@ -1,0 +1,50 @@
+name: Publish Cinema
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/build-cinema.mjs'
+      - 'scripts/cinema-*'
+      - '.github/workflows/cinema.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: cinema-cloudflare
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CINEMA_OUTPUT: ${{ github.workspace }}/cinema-dist
+      CINEMA_CORE_CACHE: ${{ github.workspace }}/.cinema-core-cache
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Restore compiled Nuvio core
+        uses: actions/cache@v4
+        with:
+          path: .cinema-core-cache
+          key: cinema-core-v1-${{ runner.os }}-${{ hashFiles('scripts/build-cinema.mjs') }}
+      - name: Build Cinema only
+        run: node scripts/build-cinema.mjs
+      - name: Prepare Cloudflare assets
+        run: node scripts/cinema-cloudflare.mjs
+      - name: Publish
+        if: env.CLOUDFLARE_API_TOKEN != '' && env.CLOUDFLARE_ACCOUNT_ID != ''
+        run: npx --yes wrangler@4 pages deploy cinema-dist --project-name=cinema --branch=main
+      - name: Cloudflare connection required
+        if: env.CLOUDFLARE_API_TOKEN == '' || env.CLOUDFLARE_ACCOUNT_ID == ''
+        run: |
+          echo "::notice::Cinema built; add Cloudflare account ID and Pages API token as GitHub Actions secrets to publish."
+      - uses: actions/upload-artifact@v4
+        if: env.CLOUDFLARE_API_TOKEN == '' || env.CLOUDFLARE_ACCOUNT_ID == ''
+        with:
+          name: cinema-preview
+          path: cinema-dist
+          retention-days: 3
