@@ -18,6 +18,18 @@ try{
  run('git',['checkout','--detach','FETCH_HEAD'],source);
  const checked=execFileSync('git',['rev-parse','HEAD'],{cwd:source,encoding:'utf8'}).trim();
  if(checked!==revision)throw Error('Upstream revision mismatch');
+ // Patch the upstream source, not the generated files, so updates are reproducible.
+ const indexFile=join(source,'index.html');
+ const index=await readFile(indexFile,'utf8');
+ const viewport='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+ if(!index.includes(viewport))throw Error('Upstream viewport changed');
+ await cp(join(root,'scripts','cinema-mobile.css'),join(source,'assets','cinema-mobile.css'));
+ await writeFile(indexFile,index.replace(viewport,'width=device-width, initial-scale=1.0').replace('</head>','<link rel="stylesheet" href="assets/cinema-mobile.css?v=2"></head>'));
+ const appFile=join(source,'js','app.js');
+ const app=await readFile(appFile,'utf8');
+ const updateStart='async function checkForAppUpdateOnStartup() {';
+ if(!app.includes(updateStart))throw Error('Upstream update hook changed');
+ await writeFile(appFile,app.replace(updateStart,updateStart+'\n  // Hosted browser builds update on deployment; a TV installer is not applicable.\n  if (!Platform.isTizen() && !Platform.isWebOS()) return;'));
  run('npm',['ci','--ignore-scripts','--no-audit','--no-fund'],source);
  run('npm',['run','build'],source);
  const dist=join(source,'dist');
@@ -26,9 +38,11 @@ try{
  await cp(dist,staging,{recursive:true});
  await cp(join(source,'LICENSE'),join(staging,'LICENSE'));
  // Distribute the complete corresponding upstream source alongside the application.
- run('git',['archive','--format=zip','--output='+join(staging,'source.zip'),'HEAD'],source);
+ run('git',['add','-f','index.html','js/app.js','assets/cinema-mobile.css'],source);
+ const sourceTree=execFileSync('git',['write-tree'],{cwd:source,encoding:'utf8'}).trim();
+ run('git',['archive','--format=zip','--output='+join(staging,'source.zip'),sourceTree],source);
  const html=await readFile(join(staging,'index.html'),'utf8');
- await writeFile(join(staging,'index.html'),html.replace('</head>','<meta name="robots" content="noindex,nofollow"><link rel="license" href="LICENSE"><link rel="author" href="about.html"></head>'));
+ await writeFile(join(staging,'index.html'),html.replace(/app\.bundle\.js\?v=[^"']+/g,'app.bundle.js?v=cinema-mobile-2').replace('</head>','<meta name="robots" content="noindex,nofollow"><link rel="license" href="LICENSE"><link rel="author" href="about.html"></head>'));
  await writeFile(join(staging,'about.html'),'<meta charset="utf-8"><title>About Cinema</title><h1>Cinema — Nuvio Web</h1><p>Unofficial downstream build of Nuvio Web, based on NuvioMedia/NuvioTVSmart. Nuvio and its contributors retain their copyrights. GPL v3.</p><p><a href="'+sourceUrl+'">Pinned upstream source</a> · <a href="source.zip">Corresponding source archive</a> · <a href="LICENSE">License</a> · <a href="./">Open Cinema</a></p><p>Browser playback only; use media you are authorized to access.</p>');
  await rm(target,{recursive:true,force:true});
  await rename(staging,target);
