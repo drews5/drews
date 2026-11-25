@@ -19,31 +19,44 @@ jobs:
     env:
       CINEMA_OUTPUT: ${{ github.workspace }}/cinema-dist
       CINEMA_CORE_CACHE: ${{ github.workspace }}/.cinema-core-cache
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
+        id: node
         with:
           node-version: '24'
       - name: Restore compiled Nuvio core
         uses: actions/cache@v4
         with:
           path: .cinema-core-cache
-          key: cinema-core-v1-${{ runner.os }}-${{ hashFiles('scripts/build-cinema.mjs') }}
+          key: cinema-core-v1-${{ runner.os }}-${{ steps.node.outputs.node-version }}-${{ hashFiles('scripts/build-cinema.mjs') }}
       - name: Build Cinema only
         run: node scripts/build-cinema.mjs
       - name: Prepare Cloudflare assets
         run: node scripts/cinema-cloudflare.mjs
+      - name: Check Cloudflare connection
+        id: connection
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [[ -n "$CLOUDFLARE_API_TOKEN" && -n "$CLOUDFLARE_ACCOUNT_ID" ]]; then
+            echo 'ready=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+          fi
       - name: Publish
-        if: env.CLOUDFLARE_API_TOKEN != '' && env.CLOUDFLARE_ACCOUNT_ID != ''
+        if: steps.connection.outputs.ready == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: npx --yes wrangler@4 pages deploy cinema-dist --project-name=cinema --branch=main
       - name: Cloudflare connection required
-        if: env.CLOUDFLARE_API_TOKEN == '' || env.CLOUDFLARE_ACCOUNT_ID == ''
+        if: steps.connection.outputs.ready != 'true'
         run: |
           echo "::notice::Cinema built; add Cloudflare account ID and Pages API token as GitHub Actions secrets to publish."
       - uses: actions/upload-artifact@v4
-        if: env.CLOUDFLARE_API_TOKEN == '' || env.CLOUDFLARE_ACCOUNT_ID == ''
+        if: steps.connection.outputs.ready != 'true'
         with:
           name: cinema-preview
           path: cinema-dist
