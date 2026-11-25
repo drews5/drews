@@ -27,6 +27,29 @@ try{
  if(!index.includes(viewport))throw Error('Upstream viewport changed');
  await cp(join(root,'scripts','cinema-mobile.css'),join(source,'assets','cinema-mobile.css'));
  await writeFile(indexFile,index.replace(viewport,'width=device-width, initial-scale=1.0').replace('</head>','<link rel="stylesheet" href="assets/cinema-mobile.css?v=2"></head>'));
+ const localProperties=await readFile(join(source,'local.example.properties'),'utf8');
+ if(!/^NUVIO_SUPABASE_URL=/m.test(localProperties)||!/^NUVIO_SUPABASE_ANON_KEY=/m.test(localProperties)){
+  throw Error('Upstream authentication configuration changed');
+ }
+ // Nuvio documents this publishable identifier for public clients.
+ // https://nuvio.tv/docs/server-api
+ await writeFile(join(source,'local.properties'),localProperties
+  .replace(/^NUVIO_SUPABASE_URL=.*$/m,'NUVIO_SUPABASE_URL=https://api.nuvio.tv')
+  .replace(/^NUVIO_SUPABASE_ANON_KEY=.*$/m,'NUVIO_SUPABASE_ANON_KEY=sb_publishable_1Clq8rlTVACkdcZuqr6_AD__xUUC_EN'));
+ const qrControls=join(source,'js','ui','screens','account','authQrSignInScreenMethods-02-bind-controls.js');
+ const qrSource=await readFile(qrControls,'utf8');
+ const manualLine='manualText.innerText = manualUrl && (displayCode || code) ? I18n.t("auth.qr.manualInstruction", { url: manualUrl }) : "";';
+ if(!qrSource.includes(manualLine))throw Error('Upstream QR instructions changed');
+ await writeFile(qrControls,qrSource.replace(manualLine,`${manualLine}
+        if (location.protocol === "https:" && /^https:\\/\\//i.test(content)) {
+          const link = document.createElement("a");
+          link.className = "cinema-pair-link";
+          link.href = content;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.textContent = "Open sign-in on this device";
+          manualText.append(link);
+        }`));
  const appFile=join(source,'js','app.js');
  const app=await readFile(appFile,'utf8');
  const updateStart='async function checkForAppUpdateOnStartup() {';
@@ -53,15 +76,15 @@ try{
  // Distribute the complete corresponding upstream source alongside the application.
  await mkdir(join(source,'cinema-downstream'),{recursive:true});
  for(const name of ['build-cinema.mjs','cinema-live.js'])await cp(join(root,'scripts',name),join(source,'cinema-downstream',name));
- run('git',['add','-f','index.html','js/app.js','assets/cinema-mobile.css','cinema-downstream'],source);
+ run('git',['add','-f','index.html','js/app.js',qrControls,'assets/cinema-mobile.css','cinema-downstream'],source);
  const sourceTree=execFileSync('git',['write-tree'],{cwd:source,encoding:'utf8'}).trim();
  run('git',['archive','--format=zip','--output='+join(staging,'source.zip'),sourceTree],source);
  const cssHash=createHash('sha256').update(await readFile(join(staging,'assets','cinema-mobile.css'))).digest('hex').slice(0,16);
- const appHash=createHash('sha256').update(await readFile(join(staging,'app.bundle.js'))).update(await readFile(join(root,'scripts','cinema-live.js'))).digest('hex').slice(0,16);
+ const appHash=createHash('sha256').update(await readFile(join(staging,'app.bundle.js'))).update(await readFile(join(staging,'nuvio.env.js'))).update(await readFile(join(root,'scripts','cinema-live.js'))).digest('hex').slice(0,16);
  await cp(join(root,'scripts','cinema-live.js'),join(staging,'cinema-live.js'));
  await writeFile(join(staging,'version.json'),JSON.stringify({app:appHash,css:cssHash}));
  const html=await readFile(join(staging,'index.html'),'utf8');
- await writeFile(join(staging,'index.html'),html.replace(/app\.bundle\.js\?v=[^"']+/g,'app.bundle.js?v='+appHash).replace(/assets\/cinema-mobile\.css\?v=[^"']+/g,'assets/cinema-mobile.css?v='+cssHash).replace('</head>','<script defer src="cinema-live.js?v='+appHash+'" data-app="'+appHash+'" data-css="'+cssHash+'"></script><meta name="robots" content="noindex,nofollow"><link rel="license" href="LICENSE"><link rel="author" href="about.html"></head>'));
+ await writeFile(join(staging,'index.html'),html.replace('src="nuvio.env.js"','src="nuvio.env.js?v='+appHash+'"').replace(/app\.bundle\.js\?v=[^"']+/g,'app.bundle.js?v='+appHash).replace(/assets\/cinema-mobile\.css\?v=[^"']+/g,'assets/cinema-mobile.css?v='+cssHash).replace('</head>','<script defer src="cinema-live.js?v='+appHash+'" data-app="'+appHash+'" data-css="'+cssHash+'"></script><meta name="robots" content="noindex,nofollow"><link rel="license" href="LICENSE"><link rel="author" href="about.html"></head>'));
  await writeFile(join(staging,'about.html'),'<meta charset="utf-8"><title>About Cinema</title><h1>Cinema — Nuvio Web</h1><p>Unofficial downstream build of Nuvio Web, based on NuvioMedia/NuvioTVSmart. Nuvio and its contributors retain their copyrights. GPL v3.</p><p><a href="'+sourceUrl+'">Pinned upstream source</a> · <a href="source.zip">Corresponding source archive</a> · <a href="LICENSE">License</a> · <a href="./">Open Cinema</a></p><p>Browser playback only; use media you are authorized to access.</p>');
  await rm(target,{recursive:true,force:true});
  await rename(staging,target);
