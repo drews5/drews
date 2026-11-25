@@ -256,3 +256,90 @@ html,body{width:100%;height:100%;font-size:16px!important;overflow:hidden}
 
   #app .home-screen-shell.home-layout-modern :is(.home-modern-rows-scroll, .home-modern-catalogs) { gap: 14px; }
 }
+
+@media (max-width: 800px) and (pointer: coarse), (max-width: 600px) {
+  #detail .series-detail-shell {
+    --detail-safe-x: 16px;
+    --detail-action-gap: 8px;
+    --detail-button-height: 44px;
+    --detail-control-size: 44px;
+    --detail-title-size: 28px;
+    --detail-section-title-size: 18px;
+    --detail-label-size: 14px;
+    --detail-body-size: 15px;
+    --detail-caption-size: 12px;
+    --detail-episode-radius: 10px !important;
+    width: 100%;
+    height: 100%;
+  }
+
+  #detail .series-detail-content { width: 100%; max-width: none; height: 100%; padding: 0 0 32px; }
+  #detail .detail-hero-section {
+    min-height: min(440px, 72dvh);
+    height: auto;
+    width: 100%;
+    padding: 52px var(--detail-safe-x) 16px;
+  }
+
+  #detail .detail-hero-brand { min-height: 64px; }
+  #detail .detail-hero-body { width: 100%; max-width: none; }
+  #detail .series-detail-logo {
+    width: min(65%, 220px);
+    height: 86px;
+    max-height: 86px;
+    padding: 0 0 10px;
+  }
+
+  #detail .series-detail-vignette {
+    background: linear-gradient(0deg, var(--bg-color) 22%, rgba(13, 13, 13, 0.78) 58%, rgba(13, 13, 13, 0.2));
+  }
+
+  #detail .series-detail-actions { flex-wrap: wrap; margin: 6px 0 14px; }
+  #detail .series-primary-btn {
+    min-width: 0;
+    min-height: 44px;
+    height: 44px;
+    padding: 0 14px;
+    line-height: 1.2;
+    gap: 6px;
+  }
+
+  #detail .series-circle-btn { width: 44px; height: 44px; font-size: 20px; }
+  #detail :is(.series-primary-btn, .series-circle-btn) .series-btn-svg { width: 20px; height: 20px; }
+  #detail :is(.series-detail-support, .series-detail-description) {
+    width: auto;
+    max-width: 100%;
+    margin: 0 0 10px;
+    line-height: 1.45;
+  }
+
+  #detail .detail-synopsis-more { font-size: 14px; }
+  #detail .detail-meta-stack { gap: 6px; }
+  #detail .detail-meta-row { gap: 8px; line-height: 1.4; }
+  #detail .detail-meta-row .series-imdb-badge img { width: 28px; height: auto; }
+  #detail .series-season-row { gap: 8px; padding-block: 12px; }
+  #detail .series-season-btn { min-height: 44px; padding: 8px 12px; font-size: 15px; line-height: 1.2; }
+  #detail .series-episode-track { gap: 10px; padding: 10px var(--detail-safe-x); }
+  #detail .series-episode-card { width: min(76vw, 260px); flex-basis: min(76vw, 260px); }
+  #detail .series-episode-thumb { height: auto; aspect-ratio: 16 / 9; }
+  #detail .series-episode-copy { padding: 10px; gap: 6px; }
+  #detail .series-episode-title { min-height: 0; font-size: 16px; line-height: 1.25; }
+  #detail .series-episode-overview { font-size: 13px; line-height: 1.4; }
+  #detail .series-episode-meta { font-size: 12px; gap: 8px; }
+  #detail .series-insight-tabs { padding-top: 16px; }
+  #detail .series-insight-tab { line-height: 1.3; }
+  #detail :is(.movie-cast-card, .series-cast-card, .detail-morelike-card) {
+    width: 112px;
+    flex-basis: 112px;
+  }
+
+  #stream .stream-screen-panel {
+    inset: 12px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    padding: 12px;
+  }
+
+  #stream .stream-screen-left { padding-bottom: 6px; }
+  #stream .stream-route-autoplay-card { min-width: 0; max-width: calc(100% - 24px); padding: 14px; }
+}
