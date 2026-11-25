@@ -35,6 +35,9 @@ jobs:
           path: _production
           include-hidden-files: true
           retention-days: 14
+      - name: Build Nuvio Web for Cinema
+        continue-on-error: true
+        run: node scripts/build-cinema.mjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
