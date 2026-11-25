@@ -96,10 +96,11 @@ export function applyTeamRoster(doc,raw){
  let state=cached.get(doc);
  if(!state){state={members:new Map(),last:''};cached.set(doc,state);}
  const roster=readRoster(raw),signature=JSON.stringify(roster);
+ const isRemoved=(id,parts)=>roster.removed.includes(id)||parts.added&&!roster.records[id]?.added;
  if(signature!==state.last){
   const active=doc.activeElement;
   for(const [id,parts] of state.members){
-   if(roster.removed.includes(id)||parts.added&&!roster.records[id]?.added){
+   if(isRemoved(id,parts)){
     for(const [container,node] of parts.nodes){
      if(node.parentNode!==container)continue;
      if(node.open)node.close?.();
@@ -109,9 +110,13 @@ export function applyTeamRoster(doc,raw){
   }
   for(const [id,profile] of Object.entries(roster.records))if(profile.added&&!roster.removed.includes(id)&&!doc.querySelector('.full-team-grid [data-team-member="'+id+'"]'))makeProfile(doc,id,profile,grids);
   for(const node of doc.querySelectorAll('.person-card[data-team-member],dialog.bio-dialog[data-team-member]')){
-   const id=node.dataset.teamMember,parts=state.members.get(id)||{added:!!roster.records[id]?.added,nodes:[]};
+   const id=node.dataset.teamMember,parts=state.members.get(id)||{added:false,nodes:[]};
+   // A static page can contain a previously published profile that is no longer
+   // in the live roster. Identify it from its generated biography, not the feed.
+   const generatedBio='person-added-'+id;
+   parts.added ||= node.id===generatedBio||!!node.querySelector('[data-open-dialog="'+generatedBio+'"]')||!!roster.records[id]?.added;
    if(!parts.nodes.some(([,known])=>known===node))parts.nodes.push([node.parentNode,node]);state.members.set(id,parts);
-   if(roster.removed.includes(id)){if(node.open)node.close?.();node.remove();}
+   if(isRemoved(id,parts)){if(node.open)node.close?.();node.remove();}
   }
   for(const [section,grid] of grids){
    const current=[...grid.children],order=roster.order[section]||[],ranks=new Map(order.map((id,index)=>[id,index]));

@@ -95,3 +95,22 @@ test('the Board appears before Executive Leadership without changing saved edito
  assignAdminIdentity(doc,'/team');
  assert.deepEqual([card.dataset.adminId,card.dataset.adminKey],identity);
 });
+
+test('a stale public build drops an old added card when the latest roster replaces it',async()=>{
+ const sourceHtml=await source(),doc=parseHTML(sourceHtml).document;
+ const staleId='2222222222222222',replacementId='3333333333333333';
+ const profile={added:true,name:'New team member',role:'VP of Operations',section:'leadership'};
+ const before={pages:{},shared:{},teamRoster:{records:{[staleId]:profile}}};
+ const latest={...before,teamRoster:{records:{[replacementId]:{...profile,photo:'https://images.example/current.webp'}}}};
+ applyEdits(doc,before,'/team');
+ // Reload generated HTML, as a visitor would with an older static build.
+ const visitor=parseHTML(doc.documentElement.outerHTML).document;
+ const preview=parseHTML(sourceHtml).document;
+ applyEdits(preview,latest,'/team');
+ applyEdits(visitor,latest,'/team');
+ applyEdits(visitor,latest,'/team');
+ assert.ok(!visitor.querySelector('[data-team-member="'+staleId+'"]'),'Old profile cards and their biography must be removed');
+ assert.deepEqual(ids(visitor),ids(preview));
+ assert.deepEqual(ids(visitor,'.leadership-grid'),ids(preview,'.leadership-grid'));
+ assert.equal(readProfile(visitor,replacementId).photo,'https://images.example/current.webp');
+});
