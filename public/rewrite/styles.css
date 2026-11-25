@@ -716,3 +716,17 @@ body,input,select,textarea,button{font-family:Alice,Georgia,serif}body{line-heig
 @media(prefers-reduced-motion:reduce){.home-hero-scrolling .hero-film-track,.hero-mobile-film-track{animation:none}}
 
 @media(prefers-reduced-motion:reduce){.site-header{transition:none}}
+
+/* Editor-added updates keep the existing spacing and type system. */
+.site-updates:empty{display:none}
+.site-updates{padding-block:clamp(44px,7vw,90px);display:grid;gap:36px}
+.site-update{border:1px solid #d8e0eb;border-radius:16px;padding:clamp(22px,4vw,48px);background:#f7f9fb}
+.site-update.has-image{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(18px,4vw,44px);align-items:center}
+.site-update img{display:block;width:100%;max-height:400px;object-fit:cover;border-radius:10px}
+.site-update h2{margin:0 0 12px}
+.site-update-copy{white-space:pre-line;margin:0 0 18px}
+.site-update-copy:last-child{margin-bottom:0}
+.site-update .button{max-width:100%;width:fit-content}
+.faq-chevron{color:var(--navy);font:500 20px/1 system-ui;flex:none}
+[data-edit-collection] .faq-item[open] .faq-chevron{transform:rotate(180deg)}
+@media(max-width:700px){.site-update.has-image{grid-template-columns:minmax(0,1fr)}}

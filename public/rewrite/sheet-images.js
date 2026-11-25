@@ -14,13 +14,13 @@ export function applySheetImages(doc,values){
   if(!image.sheetImageErrorHandler){image.sheetImageErrorHandler=true;image.addEventListener('error',()=>{const failed=image.getAttribute('src');if(failed===image.dataset.sheetOriginalSrc)return;image.dataset.sheetImageFailed=failed;image.setAttribute('src',image.dataset.sheetOriginalSrc);for(const attr of ['srcset','sizes']){const saved=image.getAttribute('data-sheet-original-'+attr);if(saved!==null)image.setAttribute(attr,saved);}const gallery=image.closest('a[data-lightbox]');if(gallery)gallery.setAttribute('href',image.dataset.sheetOriginalSrc);});}
   const key=image.dataset.sheetImage,overrides=doc.adminImageOverrides?.get(image)||{},raw=values[key],original=image.dataset.sheetOriginalSrc;
   let replacement=null;try{const url=new URL(raw);if(url.protocol==='https:'&&!url.username&&!url.password)replacement=url.href;}catch{}
-  if(!overrides.src){
+  if(!overrides.src&&!image.hasAttribute('data-collection-image-src')){
    const custom=replacement&&replacement!==image.dataset.sheetImageDefault,target=custom?replacement:original;
    if(image.dataset.sheetImageFailed===target)continue;
    if(image.getAttribute('src')!==target)image.setAttribute('src',target);
    for(const attr of ['srcset','sizes']){const saved=image.getAttribute('data-sheet-original-'+attr);if(custom)image.removeAttribute(attr);else if(saved!==null)image.setAttribute(attr,saved);}
    const gallery=image.closest('a[data-lightbox]');if(gallery)gallery.setAttribute('href',target);
   }
-  if(!overrides.alt){const alt=image.dataset.sheetOriginalAlt?String(values[key+'_alt']??image.dataset.sheetOriginalAlt):'';if(image.getAttribute('alt')!==alt)image.setAttribute('alt',alt);}
+  if(!overrides.alt&&!image.hasAttribute('data-collection-image-alt')){const alt=image.dataset.sheetOriginalAlt?String(values[key+'_alt']??image.dataset.sheetOriginalAlt):'';if(image.getAttribute('alt')!==alt)image.setAttribute('alt',alt);}
  }
 }

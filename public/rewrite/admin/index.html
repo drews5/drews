@@ -1,9 +1,52 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Website editor | The Re-Write It Project</title><link rel="stylesheet" href="/rewrite/admin/editor.css?v=roster3"><script type="module" src="/rewrite/admin/editor.js?v=roster3"></script></head><body>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Website editor | The Re-Write It Project</title><link rel="stylesheet" href="/rewrite/admin/editor.css?v=manage1"><script type="module" src="/rewrite/admin/editor.js?v=manage1"></script></head><body>
 <header><a href="https://drews.click/rewrite/">The Re-Write It Project</a><span>Website editor</span><button id="logout" hidden>Sign out</button></header>
 <div id="suggestion-banner" class="suggestion-banner" hidden><p>Want more detailed edits?</p><button id="suggest-open" type="button" aria-haspopup="dialog" aria-controls="suggestion-dialog">Suggest</button></div>
 <main id="login"><div class="login-card"><h1>Website editor</h1><form id="login-form"><label>Password<input type="password" autocomplete="current-password" id="password" required></label><button class="primary">Sign in</button></form><p id="login-status" role="status"></p></div></main>
-<main id="dashboard" hidden><div class="dashboard-heading"><div><h1>Your pages</h1></div><button id="publish" class="primary">Publish</button></div><p id="status" role="status"></p><details id="shared-settings"><summary>Shared site settings</summary><div id="shared-fields"></div><button id="save-settings">Save</button></details><div id="pages" class="page-grid"></div></main>
-<section id="editor" hidden aria-label="Page editor"><div class="toolbar"><button id="back">All pages</button><strong id="page-name"></strong><button type="button" id="manage-team" aria-haspopup="dialog" hidden>Manage team</button><div class="tools"><button id="content-view" aria-pressed="false">Content</button><button id="preview-view" aria-pressed="true">Preview</button><button id="desktop" aria-pressed="true">Desktop</button><button id="mobile" aria-pressed="false">Mobile</button><button id="undo">Undo</button><button id="redo">Redo</button><button id="save">Save</button><button id="publish-page" class="primary">Publish</button></div><span id="edit-status" role="status"></span></div><div class="workspace"><div id="content-list" hidden><label>Find content<input id="content-search" type="search" placeholder="Search text or images"></label><div id="content-items"></div></div><div id="canvas"><iframe id="preview" sandbox="allow-same-origin" title="Editable page preview"></iframe></div><aside id="inspector"><button id="close-inspector" type="button">Done</button><h2 id="selection-heading">Select an item</h2><p id="selection-help">Tap text or an image to edit.</p><div id="fields" hidden><label id="text-wrap">Text<textarea id="text" rows="6"></textarea></label><label id="href-wrap">Link URL<input id="href" type="url"></label><div id="image-wrap"><label>Image description<input id="alt"></label><label class="upload-label">Replace image<input type="file" id="replace" accept="image/*"></label></div><label class="upload-label">Add image after selection<input type="file" id="add" accept="image/*"></label><button id="revert">Revert this element</button><button id="remove-image" hidden>Remove image</button></div></aside></div></section>
+<main id="dashboard" hidden><div class="dashboard-heading"><div><h1>Your pages</h1></div><div class="dashboard-actions"><button id="undo-dashboard" type="button">Undo</button><button id="redo-dashboard" type="button">Redo</button><button id="save-dashboard" type="button">Save draft</button><button id="publish" class="primary">Review changes</button></div></div><p id="status" role="status"></p><details id="editing-guide"><summary>How to edit the site</summary>
+ <p>Open a page to edit its text and photos. Use <strong>Manage content</strong> for lists, section order, and page updates. Use <strong>Manage team</strong> for people and where they appear.</p>
+ <p><strong>Save draft</strong> keeps your work private. Open <strong>Review changes</strong> to check what will go live, publish it, or recover the live version.</p>
+ </details><details id="shared-settings"><summary>Shared site settings</summary><div id="shared-fields"></div><button id="save-settings">Save draft</button></details><div id="pages" class="page-grid"></div></main>
+<section id="editor" hidden aria-label="Page editor"><div class="toolbar"><button id="back">All pages</button><strong id="page-name"></strong><button type="button" id="manage-page" aria-haspopup="dialog" hidden>Manage content</button><button type="button" id="manage-team" aria-haspopup="dialog" hidden>Manage team</button><div class="tools"><button id="content-view" aria-pressed="false">Content</button><button id="preview-view" aria-pressed="true">Preview</button><button id="desktop" aria-pressed="true">Desktop</button><button id="mobile" aria-pressed="false">Mobile</button><button id="undo">Undo</button><button id="redo">Redo</button><button id="save">Save draft</button><button id="publish-page" class="primary">Review changes</button></div><span id="edit-status" role="status"></span></div><div class="workspace"><div id="content-list" hidden><label>Find content<input id="content-search" type="search" placeholder="Search text or images"></label><div id="content-items"></div></div><div id="canvas"><iframe id="preview" sandbox="allow-same-origin" title="Editable page preview"></iframe></div><aside id="inspector"><button id="close-inspector" type="button">Done</button><h2 id="selection-heading">Select an item</h2><p id="selection-help">Tap text or an image to edit.</p><div id="fields" hidden><label id="text-wrap">Text<textarea id="text" rows="6"></textarea></label><label id="href-wrap">Link URL<input id="href" type="url"></label><div id="image-wrap"><label>Image description<input id="alt"></label><label class="upload-label">Replace image<input type="file" id="replace" accept="image/*"></label></div><label class="upload-label">Add image after selection<input type="file" id="add" accept="image/*"></label><button id="revert">Revert this element</button><button id="remove-image" hidden>Remove image</button></div></aside></div></section>
+
+<dialog id="reauth-dialog" class="manage-dialog" aria-labelledby="reauth-title">
+ <div class="manage-heading"><h2 id="reauth-title">Sign in again</h2><button type="button" id="reauth-close">Keep editing</button></div>
+ <p>Your session expired. Your changes are still here.</p>
+ <form id="reauth-form"><label>Password<input type="password" autocomplete="current-password" id="reauth-password" required></label><button class="primary" type="submit">Sign in</button></form>
+ <p id="reauth-status" class="manage-status" role="status"></p>
+</dialog>
+
+<dialog id="publish-review" class="manage-dialog" aria-labelledby="publish-title">
+ <div class="manage-heading"><h2 id="publish-title">Review changes</h2><button type="button" id="review-close">Back to editing</button></div>
+ <p id="review-status" class="manage-status" role="status">Checking what’s live…</p>
+ <ul id="review-areas" class="manage-rows"></ul>
+ <div class="manage-actions">
+  <button type="button" id="review-publish" class="primary" disabled>Publish to website</button>
+  <button type="button" id="reset-live-page" hidden>Reset this page’s draft</button>
+ </div>
+ <details class="recovery-options">
+  <summary>Recovery options</summary>
+  <p>Recovery tools change the working draft. Review and publish it when you’re ready.</p>
+  <div class="manage-row-actions"><button type="button" id="load-server-draft">Load saved draft</button><button type="button" id="reset-live-all" disabled>Reset draft to live site</button><button type="button" id="restore-last-publish" hidden>Restore previous live version</button></div>
+  <p class="field-help">The previous live version is available in this editor session after you publish.</p>
+ </details>
+</dialog>
+
+<dialog id="content-manager" class="manage-dialog" aria-labelledby="manage-content-title">
+ <div class="manage-heading"><div><h2 id="manage-content-title">Manage content</h2><p id="manage-content-page"></p></div><button type="button" id="manage-content-done">Done</button></div>
+ <div id="manage-content-list">
+  <div class="manage-bar"><label>Content type<select id="manage-content-kind"></select></label><button type="button" class="primary" id="manage-content-add">Add item</button></div>
+  <p id="manage-content-help"></p>
+  <ol id="manage-content-rows" class="manage-rows"></ol>
+  <details id="manage-content-hidden" hidden><summary>Hidden items</summary><ul id="manage-content-hidden-list" class="manage-rows"></ul></details>
+  <button type="button" id="manage-content-reset" hidden>Restore this list to its defaults</button>
+ </div>
+ <form id="manage-content-form" hidden>
+  <h3 id="manage-content-form-title"></h3>
+  <div id="manage-content-fields"></div>
+  <div class="manage-actions"><button type="button" id="manage-content-cancel">Cancel</button><button type="submit" class="primary" id="manage-content-apply">Apply to draft</button></div>
+ </form>
+ <p id="manage-content-status" class="manage-status" role="status"></p>
+</dialog>
 
 <dialog id="team-manager" aria-labelledby="team-manager-title">
  <div class="team-manager-heading"><h2 id="team-manager-title">Manage team</h2><button type="button" id="team-done">Done</button></div>
@@ -19,7 +62,11 @@
   <label>Bio (optional)<textarea id="team-person-bio" maxlength="8000" rows="5"></textarea></label>
   <label>Headshot<input id="team-person-photo" type="file" accept="image/*"></label>
   <p id="team-photo-help"></p>
-  <label id="team-placement">Also show in<select id="team-person-section"><option value="full">The full team only</option><option value="board">Board of directors</option><option value="leadership">Executive leadership</option></select></label>
+  <fieldset id="team-placement" class="manage-checks"><legend>Show this person in</legend>
+   <label><input type="checkbox" id="team-place-board"> Board of directors</label>
+   <label><input type="checkbox" id="team-place-leadership"> Executive leadership</label>
+   <label><input type="checkbox" id="team-place-full"> The full team</label>
+  </fieldset>
   <div class="team-manager-actions"><button type="button" id="team-cancel">Cancel</button><button type="submit" class="primary" id="team-apply">Add person</button></div>
  </form>
  <p id="team-manager-status" role="status"></p>

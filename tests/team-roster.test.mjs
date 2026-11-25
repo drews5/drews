@@ -36,7 +36,7 @@ test('Manage team adds an uploaded photo, moves the new profile, edits it, and r
  const pageHtml=await source(),editorHtml=await readFile(new URL('../public/rewrite/admin/index.html',import.meta.url),'utf8');
  const {document,window}=parseHTML(editorHtml);const $=id=>document.getElementById(id);
  let teamRoster,refreshed=false;
- for(const id of ['team-section','team-person-section'])Object.defineProperty($(id),'value',{value:'full',writable:true});
+ for(const id of ['team-section'])Object.defineProperty($(id),'value',{value:'full',writable:true});
  const getPage=()=>{const doc=parseHTML(pageHtml).document;applyEdits(doc,{pages:{},shared:{},teamRoster},'/team');return doc;};
  const dialog=$('team-manager');dialog.showModal=()=>{dialog.open=true;};dialog.close=()=>{dialog.open=false;dialog.dispatchEvent(new window.Event('close'));};
  $('team-person-form').reset=()=>{$('team-person-photo').files=[];};
@@ -113,4 +113,14 @@ test('a stale public build drops an old added card when the latest roster replac
  assert.deepEqual(ids(visitor),ids(preview));
  assert.deepEqual(ids(visitor,'.leadership-grid'),ids(preview,'.leadership-grid'));
  assert.equal(readProfile(visitor,replacementId).photo,'https://images.example/current.webp');
+});
+
+test('one profile can move out of the full team and into leadership without duplicating or losing its bio',async()=>{
+ const doc=parseHTML(await source()).document,id=ids(doc)[0],before=readProfile(doc,id);
+ const content={pages:{},shared:{},teamRoster:{records:{[id]:{sections:['leadership']}}}};
+ applyEdits(doc,content,'/team');applyEdits(doc,content,'/team');
+ assert.ok(!ids(doc).includes(id));
+ assert.equal(ids(doc,'.leadership-grid').filter(value=>value===id).length,1);
+ assert.equal(doc.querySelectorAll('dialog[data-team-member="'+id+'"]').length,1);
+ assert.deepEqual(readProfile(doc,id),before);
 });

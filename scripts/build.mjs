@@ -9,6 +9,7 @@ import {rewriteMountText} from '../source/lib/path-mount.mjs';
 import {parseHTML} from 'linkedom';
 import {build as bundle} from 'esbuild';
 import {applyEdits} from '../public/rewrite/admin-runtime.js';
+import {identifyCollections,managedVersion,adminSourceName,legacyReferences} from '../public/rewrite/content-collections.js';
 import {sharedBinding} from '../public/rewrite/shared-content.js';
 import {assignAdminIdentity} from '../source/lib/admin-identity.mjs';
 const root=resolve(import.meta.dirname,'..'),out=join(process.env.RWIP_TEST_BUILD_ROOT||root,'_site'),origin='https://drews.click';
@@ -47,7 +48,8 @@ const engineCode=(await readFile(join(root,'public/rewrite/content-engine.js'),'
 const engineVersion=createHash('sha256').update(engineCode).digest('hex').slice(0,10);
 await writeFile(join(out,'rewrite/content-engine.js'),engineCode);
 const rosterVersion=createHash('sha256').update(await readFile(join(root,'public/rewrite/team-roster.js'))).digest('hex').slice(0,10);
-const runtimeCode=(await readFile(join(root,'public/rewrite/admin-runtime.js'),'utf8')).replace("'./content-engine.js'","'./content-engine.js?v="+engineVersion+"'").replace("'./team-roster.js'","'./team-roster.js?v="+rosterVersion+"'");
+const collectionsVersion=createHash('sha256').update(await readFile(join(root,'public/rewrite/content-collections.js'))).digest('hex').slice(0,10);
+const runtimeCode=(await readFile(join(root,'public/rewrite/admin-runtime.js'),'utf8')).replace("'./content-engine.js'","'./content-engine.js?v="+engineVersion+"'").replace("'./team-roster.js'","'./team-roster.js?v="+rosterVersion+"'").replace("'./content-collections.js'","'./content-collections.js?v="+collectionsVersion+"'");
 const runtimeVersion=createHash('sha256').update(runtimeCode).digest('hex').slice(0,10);
 await writeFile(join(out,'rewrite/admin-runtime.js'),runtimeCode);
 const readerCode=(await readFile(join(root,'source/lib/content-values.mjs'),'utf8')).replace(/^export /gm,'');
@@ -72,10 +74,13 @@ for(const [route,template] of Object.entries(pages)){
   const board=document.querySelector('.board-grid')?.closest('details'),leadership=document.querySelector('.leadership-grid')?.closest('details');
   if(board&&leadership)leadership.before(board);
  }
+ identifyCollections(document,adminRoute);
  bindSheetImages(document,imageCatalog);applySheetImages(document,values);
  for(const el of document.querySelectorAll('[data-admin-id]')){const key=sharedBinding(el,document);if(key)el.dataset.adminField=key;}
- if(route===adminRoute){await mkdir(join(out,'rewrite/admin-source'),{recursive:true});await writeFile(join(out,'rewrite/admin-source', (adminRoute==='/'?'home':adminRoute.slice(1).replaceAll('/','_'))+'.json'),JSON.stringify({html:'<!doctype html>'+document.documentElement.outerHTML}));}
+ if(route===adminRoute){await mkdir(join(out,'rewrite/admin-source'),{recursive:true});await writeFile(join(out,'rewrite/admin-source', adminSourceName(adminRoute)+'.json'),JSON.stringify({html:'<!doctype html>'+document.documentElement.outerHTML}));}
  if(publishedEdits)applyEdits(document,publishedEdits,adminRoute);
+ document.body.dataset.managedVersion=managedVersion(publishedEdits,adminRoute);
+ const legacy=legacyReferences(publishedEdits,adminRoute);if(legacy.length)document.body.dataset.legacyReferences=JSON.stringify(legacy);
  const runtime=document.createElement('script');runtime.type='module';runtime.src='/rewrite/admin-runtime.js?v='+runtimeVersion;document.head.append(runtime);
  html='<!doctype html>'+document.documentElement.outerHTML;
  if(route===adminRoute&&!['/404','/home-grid','/home-scrolling','/message-received'].includes(route))pageDirectory.push({route,title:document.querySelector('title').textContent.split(' | ')[0]});

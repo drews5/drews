@@ -3,6 +3,10 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import vm from 'node:vm';
 import {parseHTML} from 'linkedom';
+import * as draftControls from '../public/rewrite/admin/draft-control.js';
+import {adminSourceName,managedKinds} from '../public/rewrite/content-collections.js';
+function mockReview(document){const dialog=document.querySelector('#publish-review');dialog.showModal=()=>{dialog.open=true;};dialog.close=()=>{dialog.open=false;};}
+
 import {openSiteEditor,applyEdits} from '../public/rewrite/admin-runtime.js';
 import {sharedFields,parseSharedValue,sharedBinding,contentState} from '../public/rewrite/shared-content.js';
 import {siteFixture} from './site-fixtures.mjs';
@@ -50,6 +54,7 @@ for(const artifact of ['source','bundle'])test(artifact+': embedded editor works
  const {document,window}=parseHTML(html),messages=[],calls=[];
  window.parent={postMessage:(message,origin)=>messages.push({message,origin})};
  const preview=document.querySelector('#preview'),frame=parseHTML('<html data-public-site-origin="https://www.therewriteitproject.org"><head><script id="site-content-state" type="application/json">{"initialValues":{"kits":18576,"kit_price":5},"original":{"kit_price":5}}</script></head><body><main><h1 data-admin-id="1111111111111111">Our mission</h1><span data-site-number="kits">18,576</span></main></body></html>').document;
+ mockReview(document);
  Object.defineProperty(preview,'contentDocument',{get:()=>frame});
  let saved,revision=0;
  const fetch=async(url,options={})=>{calls.push({url,options});let data;
@@ -57,6 +62,7 @@ for(const artifact of ['source','bundle'])test(artifact+': embedded editor works
   else if(url.endsWith('/login'))data={token:'test-session'};
   else if(url.endsWith('/draft')&&options.method==='PUT'){saved=JSON.parse(options.body);data={revision:++revision};}
   else if(url.endsWith('/draft'))data={document:{pages:{},shared:{},values:{kits:20000}},revision};
+  else if(url.endsWith('/published'))data={document:{pages:{},shared:{},values:{}},revision:0};
   else if(url.endsWith('/publish'))data={ok:true};
   else if(url.endsWith('/admin-pages.json'))data=[{route:'/about',title:'About'}];
   else if(url.includes('/admin-source/'))data={html:frame.documentElement.outerHTML};
@@ -64,7 +70,7 @@ for(const artifact of ['source','bundle'])test(artifact+': embedded editor works
   return {ok:true,json:async()=>data};
  };
  class DetachedDOMParser {parseFromString(html,type){const doc=new window.DOMParser().parseFromString(html,type);Object.defineProperty(doc,'defaultView',{value:null});return doc;}}
- const context=vm.createContext({document,window,location:{origin:'https://editor.example',pathname:'/rewrite/admin/',href:'https://editor.example/rewrite/admin/?embedded=1&site=production&parent=https%3A%2F%2Fwww.therewriteitproject.org'},sessionStorage:{getItem(){throw Error('Storage blocked');},setItem(){throw Error('Storage blocked');},removeItem(){throw Error('Storage blocked');}},matchMedia:()=>({matches:true}),fetch,initializeTeamManager:()=>{},initializeSuggestions:()=>{},applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,AbortSignal,DOMParser:DetachedDOMParser,confirm:()=>true,console});
+ const context=vm.createContext({document,window,location:{origin:'https://editor.example',pathname:'/rewrite/admin/',href:'https://editor.example/rewrite/admin/?embedded=1&site=production&parent=https%3A%2F%2Fwww.therewriteitproject.org'},sessionStorage:{getItem(){throw Error('Storage blocked');},setItem(){throw Error('Storage blocked');},removeItem(){throw Error('Storage blocked');}},matchMedia:()=>({matches:true}),fetch,...draftControls,adminSourceName,managedKinds,initializeContentManager:()=>({open(){}}),initializeTeamManager:()=>{},initializeSuggestions:()=>{},applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,AbortSignal,DOMParser:DetachedDOMParser,confirm:()=>true,console});
  const editor=await new vm.Script('(async()=>{'+script+';return {openPage};})()').runInContext(context);
  document.querySelector('#password').value=crypto.randomUUID();await document.querySelector('#login-form').onsubmit({preventDefault(){}});
  assert.equal(document.querySelector('#dashboard').hidden,false);
@@ -81,10 +87,14 @@ for(const artifact of ['source','bundle'])test(artifact+': embedded editor works
  document.querySelector('#text').value='Updated mission';document.querySelector('#text').dispatchEvent(new window.Event('input'));
  assert.equal(messages.at(-1).message.dirty,true);
  await document.querySelector('#publish-page').onclick();
+ assert.equal(document.querySelector('#publish-review').open,true);
+ assert.equal(calls.some(c=>(c.method||c.options.method)==='PUT'),false,'Review never writes to the server');
+ await document.querySelector('#review-publish').onclick();
+
  assert.equal(saved.pages['/about']['1111111111111111'].text,'Updated mission');
  assert.equal(messages.at(-1).message.published,true);assert.equal(messages.at(-1).origin,'https://www.therewriteitproject.org');
  const privateCalls=calls.filter(c=>['PUT','POST'].includes(c.options.method));
  assert.ok(privateCalls.every(c=>new URL(c.url).origin==='https://editor.example'));
  assert.equal(privateCalls.find(c=>c.url.endsWith('/publish')).options.headers.Authorization,'Bearer test-session');
- assert.equal(document.querySelector('#edit-status').textContent,'Published');
+ assert.match(document.querySelector('#edit-status').textContent,/^Published[.]/);
 });

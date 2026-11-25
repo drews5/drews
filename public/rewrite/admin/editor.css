@@ -36,3 +36,37 @@
 .team-row-actions button{padding:7px 10px}
 #team-person-form label{margin:12px 0}
 #team-photo-help,#team-manager-status{font-size:14px;margin:8px 0}
+
+/* List tools use one layout on every page, with no drag gesture required. */
+.manage-dialog{box-sizing:border-box;width:min(720px,calc(100% - 24px));max-height:calc(100dvh - 28px);padding:clamp(16px,4vw,28px);border:1px solid #dce2e9;border-radius:16px;background:#fff;color:#103a71;overscroll-behavior:contain}
+.manage-dialog::backdrop{background:#0c244a99}
+.manage-heading,.manage-bar,.manage-actions,.manage-rows li{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+.manage-heading h2{margin:0;font:28px Alice,Georgia,serif}
+.manage-heading p{margin:4px 0 0}
+.manage-bar{align-items:end;margin-top:18px}
+.manage-dialog button,.manage-dialog select,.manage-checks input[type=checkbox]{min-height:44px}
+.manage-dialog label{display:grid;gap:5px;margin-bottom:12px}
+.manage-dialog .manage-bar label{margin:0}.manage-dialog select{border:1px solid #cbd6e4;border-radius:8px;padding:8px;background:#fff;color:inherit;font:inherit;max-width:100%}
+.manage-rows{padding:0;margin:0 0 16px;list-style:none}
+.manage-rows li{border-top:1px solid #e0e6ed;padding:10px 0}
+.manage-rows strong{max-width:100%;overflow-wrap:anywhere}
+.manage-row-actions{display:flex;flex-wrap:wrap;gap:6px}
+.manage-row-actions button{padding:7px 10px}
+.manage-dialog summary{cursor:pointer;padding:9px 0}
+.manage-dialog .manage-inline-check,.manage-checks label{display:flex!important;gap:8px;align-items:center}
+.manage-inline-check input[type=checkbox],.manage-checks input[type=checkbox]{width:18px;min-height:18px;height:18px;margin:0}
+.manage-checks{margin:12px 0;border:1px solid #cbd6e4;border-radius:8px;padding:8px 12px}.manage-checks label{margin:5px 0!important}
+.manage-status,.manage-dialog .field-help{line-height:1.45;margin:10px 0 0;font-size:14px}
+#manage-content-reset{margin-top:8px}
+
+.recovery-options{margin-top:18px;border-top:1px solid #dce2e9;font-size:14px}
+#review-status{margin-bottom:12px}
+#review-areas small{font-size:14px}
+#review-areas li{justify-content:flex-start;gap:4px 12px}
+
+#editing-guide{background:#fff;border:1px solid #dce2e9;border-radius:12px;padding:12px 16px;margin:0 0 14px}
+#editing-guide summary{font-weight:650;cursor:pointer}
+#editing-guide p{margin:10px 0 0}
+
+.dashboard-actions{display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:650px){.dashboard-heading{flex-wrap:wrap}.dashboard-actions button{min-height:44px}}

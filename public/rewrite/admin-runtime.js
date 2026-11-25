@@ -1,3 +1,4 @@
+import {applyCollections,managedNodeSelector,mountManagedRegions,managedVersion,adminSourceName,syncFAQData,legacyReferences,restoreLegacyFields} from './content-collections.js';
 import {applyTeamRoster} from './team-roster.js';
 import {applyLiveContent} from './content-engine.js';
 import {contentState,sharedBinding} from './shared-content.js';
@@ -21,7 +22,7 @@ export function projectPublishedUrls(doc){
   }
  }
 }
-export function applyEdits(doc,document,route){
+export function applyEdits(doc,document,route,{managed=true}={}){
  const groupsForImages=[document.shared||{},document.pages?.[route]||{}];doc.adminImageOverrides=new Map();
  for(const group of groupsForImages)for(const [id,op] of Object.entries(group)){
   if(op.src===undefined&&op.alt===undefined)continue;
@@ -35,8 +36,9 @@ export function applyEdits(doc,document,route){
  for(const group of groups)for(const [id,op] of Object.entries(group)){
   const stable=/^[a-f0-9]{16}$/.test(op.key||'')?doc.querySelector('[data-admin-key="'+op.key+'"]'):null;
   const el=op.key?stable:doc.querySelector('[data-admin-id="'+id+'"]');if(!el||op.tag&&op.tag!==el.tagName)continue;
+  if(!managed&&el.closest(managedNodeSelector))continue;
   const binding=sharedBinding(el,doc),shared=binding&&Object.hasOwn(doc.adminSharedValues,binding);
-  if(op.text!==undefined&&!(shared&&!['donation_url','chapter_application','facebook','instagram','linkedin','budget_source_url'].includes(binding))){el.textContent=op.text;el.style.whiteSpace='pre-line';}
+  if(op.text!==undefined&&!(shared&&!['donation_url','chapter_application','facebook','instagram','linkedin','budget_source_url'].includes(binding))){el.textContent=op.text;el.style.whiteSpace='pre-line';if(el.closest('[data-edit-collection]'))el.removeAttribute('data-content');}
   if(op.href&&el.tagName==='A'&&!shared)el.setAttribute('href',op.href);
   if(op.src&&el.tagName==='IMG'){el.setAttribute('src',op.src);el.removeAttribute('srcset');el.removeAttribute('sizes');el.style.objectFit='contain';}
   if(op.alt!==undefined&&el.tagName==='IMG')el.alt=op.alt;
@@ -44,7 +46,11 @@ export function applyEdits(doc,document,route){
   for(const old of doc.querySelectorAll('[data-admin-added="'+id+'"]'))old.remove();
   let after=el;for(const image of op.additions||[]){const img=doc.createElement('img');img.src=image.src;img.alt=image.alt;img.setAttribute('data-admin-added',id);img.style.cssText='display:block;max-width:100%;height:auto;margin:20px auto';after.after(img);after=img;}
  }
- if(route==='/team'){applyTeamRoster(doc,document.teamRoster);if(doc.defaultView)doc.dispatchEvent(new doc.defaultView.Event('team-roster-updated'));}
+ if(managed){
+  if(route==='/team'){applyTeamRoster(doc,document.teamRoster);if(doc.defaultView)doc.dispatchEvent(new doc.defaultView.Event('team-roster-updated'));}
+  applyCollections(doc,document.collections?.[route]);
+ }
+ syncFAQData(doc);
  projectPublishedUrls(doc);
 }
 // The editor stays inside the public site; private requests stay on its existing service.
@@ -83,9 +89,40 @@ if(typeof location!=='undefined'&&!location.pathname.startsWith(publicBase+'/adm
  document.addEventListener('click',event=>{if(!event.target.matches('.footer-city img'))return;const now=Date.now();count=now-last<2000?count+1:1;last=now;if(count===5){count=0;open();}});
  if(new URLSearchParams(location.search).get('edit')==='1')open();
  configPromise.then(async config=>{
-  if(!config.apiBase)return;let content;
-  const apply=()=>{if(content)applyEdits(document,content,document.body.dataset.adminRoute||'/');};
-  refresh=async()=>{if(document.hidden)return;try{const response=await fetch(config.apiBase+'/published',{cache:'no-store'});if(response.ok){content=(await response.json()).document;apply();}}catch{/* Keep the existing site available when the editor service is offline. */}};
+  if(!config.apiBase)return;
+  const route=document.body.dataset.adminRoute||'/',buildingManaged=document.body.hasAttribute('data-managed-version');
+  let content,applying=false,pending=false,lastRevision=-1,sourceHtml='',previousReferences=[];
+  try{previousReferences=JSON.parse(document.body.dataset.legacyReferences||'[]');}catch{}
+  const apply=()=>{if(!content||applying)return;applying=true;try{applyEdits(document,content,route,{managed:!buildingManaged});}finally{applying=false;}};
+  refresh=async()=>{
+   if(document.hidden||pending)return;pending=true;
+   try{
+    const response=await fetch(config.apiBase+'/published',{cache:'no-store',signal:AbortSignal.timeout(10000)});
+    if(!response.ok)return;
+    const latest=await response.json();
+    if(!latest.document||!Number.isInteger(latest.revision)||latest.revision<lastRevision)return;
+    const version=managedVersion(latest.document,route);
+    if(buildingManaged&&document.body.dataset.managedVersion!==version){
+     if(!sourceHtml){
+      const response=await fetch(publicBase+'/admin-source/'+adminSourceName(route)+'.json',{cache:'no-store',signal:AbortSignal.timeout(10000)});
+      if(!response.ok)throw Error('Page layout unavailable');
+      const {html}=await response.json();if(typeof html!=='string'||!html)throw Error('Page layout unavailable');sourceHtml=html;
+     }
+     const source=new DOMParser().parseFromString(sourceHtml,'text/html');
+     source.adminSheetValues=document.adminSheetValues;
+     applyEdits(source,latest.document,route);
+     const references=legacyReferences(latest.document,route);
+     mountManagedRegions(document,source,route);
+     restoreLegacyFields(document,source,previousReferences,references);
+     previousReferences=references;
+     document.body.dataset.managedVersion=version;
+     if(route==='/team')document.dispatchEvent(new Event('team-roster-updated'));
+     document.dispatchEvent(new Event('managed-content-updated'));
+    }
+    content=latest.document;lastRevision=latest.revision;apply();
+   }catch{/* Leave the latest usable page in place and retry. */}
+   finally{pending=false;}
+  };
   document.addEventListener('site-content-updated',apply);document.addEventListener('visibilitychange',refresh);await refresh();setInterval(refresh,30000);
  }).catch(()=>{});
 }

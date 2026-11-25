@@ -3,6 +3,10 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import vm from 'node:vm';
 import {parseHTML} from 'linkedom';
+import * as draftControls from '../public/rewrite/admin/draft-control.js';
+import {adminSourceName,managedKinds} from '../public/rewrite/content-collections.js';
+function mockReview(document){const dialog=document.querySelector('#publish-review');dialog.showModal=()=>{dialog.open=true;};dialog.close=()=>{dialog.open=false;};}
+
 import {applyEdits} from '../public/rewrite/admin-runtime.js';
 import {initializeSuggestions} from '../public/rewrite/admin/suggestions.js';
 import {sharedFields,parseSharedValue,sharedBinding,contentState} from '../public/rewrite/shared-content.js';
@@ -12,6 +16,7 @@ test('mobile content selection opens reachable controls, edits text and saves be
  const script=(await readFile(new URL('../public/rewrite/admin/editor.js',import.meta.url),'utf8')).replace(/^import .*;\n/gm,'');
  const {document,window}=parseHTML(html),preview=document.querySelector('#preview');
  const frame=parseHTML('<html><head><script id="site-content-state" type="application/json">{"initialValues":{"kits":18576,"kit_price":5,"underfunded_percent":0.83},"original":{"kit_price":5}}</script></head><body><header><a data-admin-id="4444444444444444">Header brand</a></header><main><h1 data-admin-id="1111111111111111">Original heading</h1><span data-admin-id="5555555555555555" data-site-number="kits">18,576</span><img data-admin-id="2222222222222222" src="https://example.org/photo.webp" alt="Kit photo"></main><footer><p data-admin-id="3333333333333333">Footer text</p></footer></body></html>').document;
+ mockReview(document);
  Object.defineProperty(preview,'contentDocument',{get:()=>frame});
  let saved={pages:{},shared:{}},revision=0;const calls=[];
  const fetch=async(url,options={})=>{calls.push({url,method:options.method||'GET'});let value;
@@ -19,12 +24,13 @@ test('mobile content selection opens reachable controls, edits text and saves be
   else if(url.endsWith('admin-pages.json'))value=[{route:'/',title:'Home'}];
   else if(url.endsWith('/draft')&&options.method==='PUT'){saved=JSON.parse(options.body);value={document:saved,revision:++revision};}
   else if(url.endsWith('/draft'))value={document:saved,revision};
+  else if(url.endsWith('/published'))value={document:{pages:{},shared:{},values:{}},revision:0};
   else if(url.endsWith('/publish'))value={ok:true};
   else if(url.includes('/admin-source/'))value={html:frame.documentElement.outerHTML};
   else return {ok:true,text:async()=>frame.documentElement.outerHTML};
   return {ok:true,json:async()=>value};
  };
- const context=vm.createContext({document,window,location:{origin:'https://admin.example',search:''},sessionStorage:{getItem:()=> 'test-session',setItem(){},removeItem(){}},matchMedia:()=>({matches:true}),fetch,initializeTeamManager:()=>{},initializeSuggestions:options=>initializeSuggestions({...options,doc:document,fetcher:fetch}),applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,AbortSignal,DOMParser:window.DOMParser,confirm:()=>true,console});
+ const context=vm.createContext({document,window,location:{origin:'https://admin.example',search:''},sessionStorage:{getItem:()=> 'test-session',setItem(){},removeItem(){}},matchMedia:()=>({matches:true}),fetch,...draftControls,adminSourceName,managedKinds,initializeContentManager:()=>({open(){}}),initializeTeamManager:()=>{},initializeSuggestions:options=>initializeSuggestions({...options,doc:document,fetcher:fetch}),applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,AbortSignal,DOMParser:window.DOMParser,confirm:()=>true,console});
  const editor=await new vm.Script('(async()=>{'+script+';return {openPage};})()').runInContext(context);
  await editor.openPage({route:'/',title:'Home'});preview.dispatchEvent(new window.Event('load'));
  assert.equal(document.querySelector('#canvas').hidden,true);assert.equal(document.querySelector('#content-list').hidden,false);
@@ -39,9 +45,13 @@ test('mobile content selection opens reachable controls, edits text and saves be
  find('Footer text').click();assert.equal(document.querySelector('#selection-help').textContent,'Shared across all pages.');
  field.value='Updated footer';field.dispatchEvent(new window.Event('input'));
  await document.querySelector('#publish-page').onclick();
+ assert.equal(document.querySelector('#publish-review').open,true);
+ assert.equal(calls.some(c=>c.method==='PUT'),false,'Review never writes to the server');
+ await document.querySelector('#review-publish').onclick();
+
  assert.equal(saved.values.kits,20000);assert.equal(saved.pages['/']['1111111111111111'].text,'Updated by the team');assert.equal(saved.shared['3333333333333333'].text,'Updated footer');
  assert.deepEqual(calls.filter(c=>['PUT','POST'].includes(c.method)).map(c=>c.method),['PUT','POST']);
- assert.equal(document.querySelector('#edit-status').textContent,'Published');
+ assert.match(document.querySelector('#edit-status').textContent,/^Published[.]/);
 });
 
 test('the public entry opens the direct editor and login sends no stale authorization header',async()=>{
@@ -56,7 +66,7 @@ test('the public entry opens the direct editor and login sends no stale authoriz
    else return {ok:true,text:async()=>'<html><body></body></html>'};
    return {ok:true,json:async()=>data};
   };
-  const context=vm.createContext({document,window,location:{origin,search:'?v=login3',replace:url=>redirects.push(url)},sessionStorage:{getItem:()=>'',setItem(){},removeItem(){}},matchMedia:()=>({matches:true}),fetch,initializeTeamManager:()=>{},initializeSuggestions:()=>{},applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,AbortSignal,DOMParser:window.DOMParser,confirm:()=>true,console});
+  const context=vm.createContext({document,window,location:{origin,search:'?v=login3',replace:url=>redirects.push(url)},sessionStorage:{getItem:()=>'',setItem(){},removeItem(){}},matchMedia:()=>({matches:true}),fetch,...draftControls,adminSourceName,managedKinds,initializeContentManager:()=>({open(){}}),initializeTeamManager:()=>{},initializeSuggestions:()=>{},applyEdits,sharedFields,parseSharedValue,sharedBinding,contentState,URL,AbortSignal,DOMParser:window.DOMParser,confirm:()=>true,console});
   await new vm.Script('(async()=>{'+script+'})()').runInContext(context);return {document,calls,redirects};
  }
  const entry=await setup('https://drews.click');assert.deepEqual(entry.redirects,['https://drews.click/rewrite/?edit=1']);assert.equal(entry.calls.length,1);

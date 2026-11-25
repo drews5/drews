@@ -16,12 +16,18 @@ export function readRoster(raw){
    if(typeof entry[field]==='string'&&entry[field].length<=max&&(!blankNames.has(field)||entry[field].trim()))profile[field]=entry[field].trim();
   }
   if(typeof entry.photo==='string'&&entry.photo.length<=2048)try{const url=new URL(entry.photo);if(url.protocol==='https:'&&!url.username&&!url.password)profile.photo=url.href;}catch{}
+  if(Array.isArray(entry.sections)){const sections=rosterSections.map(([name])=>name).filter(name=>entry.sections.includes(name));if(sections.length)profile.sections=sections;}
   if(entry.added===true&&profile.name&&profile.role){profile.added=true;profile.section=['leadership','board'].includes(entry.section)?entry.section:'full';}
   if(Object.keys(profile).length)records[id]=profile;
  }
  if(Array.isArray(raw?.removed))for(const id of raw.removed.slice(0,rosterLimit))if(typeof id==='string'&&keyPattern.test(id))removed.push(id);
  for(const [section] of rosterSections)if(Array.isArray(raw?.order?.[section]))order[section]=[...new Set(raw.order[section].slice(0,rosterLimit).filter(id=>typeof id==='string'&&keyPattern.test(id)))];
  return {records,removed,order};
+}
+
+export function profileSections(doc,id){
+ if(!/^[a-f0-9]{16}$/.test(id))return [];
+ return rosterSections.filter(([,selector])=>doc.querySelector(selector+' .person-card[data-team-member="'+id+'"]')).map(([name])=>name);
 }
 
 export function readProfile(doc,id){
@@ -40,9 +46,9 @@ function makeProfile(doc,id,profile,grids){
  const paragraph=element(doc,'p');paragraph.dataset.teamBio='';
  copy.append(title,element(doc,'p','person-role'),paragraph);bio.append(dismiss,element(doc,'img'),copy);
  doc.querySelector('main').append(bio);
- for(const section of new Set(['full',profile.section])){
+ for(const section of profile.sections||new Set(['full',profile.section])){
   const grid=grids.get(section);if(!grid)continue;
-  const card=element(doc,'article','person-card');card.dataset.teamMember=id;card.dataset.group=profile.section==='board'?'board of directors':'';
+  const card=element(doc,'article','person-card');card.dataset.teamMember=id;card.dataset.group=(profile.sections?.includes('board')??(profile.section==='board'))?'board of directors':'';
   const photo=element(doc,'button','person-photo'),pic=element(doc,'img');pic.loading='lazy';pic.decoding='async';photo.append(pic);
   const button=element(doc,'button','bio-button','Read bio →');
   for(const trigger of [photo,button]){trigger.type='button';trigger.dataset.openDialog=dialogId;}
@@ -108,7 +114,26 @@ export function applyTeamRoster(doc,raw){
     }
    }else for(const [container,node] of parts.nodes)if(!node.parentNode)container.append(node);
   }
-  for(const [id,profile] of Object.entries(roster.records))if(profile.added&&!roster.removed.includes(id)&&!doc.querySelector('.full-team-grid [data-team-member="'+id+'"]'))makeProfile(doc,id,profile,grids);
+  for(const [id,profile] of Object.entries(roster.records))if(profile.added&&!roster.removed.includes(id)&&!doc.querySelector('dialog[data-team-member="'+id+'"]'))makeProfile(doc,id,profile,grids);
+  for(const [id,profile] of Object.entries(roster.records)){
+   if(!profile.sections||roster.removed.includes(id))continue;
+   const selector='.person-card[data-team-member="'+id+'"]',card=doc.querySelector(selector);
+   if(!card)continue;
+   for(const [name,grid] of grids){
+    const current=grid.querySelector(selector);
+    if(!profile.sections.includes(name)){current?.remove();continue;}
+    let placed=current;
+    if(!placed){
+     placed=card.cloneNode(true);
+     for(const node of [placed,...placed.querySelectorAll('[data-admin-id],[data-admin-key]')]){
+      node.removeAttribute('data-admin-id');node.removeAttribute('data-admin-key');
+     }
+     grid.append(placed);
+    }
+    if(profile.sections.includes('board'))placed.dataset.group='board of directors';
+    else if(placed.dataset.group==='board of directors')placed.dataset.group='';
+   }
+  }
   for(const node of doc.querySelectorAll('.person-card[data-team-member],dialog.bio-dialog[data-team-member]')){
    const id=node.dataset.teamMember,parts=state.members.get(id)||{added:false,nodes:[]};
    // A static page can contain a previously published profile that is no longer
@@ -128,7 +153,8 @@ export function applyTeamRoster(doc,raw){
  }
  for(const [id,parts] of state.members){
   const profile=roster.records[id]||{};
-  const card=parts.nodes.find(([container,node])=>container===grids.get('full')&&node.matches('.person-card'))?.[1]||parts.nodes.find(([,node])=>node.matches('.person-card'))?.[1];
+  const connected=([container,node])=>node.parentNode===container&&node.matches('.person-card');
+  const card=parts.nodes.find(pair=>pair[0]===grids.get('full')&&connected(pair))?.[1]||parts.nodes.find(connected)?.[1];
   const dialog=parts.nodes.find(([,node])=>node.matches('dialog'))?.[1];
   const existingPronouns=dialog?.querySelector('.person-role')?.textContent.split(' · ').slice(1).join(' · ')||'';
   const role=profile.role??card?.querySelector('.person-role')?.textContent??'';
