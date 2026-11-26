@@ -5,3 +5,6 @@ source/__pycache__/
 node_modules/
 .DS_Store
 source/.generated-pages/
+.cinema-dev/
+.cinema-core-cache/
+cinema-dist/

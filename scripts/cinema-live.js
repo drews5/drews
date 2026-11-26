@@ -19,10 +19,10 @@
    const next=await response.json();if(!/^[a-f0-9]{16}$/.test(next.app)||!/^[a-f0-9]{16}$/.test(next.css))return;
    latest=next;
    if(next.css!==css){
-    const old=document.querySelector('link[href*="assets/cinema-mobile.css"]');
+    const old=document.querySelector('link[href*="assets/cinema.css"]');
     if(old){
      const link=document.createElement('link');link.rel='stylesheet';
-     link.href=new URL('assets/cinema-mobile.css?v='+next.css,base);
+     link.href=new URL('assets/cinema.css?v='+next.css,base);
      await new Promise((resolve,reject)=>{link.onload=()=>{old.remove();css=next.css;resolve()};link.onerror=()=>{link.remove();reject(Error('CSS update failed'))};old.after(link)});
     }
    }
@@ -31,6 +31,7 @@
    }
   }catch{}finally{busy=false}
  }
- setInterval(check,10000);
+ // Local previews poll quickly; production polls every 10s.
+ setInterval(check,/^(localhost|127\.0\.0\.1)$/.test(location.hostname)?1000:10000);
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)void check()});
 })();

@@ -1,0 +1,36 @@
+/* Cinema design tokens. Browser builds only; TV builds keep Nuvio's own theme. */
+:root.cinema-web {
+  --cinema-bg: #0b0b0c;
+  --cinema-surface: #151517;
+  --cinema-surface-raised: #1d1d20;
+  --cinema-line: rgba(255, 255, 255, 0.08);
+  --cinema-text: #f4f4f5;
+  --cinema-text-muted: rgba(244, 244, 245, 0.62);
+  --cinema-accent: #e50914;
+  --cinema-focus: rgba(255, 255, 255, 0.92);
+  --cinema-radius-sm: 6px;
+  --cinema-radius: 10px;
+  --cinema-gutter: clamp(16px, 4vw, 56px);
+  --cinema-font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --cinema-text-xs: 12px;
+  --cinema-text-sm: 14px;
+  --cinema-text-md: 16px;
+  --cinema-text-lg: 20px;
+  --cinema-text-xl: clamp(24px, 5vw, 40px);
+  --cinema-ease: cubic-bezier(0.2, 0, 0, 1);
+  --cinema-nav-height: 60px;
+  --cinema-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --cinema-safe-top: env(safe-area-inset-top, 0px);
+  --cinema-tap: 44px;
+}
+
+:root.cinema-web,
+:root.cinema-web body {
+  background: var(--cinema-bg);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+:root.cinema-touch * {
+  -webkit-tap-highlight-color: transparent;
+}

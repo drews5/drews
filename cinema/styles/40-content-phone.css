@@ -1,0 +1,65 @@
+/* Phone sizing for TV-scaled content screens. */
+@media (max-width: 760px) {
+  .cinema-web #app .home-screen-shell.home-layout-modern .home-modern-hero-media { right: 0 !important; width: 100% !important; }
+
+  .cinema-web #search .search-results-row { padding: 0 !important; margin: 20px 0 0 !important; }
+  .cinema-web #search :is(.search-results-title, .search-results-subtitle) { padding: 0 var(--cinema-gutter) !important; margin: 0 !important; }
+  .cinema-web #search .search-results-title { font: 600 var(--cinema-text-lg)/1.25 var(--cinema-font) !important; height: auto !important; }
+  .cinema-web #search .search-results-subtitle { font: 400 var(--cinema-text-xs)/1.4 var(--cinema-font) !important; color: var(--cinema-text-muted) !important; margin-bottom: 8px !important; }
+  .cinema-web #search .search-results-track {
+    display: flex !important;
+    gap: 10px !important;
+    height: auto !important;
+    padding: 0 var(--cinema-gutter) !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: var(--cinema-gutter);
+    scrollbar-width: none;
+    transform: none !important;
+  }
+  .cinema-web #search .search-results-track::-webkit-scrollbar { display: none; }
+  .cinema-web #search .search-result-card {
+    flex: 0 0 auto !important;
+    width: 116px !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: none !important;
+    scroll-snap-align: start;
+  }
+  .cinema-web #search .search-result-poster-wrap { width: 116px !important; height: 174px !important; border-radius: var(--cinema-radius-sm) !important; }
+  .cinema-web #search .search-result-poster { width: 100% !important; height: 100% !important; object-fit: cover; }
+  .cinema-web #search .search-result-name { font: 500 var(--cinema-text-sm)/1.3 var(--cinema-font) !important; margin-top: 6px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; height: auto !important; }
+  .cinema-web #search .search-result-date { font: 400 var(--cinema-text-xs)/1.3 var(--cinema-font) !important; color: var(--cinema-text-muted) !important; height: auto !important; }
+
+  .cinema-web #library .library-page {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: calc(16px + var(--cinema-safe-top)) var(--cinema-gutter) 24px !important;
+  }
+  .cinema-web #library .library-page-header { height: auto !important; gap: 10px !important; align-items: baseline !important; }
+  .cinema-web #library .library-page-title { font: 600 var(--cinema-text-xl)/1.15 var(--cinema-font) !important; }
+  .cinema-web #library .library-page-source { font: 500 var(--cinema-text-xs)/1 var(--cinema-font) !important; letter-spacing: 0.08em; color: var(--cinema-text-muted) !important; height: auto !important; }
+  .cinema-web #library .library-view-mode-row { gap: 8px !important; margin: 16px 0 12px !important; height: auto !important; }
+  .cinema-web #library .library-view-mode-button { width: auto !important; height: 36px !important; padding: 0 16px !important; border-radius: 18px !important; font: 500 var(--cinema-text-sm)/1 var(--cinema-font) !important; }
+  .cinema-web #library .library-picker-groups { width: 100% !important; }
+  .cinema-web #library .library-empty-state { height: auto !important; padding: 48px 0 !important; gap: 8px !important; }
+  .cinema-web #library .library-empty-state :is(h1, h2, h3) { font: 600 var(--cinema-text-lg)/1.25 var(--cinema-font) !important; }
+  .cinema-web #library .library-empty-state p { font: 400 var(--cinema-text-sm)/1.4 var(--cinema-font) !important; color: var(--cinema-text-muted) !important; }
+  .cinema-web #library .library-empty-state :is(svg, .material-icons) { width: 48px !important; height: 48px !important; font-size: 48px !important; }
+}
+
+@media (max-width: 760px) {
+  .cinema-web #library .library-view-mode-button { min-width: 0 !important; flex: 0 0 auto !important; }
+  .cinema-web #library .library-picker-row { flex-wrap: wrap !important; gap: 8px !important; }
+  .cinema-web #library .library-picker-groups { gap: 8px !important; margin-bottom: 16px !important; }
+  .cinema-web #library .library-picker { flex: 1 1 140px !important; min-width: 0 !important; }
+  .cinema-web #library .library-picker-wide { max-width: 100% !important; }
+  .cinema-web #library .library-picker-anchor { min-height: var(--cinema-tap) !important; padding: 6px 12px !important; border-radius: var(--cinema-radius) !important; }
+  .cinema-web #library .library-picker-title { font: 400 var(--cinema-text-xs)/1.2 var(--cinema-font) !important; color: var(--cinema-text-muted) !important; }
+  .cinema-web #library .library-picker-value { font: 500 var(--cinema-text-sm)/1.3 var(--cinema-font) !important; }
+  .cinema-web #library .library-picker-menu { max-width: calc(100vw - 2 * var(--cinema-gutter)) !important; }
+  .cinema-web #library .library-picker-option { min-height: var(--cinema-tap) !important; font-size: var(--cinema-text-sm) !important; }
+  .cinema-web #app img { color: transparent; }
+}

@@ -1,0 +1,73 @@
+/* Phone settings: section chips above a single scrolling column. */
+@media (max-width: 760px) {
+  .cinema-web #settings .settings-workspace {
+    width: 100% !important;
+    height: calc(100dvh - var(--cinema-nav-height) - var(--cinema-safe-bottom)) !important;
+    margin: 0 !important;
+    padding: calc(12px + var(--cinema-safe-top)) 0 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    transition: none !important;
+  }
+  .cinema-web #settings .settings-sidebar-frame { flex: 0 0 auto !important; width: 100% !important; height: auto !important; }
+  .cinema-web #settings .settings-sidebar {
+    flex-direction: row !important;
+    gap: 8px !important;
+    height: auto !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    padding: 0 var(--cinema-gutter) 4px !important;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+  .cinema-web #settings .settings-sidebar::-webkit-scrollbar { display: none; }
+  .cinema-web #settings .settings-nav-item {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-height: 40px !important;
+    height: 40px !important;
+    padding: 0 14px !important;
+    margin: 0 !important;
+    border-radius: 20px !important;
+    background: var(--cinema-surface-raised) !important;
+    transform: none !important;
+    scroll-snap-align: start;
+  }
+  .cinema-web #settings .settings-nav-item.selected { background: var(--cinema-text) !important; color: #000 !important; }
+  .cinema-web #settings .settings-nav-item.selected * { color: #000 !important; }
+  .cinema-web #settings .settings-nav-item > svg { display: none !important; }
+  .cinema-web #settings .settings-nav-leading { width: auto !important; gap: 8px !important; }
+  .cinema-web #settings .settings-nav-icon { width: 20px !important; height: 20px !important; font-size: 20px !important; }
+  .cinema-web #settings .settings-nav-icon svg { width: 20px !important; height: 20px !important; }
+  .cinema-web #settings .settings-nav-label-wrap { width: auto !important; }
+  .cinema-web #settings .settings-nav-label { font: 500 var(--cinema-text-sm)/1 var(--cinema-font) !important; white-space: nowrap !important; }
+  .cinema-web #settings .settings-scroll-indicator { display: none !important; }
+  .cinema-web #settings .settings-content-frame { flex: 1 1 auto !important; width: 100% !important; min-height: 0 !important; }
+  .cinema-web #settings .settings-content {
+    width: 100% !important;
+    padding: 4px var(--cinema-gutter) 32px !important;
+    gap: 16px !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  .cinema-web #settings .settings-content-header { width: 100% !important; gap: 4px !important; }
+  .cinema-web #settings .settings-title { font: 600 var(--cinema-text-xl)/1.15 var(--cinema-font) !important; margin: 0 !important; }
+  .cinema-web #settings .settings-subtitle { font: 400 var(--cinema-text-sm)/1.4 var(--cinema-font) !important; color: var(--cinema-text-muted) !important; margin: 0 !important; }
+  .cinema-web #settings :is(.settings-group-card, .settings-account-card) {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 16px !important;
+    border-radius: var(--cinema-radius) !important;
+  }
+  .cinema-web #settings .settings-content :is(p, span, label, button, h2, h3) {
+    font-size: var(--cinema-text-md);
+    line-height: 1.4;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .cinema-web #settings .settings-content :is(.material-icons) { font-size: 22px !important; width: 22px !important; height: 22px !important; }
+  .cinema-web #settings .settings-content :is(button, .focusable) { min-height: var(--cinema-tap); }
+}

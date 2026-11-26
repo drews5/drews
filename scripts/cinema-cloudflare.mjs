@@ -25,7 +25,7 @@ await writeFile(join(root,'_headers'),`/*
   Cache-Control: no-cache, must-revalidate
 /cinema-live.js
   Cache-Control: no-cache, must-revalidate
-/assets/cinema-mobile.css
+/assets/cinema.css
   Cache-Control: no-cache, must-revalidate
 `);
 async function verify(dir){for(const entry of await readdir(dir,{withFileTypes:true})){const path=join(dir,entry.name);if(entry.isDirectory())await verify(path);else if((await stat(path)).size>max)throw Error('Cloudflare asset exceeds 25 MiB: '+path)}}
