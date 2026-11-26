@@ -86,3 +86,40 @@
   .cinema-web #home .home-row-title { padding-left: var(--cinema-gutter) !important; margin-left: 0 !important; }
   .cinema-web #home .home-track { padding-left: var(--cinema-gutter) !important; scroll-padding-inline: var(--cinema-gutter); }
 }
+
+/* Library: Netflix-style three-column poster grid. */
+@media (max-width: 760px) {
+  .cinema-web #library .home-main { padding: 0 !important; }
+  .cinema-web #library .library-page { max-width: none !important; width: 100% !important; }
+
+  .cinema-web #library .library-page-source {
+    font-size: 11px !important;
+    letter-spacing: 0.12em !important;
+    padding-top: 2px !important;
+    height: auto !important;
+  }
+  .cinema-web #library .library-picker-groups {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    margin-bottom: 12px !important;
+  }
+  .cinema-web #library .library-picker-groups > * + * { margin-top: 0 !important; }
+  .cinema-web #library .library-picker { flex: 1 1 calc(50% - 4px) !important; min-width: 0 !important; margin-left: 0 !important; }
+  .cinema-web #library .library-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 14px 10px !important;
+    width: 100% !important;
+  }
+  .cinema-web #library .library-grid-card { gap: 6px !important; }
+  .cinema-web #library .library-grid-card > * + * { margin-top: 6px !important; }
+  .cinema-web #library .library-grid-poster {
+    border-radius: var(--cinema-radius-sm) !important;
+    border-width: 2px !important;
+  }
+  .cinema-web #library .library-grid-title {
+    font: 500 var(--cinema-text-sm)/1.25 var(--cinema-font) !important;
+    height: auto !important;
+    padding: 0 !important;
+  }
+}
