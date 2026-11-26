@@ -112,7 +112,7 @@
 }
 
 @media (max-width: 760px) {
-  .cinema-web #settings .settings-account-sync-stats { gap: 6px !important; overflow: hidden !important; }
+  .cinema-web #settings .settings-account-sync-stats { gap: 6px !important; flex-shrink: 0 !important; }
   .cinema-web #settings .settings-account-sync-stats :is(span, div) { font-size: 11px !important; line-height: 1.25 !important; }
   .cinema-web #settings .settings-account-sync-stats :is(strong, b) { font-size: 17px !important; }
   .cinema-web #settings .settings-account-sync-row { overflow: hidden !important; }
