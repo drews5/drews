@@ -112,7 +112,14 @@ function cinemaPhoneNavigation() {
   ['<aside class="modern-sidebar-panel" aria-hidden="${expanded ? "false" : "true"}">',
    '<aside class="modern-sidebar-panel" aria-hidden="${expanded || cinemaPhoneNavigation() ? "false" : "true"}">']
  ]));
- files.push(await edit(source,'js/ui/components/sidebarNavigationHelpers-04-set-modern-sidebar-expanded.js',[phoneNav,
+ // Rotating across the breakpoint does not re-render the sidebar, so resync collapsed panels.
+ const phoneNavSync=[phoneNav[0],phoneNav[1]+`
+globalThis.matchMedia?.("(max-width: 760px)")?.addEventListener?.("change", () => {
+  document.querySelectorAll(".modern-sidebar-shell:not(.expanded) .modern-sidebar-panel")
+    .forEach((panel) => panel.setAttribute("aria-hidden", cinemaPhoneNavigation() ? "false" : "true"));
+});
+`];
+ files.push(await edit(source,'js/ui/components/sidebarNavigationHelpers-04-set-modern-sidebar-expanded.js',[phoneNavSync,
   ['      if (panel) panel.setAttribute("aria-hidden", "true");',
    '      if (panel) panel.setAttribute("aria-hidden", cinemaPhoneNavigation() ? "false" : "true");'],
   ['if (panel) {\n      panel.setAttribute("aria-hidden", "true");',
