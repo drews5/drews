@@ -85,6 +85,20 @@ function pointerHoverEnabled() {
   ['  handlePointerClick(event) {\n    if (!Platform.isWebOS()) {','  handlePointerClick(event) {\n    if (!pointerInputEnabled()) {']
  ]));
 
+ // The focus engine stops propagation whenever onPointerActivate returns a promise, which
+ // swallowed clicks for overlays with their own listeners (Watch Party panel, stream info).
+ files.push(await edit(source,'js/ui/screens/player/playerScreenMethods-70-on-pointer-activate.js',[
+  ['    async onPointerActivate(target, event) {\n      if (!target || this.isExternalFrameMode()) {',
+   `    onPointerActivate(target, event) {
+      if (target?.closest?.("#playerPartyPanel, #playerPartyScrim, .player-stream-info-overlay")) {
+        return false;
+      }
+      return this.onPointerActivateAsync(target, event);
+    },
+    async onPointerActivateAsync(target, event) {
+      if (!target || this.isExternalFrameMode()) {`]
+ ]));
+
  const mount='js/ui/screens/account/authQrSignInScreenMethods-01-mount.js';
  files.push(await edit(source,mount,[
   ['<h1 class="qr-title">${I18n.t("auth.qr.title")}</h1>',
