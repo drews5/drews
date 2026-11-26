@@ -70,6 +70,7 @@ jobs:
           PREVIEW_BRANCH: ${{ github.head_ref }}
         # Pull requests publish a Pages preview; only main updates cinema.drews.click.
         run: |
+          set -o pipefail
           branch=main
           if [[ "$GITHUB_EVENT_NAME" == pull_request ]]; then branch="$PREVIEW_BRANCH"; fi
           npx --yes wrangler@4 pages deploy cinema-dist --project-name=cinema --branch="$branch" | tee wrangler.log
