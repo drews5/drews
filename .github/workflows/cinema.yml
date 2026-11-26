@@ -7,16 +7,24 @@ on:
       - 'scripts/build-cinema.mjs'
       - 'scripts/cinema-*'
       - '.github/workflows/cinema.yml'
+  pull_request:
+    paths:
+      - 'cinema/**'
+      - 'scripts/build-cinema.mjs'
+      - 'scripts/cinema-*'
+      - '.github/workflows/cinema.yml'
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  group: cinema-cloudflare
+  group: cinema-cloudflare-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    outputs:
+      url: ${{ steps.publish.outputs.url }}
     env:
       CINEMA_OUTPUT: ${{ github.workspace }}/cinema-dist
       CINEMA_CORE_CACHE: ${{ github.workspace }}/.cinema-core-cache
@@ -38,6 +46,8 @@ jobs:
           key: cinema-wrangler4-${{ runner.os }}-v1
       - name: Build Cinema only
         run: node scripts/build-cinema.mjs
+      - name: Smoke-check build
+        run: node scripts/cinema-smoke.mjs
       - name: Prepare Cloudflare assets
         run: node scripts/cinema-cloudflare.mjs
       - name: Check Cloudflare connection
@@ -52,11 +62,18 @@ jobs:
             echo 'ready=false' >> "$GITHUB_OUTPUT"
           fi
       - name: Publish
+        id: publish
         if: steps.connection.outputs.ready == 'true'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: npx --yes wrangler@4 pages deploy cinema-dist --project-name=cinema --branch=main
+          PREVIEW_BRANCH: ${{ github.head_ref }}
+        # Pull requests publish a Pages preview; only main updates cinema.drews.click.
+        run: |
+          branch=main
+          if [[ "$GITHUB_EVENT_NAME" == pull_request ]]; then branch="$PREVIEW_BRANCH"; fi
+          npx --yes wrangler@4 pages deploy cinema-dist --project-name=cinema --branch="$branch" | tee wrangler.log
+          echo "url=$(grep -oE 'https://[a-z0-9.-]+\.pages\.dev' wrangler.log | head -1)" >> "$GITHUB_OUTPUT"
       - name: Cloudflare connection required
         if: steps.connection.outputs.ready != 'true'
         run: |
@@ -67,3 +84,26 @@ jobs:
           name: cinema-preview
           path: cinema-dist
           retention-days: 3
+  responsive:
+    needs: deploy
+    if: needs.deploy.outputs.url != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install browser driver
+        run: npm i --no-save --no-audit --no-fund playwright-core@1.49.1
+      - name: Responsive smoke test (375-1920px)
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+          CINEMA_SHOTS: cinema-shots
+        run: node scripts/cinema-browser-test.mjs "${{ needs.deploy.outputs.url }}/"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cinema-screenshots
+          path: cinema-shots
+          retention-days: 7
