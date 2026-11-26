@@ -58,6 +58,8 @@ async function main(){
   await cp(join(source,'LICENSE'),join(staging,'LICENSE'));
   const css=await bundleStyles();
   await writeFile(join(staging,'assets','cinema.css'),css);
+  // Tabs opened before the stylesheet rename still poll for cinema-mobile.css; keep it so they can update and reload.
+  await writeFile(join(staging,'assets','cinema-mobile.css'),css);
   await cp(join(root,'scripts','cinema-live.js'),join(staging,'cinema-live.js'));
   // Corresponding source: pinned upstream plus every downstream file (GPL-3.0).
   await cp(cinemaDir,join(source,'cinema-downstream','cinema'),{recursive:true});
