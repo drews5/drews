@@ -25,6 +25,8 @@ await writeFile(join(root,'_headers'),`/*
   Cache-Control: no-cache, must-revalidate
 /cinema-live.js
   Cache-Control: no-cache, must-revalidate
+/assets/cinema.css
+  Cache-Control: no-cache, must-revalidate
 /assets/cinema-mobile.css
   Cache-Control: no-cache, must-revalidate
 `);

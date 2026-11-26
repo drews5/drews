@@ -1,0 +1,174 @@
+// Downstream source patches applied to the pinned Nuvio Web checkout.
+// Each patch asserts its anchor exists exactly once so an upstream bump fails
+// loudly instead of silently shipping an unpatched build.
+import {readFile,writeFile} from 'node:fs/promises';
+import {join} from 'node:path';
+
+const PUBLISHABLE_KEY='sb_publishable_1Clq8rlTVACkdcZuqr6_AD__xUUC_EN';
+
+async function edit(source,file,edits){
+ const path=join(source,file);
+ let text=await readFile(path,'utf8');
+ for(const [find,replace] of edits){
+  const count=text.split(find).length-1;
+  if(count!==1)throw Error(`Upstream changed: expected one match in ${file} for ${JSON.stringify(find.slice(0,80))}, found ${count}`);
+  text=text.replace(find,()=>typeof replace==='function'?replace(find):replace);
+ }
+ await writeFile(path,text);
+ return file;
+}
+
+export async function patchUpstream(source){
+ const files=[];
+ // Browsers get a responsive viewport and a runtime class used to scope the
+ // Cinema design layer. Tizen and webOS keep the untouched TV layout.
+ files.push(await edit(source,'index.html',[
+  ['width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no','width=device-width, initial-scale=1.0, viewport-fit=cover'],
+  ['<meta name="apple-mobile-web-app-capable" content="yes" />',`<meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#0b0b0c" />
+    <script>
+      (function markCinemaRuntime() {
+        var root = document.documentElement;
+        var ua = String(navigator.userAgent || "").toLowerCase();
+        var tv = window.__NUVIO_PLATFORM__ === "tizen" || window.tizen || ua.indexOf("tizen") !== -1 ||
+          ua.indexOf("webos") !== -1 || ua.indexOf("web0s") !== -1 || window.PalmSystem;
+        if (tv) { root.classList.add("cinema-tv"); return; }
+        root.classList.add("cinema-web");
+        var coarse = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+        root.classList.add(coarse ? "cinema-touch" : "cinema-pointer");
+      })();
+    </script>`],
+  ['</head>','<link rel="stylesheet" href="assets/cinema.css?v=dev" /></head>']
+ ]));
+
+ const props=await readFile(join(source,'local.example.properties'),'utf8');
+ if(!/^NUVIO_SUPABASE_URL=/m.test(props)||!/^NUVIO_SUPABASE_ANON_KEY=/m.test(props))throw Error('Upstream authentication configuration changed');
+ // Nuvio documents this publishable identifier for public clients: https://nuvio.tv/docs/server-api
+ await writeFile(join(source,'local.properties'),props
+  .replace(/^NUVIO_SUPABASE_URL=.*$/m,'NUVIO_SUPABASE_URL=https://api.nuvio.tv')
+  .replace(/^NUVIO_SUPABASE_ANON_KEY=.*$/m,'NUVIO_SUPABASE_ANON_KEY='+PUBLISHABLE_KEY));
+
+ // The official server advertises email_password_auth in /.well-known/nuvio.
+ // Upstream hides it because TVs have no comfortable keyboard; browsers do.
+ files.push(await edit(source,'js/data/local/serverConfigurationStore.js',[
+  ['capabilities: { emailPasswordAuth: false, tvLogin: true, watchParty: true },',
+   'capabilities: { emailPasswordAuth: isCinemaBrowserRuntime(), tvLogin: true, watchParty: true },'],
+  ['function officialConfiguration() {',`function isCinemaBrowserRuntime() {
+  return Boolean(globalThis.document?.documentElement?.classList?.contains("cinema-web"));
+}
+
+function officialConfiguration() {`]
+ ]));
+
+ // Upstream only wires mouse/touch to the focus engine on webOS (Magic Remote).
+ // Browsers need the same path, or tapping hero/stream buttons does nothing.
+ files.push(await edit(source,'js/ui/navigation/focusEngine.js',[
+  ['import { Platform } from "../../platform/index.js";\n',`import { Platform } from "../../platform/index.js";
+
+function isCinemaBrowser() {
+  return Boolean(globalThis.document?.documentElement?.classList?.contains("cinema-web"));
+}
+
+function pointerInputEnabled() {
+  return Platform.isWebOS() || isCinemaBrowser();
+}
+
+// Hover-to-focus suits mice; on touch it would scroll rows under the finger.
+function pointerHoverEnabled() {
+  return Platform.isWebOS() || (isCinemaBrowser() && !document.documentElement.classList.contains("cinema-touch"));
+}
+`],
+  ['    if (Platform.isWebOS()) {\n      document.addEventListener("mousemove", this.boundHandlePointerMove, true);\n      document.addEventListener("pointermove", this.boundHandlePointerMove, true);\n      document.addEventListener("click", this.boundHandlePointerClick, true);\n',
+   '    if (pointerInputEnabled()) {\n      document.addEventListener("mousemove", this.boundHandlePointerMove, true);\n      document.addEventListener("pointermove", this.boundHandlePointerMove, true);\n      document.addEventListener("click", this.boundHandlePointerClick, true);\n    }\n    if (Platform.isWebOS()) {\n'],
+  ['  handlePointerMove(event) {\n    if (!Platform.isWebOS()) {','  handlePointerMove(event) {\n    if (!pointerHoverEnabled()) {'],
+  ['  processPointerMove(event) {\n    if (!Platform.isWebOS()) {','  processPointerMove(event) {\n    if (!pointerHoverEnabled()) {'],
+  ['  handlePointerClick(event) {\n    if (!Platform.isWebOS()) {','  handlePointerClick(event) {\n    if (!pointerInputEnabled()) {']
+ ]));
+
+ // The focus engine stops propagation whenever onPointerActivate returns a promise, which
+ // swallowed clicks for overlays with their own listeners (Watch Party panel, stream info).
+ files.push(await edit(source,'js/ui/screens/player/playerScreenMethods-70-on-pointer-activate.js',[
+  ['    async onPointerActivate(target, event) {\n      if (!target || this.isExternalFrameMode()) {',
+   `    onPointerActivate(target, event) {
+      if (target?.closest?.("#playerPartyPanel, #playerPartyScrim, .player-stream-info-overlay")) {
+        return false;
+      }
+      return this.onPointerActivateAsync(target, event);
+    },
+    async onPointerActivateAsync(target, event) {
+      if (!target || this.isExternalFrameMode()) {`]
+ ]));
+
+ // On phones the modern sidebar panel is the always-visible bottom bar, so it must stay
+ // exposed to assistive technology even while "collapsed".
+ const phoneNav=['import { I18n } from "../../i18n/index.js";\n',`import { I18n } from "../../i18n/index.js";
+
+function cinemaPhoneNavigation() {
+  return Boolean(globalThis.document?.documentElement?.classList?.contains("cinema-web") &&
+    globalThis.matchMedia?.("(max-width: 760px)")?.matches);
+}
+`];
+ files.push(await edit(source,'js/ui/components/sidebarNavigationHelpers-02-get-sidebar-avatar-catalog.js',[phoneNav,
+  ['<aside class="modern-sidebar-panel" aria-hidden="${expanded ? "false" : "true"}">',
+   '<aside class="modern-sidebar-panel" aria-hidden="${expanded || cinemaPhoneNavigation() ? "false" : "true"}">']
+ ]));
+ // Rotating across the breakpoint does not re-render the sidebar, so resync collapsed panels.
+ const phoneNavSync=[phoneNav[0],phoneNav[1]+`
+globalThis.matchMedia?.("(max-width: 760px)")?.addEventListener?.("change", () => {
+  document.querySelectorAll(".modern-sidebar-shell:not(.expanded) .modern-sidebar-panel")
+    .forEach((panel) => panel.setAttribute("aria-hidden", cinemaPhoneNavigation() ? "false" : "true"));
+});
+`];
+ files.push(await edit(source,'js/ui/components/sidebarNavigationHelpers-04-set-modern-sidebar-expanded.js',[phoneNavSync,
+  ['      if (panel) panel.setAttribute("aria-hidden", "true");',
+   '      if (panel) panel.setAttribute("aria-hidden", cinemaPhoneNavigation() ? "false" : "true");'],
+  ['if (panel) {\n      panel.setAttribute("aria-hidden", "true");',
+   'if (panel) {\n      panel.setAttribute("aria-hidden", cinemaPhoneNavigation() ? "false" : "true");']
+ ]));
+
+ const mount='js/ui/screens/account/authQrSignInScreenMethods-01-mount.js';
+ files.push(await edit(source,mount,[
+  ['<h1 class="qr-title">${I18n.t("auth.qr.title")}</h1>',
+   '<h1 class="qr-title">${this.useEmailLogin && !this.isSignedIn ? I18n.t("auth.email.signIn") : I18n.t("auth.qr.title")}</h1>'],
+  // Make the alternate sign-in method a visible control instead of only a
+  // hidden server-menu entry, so phones can reach QR and email directly.
+  ['      return `${refreshAction}${continueLabel}`;',
+   `      const switchAction = !this.isSignedIn && this.supportsEmailAuth && this.supportsQrAuth
+        ? \`<button type="button" class="qr-action-btn qr-action-btn-secondary cinema-login-switch focusable" data-action="\${this.useEmailLogin ? "login-qr" : "login-email"}">
+            \${escapeHtml(I18n.t(this.useEmailLogin ? "server_options_login_with_qr" : "server_options_login_with_email"))}
+          </button>\`
+        : "";
+      return \`\${refreshAction}\${switchAction}\${continueLabel}\`;`]
+ ]));
+
+ files.push(await edit(source,'js/ui/screens/account/authQrSignInScreenMethods-03-to-friendly-email-error.js',[
+  ['if (this.useEmailLogin) return I18n.t("auth.email.hint");',
+   'if (this.useEmailLogin) return this.serverConfiguration?.isCustom ? I18n.t("auth.email.hint") : I18n.t("auth.email.instruction");']
+ ]));
+
+ const qr='js/ui/screens/account/authQrSignInScreenMethods-02-bind-controls.js';
+ const manualLine='manualText.innerText = manualUrl && (displayCode || code) ? I18n.t("auth.qr.manualInstruction", { url: manualUrl }) : "";';
+ files.push(await edit(source,qr,[
+  [manualLine,`${manualLine}
+        // A phone cannot scan its own screen: offer the approval page directly.
+        if (location.protocol === "https:" && /^https:\\/\\//i.test(content)) {
+          const link = document.createElement("a");
+          link.className = "cinema-pair-link";
+          link.href = content;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.textContent = "Open sign-in on this device";
+          manualText.append(link);
+        }`],
+  ['expiryNode.innerText = I18n.t("auth.qr.expires", {\n            duration: formatDuration(remaining)\n          });','expiryNode.textContent = "Expires in " + formatDuration(remaining);'],
+  ['if (remaining <= 0) {\n          this.setStatus','if (remaining <= 0) {\n          this.clearQr();\n          this.setStatus']
+ ]));
+
+ // Hosted browser builds update on deployment; the TV installer prompt does not apply.
+ files.push(await edit(source,'js/app.js',[
+  ['async function checkForAppUpdateOnStartup() {','async function checkForAppUpdateOnStartup() {\n  if (!Platform.isTizen() && !Platform.isWebOS()) return;'],
+  // The add-on manager page bootstraps separately and otherwise renders raw string keys.
+  ['async function bootstrapAddonRemoteMode() {\n  await renderAddonRemotePage();','async function bootstrapAddonRemoteMode() {\n  await I18n.init();\n  await renderAddonRemotePage();']
+ ]));
+ return files;
+}

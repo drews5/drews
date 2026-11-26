@@ -1,0 +1,36 @@
+/* Phone search: one compact row of controls with a full-width field. */
+@media (max-width: 760px) {
+  .cinema-web #search .search-content { padding-top: calc(12px + var(--cinema-safe-top)) !important; }
+  .cinema-web #search .search-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 var(--cinema-gutter) !important;
+  }
+  .cinema-web #search :is(.search-discover-btn, .search-voice-btn) {
+    order: 2;
+    flex: 0 0 var(--cinema-tap) !important;
+    width: var(--cinema-tap) !important;
+    height: var(--cinema-tap) !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+  }
+  .cinema-web #search .search-action-icon { font-size: 22px !important; width: 22px !important; height: 22px !important; }
+  .cinema-web #search .search-input-field {
+    order: 1;
+    flex: 1 1 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    height: var(--cinema-tap) !important;
+    padding: 0 16px !important;
+    border-radius: 22px !important;
+    font: 400 var(--cinema-text-md)/1 var(--cinema-font) !important;
+  }
+  .cinema-web #search .search-empty-state { padding: 48px var(--cinema-gutter) !important; height: auto !important; gap: 8px !important; }
+  .cinema-web #search .search-empty-icon { font-size: 56px !important; width: 56px !important; height: 56px !important; }
+  .cinema-web #search .search-empty-state h2 { font: 600 var(--cinema-text-lg)/1.2 var(--cinema-font) !important; margin: 0 !important; }
+  .cinema-web #search .search-empty-state p { font: 400 var(--cinema-text-sm)/1.4 var(--cinema-font) !important; color: var(--cinema-text-muted) !important; }
+}
