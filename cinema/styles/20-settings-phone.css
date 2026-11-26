@@ -124,3 +124,59 @@
   .cinema-web #settings .settings-account-action-button { min-height: 56px !important; padding: 14px 16px !important; gap: 12px !important; border-radius: var(--cinema-radius) !important; }
   .cinema-web #settings .settings-account-signout-button { min-height: 52px !important; padding: 12px 16px !important; gap: 12px !important; border-radius: var(--cinema-radius) !important; }
 }
+/* Layout picker: compact horizontal cards, drop the tall TV wireframe. */
+@media (max-width: 760px) {
+  .cinema-web #settings .settings-layout-grid { display: flex !important; flex-direction: column !important; gap: 8px !important; }
+  .cinema-web #settings .settings-layout-card {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 14px 16px !important;
+    border-radius: var(--cinema-radius) !important;
+    gap: 6px !important;
+  }
+  .cinema-web #settings :is(.settings-layout-preview, .settings-layout-preview-placeholder) {
+    display: none !important;
+    height: 0 !important;
+  }
+  .cinema-web #settings .settings-layout-name { font: 600 var(--cinema-text-md)/1.3 var(--cinema-font) !important; letter-spacing: 0 !important; }
+  .cinema-web #settings .settings-row-tail { font-size: var(--cinema-text-sm) !important; }
+  .cinema-web #settings .settings-row-tail :is(span, div) { white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; max-width: 100% !important; }
+}
+/* Sync/tracking: collapse the TV split-pane into one column. */
+@media (max-width: 760px) {
+  .cinema-web #settings .settings-slide-panel.settings-trakt-panel {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+  .cinema-web #settings .settings-trakt-hero {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+  }
+  .cinema-web #settings .settings-trakt-hero > * { width: 100% !important; height: auto !important; }
+  .cinema-web #settings .settings-trakt-title { font: 600 var(--cinema-text-lg)/1.25 var(--cinema-font) !important; height: auto !important; }
+  .cinema-web #settings .settings-trakt-description { font: 400 var(--cinema-text-sm)/1.4 var(--cinema-font) !important; color: var(--cinema-text-muted) !important; height: auto !important; margin: 4px 0 0 !important; }
+  .cinema-web #settings .settings-trakt-scroll-area {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    flex: 0 0 auto !important;
+  }
+  .cinema-web #settings .settings-trakt-card { width: 100% !important; height: auto !important; min-height: 0 !important; padding: 14px !important; border-radius: var(--cinema-radius) !important; }
+  .cinema-web #settings .settings-trakt-options-stack { width: 100% !important; height: auto !important; min-height: 0 !important; max-height: none !important; }
+  .cinema-web #settings .settings-trakt-options-stack .settings-action-row { width: 100% !important; height: auto !important; min-height: 56px !important; }
+  .cinema-web #settings .settings-tracking-card-subtitle { width: 100% !important; height: auto !important; font: 500 var(--cinema-text-sm)/1.3 var(--cinema-font) !important; }
+}
+@media (max-width: 760px) {
+  .cinema-web #settings .settings-trakt-hero :is(div, p) { position: static !important; }
+  .cinema-web #settings .settings-row-tail { white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
+}
