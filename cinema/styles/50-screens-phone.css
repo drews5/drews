@@ -42,6 +42,45 @@ html,body{width:100%;height:100%;font-size:16px!important;overflow:hidden}
 [role=dialog] :is(h1,h2,h3),.settings-dialog-title{font-size:22px!important;line-height:1.2!important}
 [role=dialog] :is(button,p,input),.settings-dialog-option,.settings-text-dialog-message{font-size:16px!important;line-height:1.4!important;white-space:normal!important}
 #player video{max-width:100%;max-height:100%;object-fit:contain}
+.stream-route-content{display:flex!important;flex-direction:column!important;position:absolute!important;inset:0!important;padding:0!important}
+.stream-route-left{position:static!important;width:100%!important;padding:calc(12px + env(safe-area-inset-top,0px)) 16px 0!important;flex:none!important}
+.stream-route-left-inner{width:100%!important;max-width:none!important;flex-direction:row!important;align-items:center!important;text-align:left!important;gap:12px!important}
+.stream-route-logo{max-width:120px!important;width:auto!important;height:auto!important;max-height:40px!important;margin:0!important}
+.stream-route-detail-line{font-size:13px!important;line-height:1.35!important;margin-top:2px!important;letter-spacing:0!important;height:auto!important;width:auto!important}
+.stream-route-right{position:static!important;flex:1 1 auto!important;min-height:0!important;width:100%!important;max-width:none!important;padding:0!important;height:auto!important}
+.stream-route-list{position:static!important;height:100%!important;max-height:none!important;padding:8px 12px 32px!important}
+.series-stream-overlay{inset:0!important}
+.series-stream-panel{inset:auto 0 0 0!important;top:auto!important;bottom:0!important;left:0!important;right:0!important;width:100%!important;max-width:100vw!important;max-height:78vh!important;border-radius:18px 18px 0 0!important;display:flex!important;flex-direction:column!important;padding:12px!important}
+.series-stream-card{display:grid!important;grid-template-columns:1fr auto!important;gap:10px!important;align-items:center!important;padding:12px!important;border-radius:10px!important}
+.series-stream-title{font-size:16px!important;line-height:1.25!important;max-height:none!important}
+.series-stream-heading{font-size:15px!important;margin:0 0 6px!important}
+.series-stream-desc{font-size:12px!important;margin-top:2px!important;max-height:none!important}
+.series-stream-meta{font-size:11px!important;gap:6px!important}
+.series-stream-episode{font-size:16px!important}
+.series-stream-episode-title{font-size:12px!important}
+.series-stream-logo{max-height:28px!important;margin-bottom:6px!important}
+.series-stream-tag{font-size:11px!important;height:20px!important;padding:0 8px!important}
+.series-stream-left,.series-stream-right{min-width:0!important}
+.series-stream-filter{min-height:36px!important;font-size:13px!important}
+.stream-route-panel-shell{border-radius:16px!important;margin:8px!important;padding:0!important}
+.stream-route-card{padding:14px!important;gap:12px!important;border-radius:12px!important}
+.stream-route-card-row{margin-bottom:12px!important;gap:10px!important}
+.stream-route-card-row>*+*{margin-left:0!important}
+.stream-route-card-heading{font-size:16px!important;line-height:1.3!important;font-weight:600!important;white-space:normal!important;letter-spacing:0!important}
+.stream-route-card-line{font-size:12px!important;line-height:1.35!important;margin-top:2px!important}
+.stream-route-card-side{flex-basis:auto!important;width:auto!important;max-width:96px!important}
+.stream-route-chip{font-size:13px!important;min-height:36px!important;padding:0 14px!important;line-height:1!important;gap:6px!important}
+.stream-route-list{padding:4px 8px 24px!important}
+.player-sources-panel{width:100vw!important;max-width:100vw!important;border-radius:0!important;border-left:none!important;padding:16px!important}
+.player-sources-header{margin-top:env(safe-area-inset-top,0px)!important}
+.stream-screen-panel{inset:auto 0 0 0!important;top:16vh!important;max-height:84vh!important;bottom:0!important;left:0!important;right:0!important;border-radius:18px 18px 0 0!important;grid-template-columns:1fr!important;grid-auto-rows:auto!important;padding:14px!important;overflow-y:auto!important}
+.player-episode-stream-list,.player-sources-list{overflow-y:auto!important}
+.player-source-card,.player-episode-stream-card{grid-template-columns:1fr auto!important;padding:12px!important;gap:10px!important;border-radius:10px!important}
+.player-source-title{font-size:15px!important;line-height:1.3!important}
+.player-source-desc{font-size:12px!important}
+.player-sources-header{font-size:15px!important}
+.player-sources-filter,.player-episode-stream-filter{min-height:36px!important;font-size:13px!important}
+.player-source-side :is(img,svg){max-width:72px!important;max-height:40px!important}
 }
 
 /* Hide the placeholder while a pairing code is being requested or retried. */

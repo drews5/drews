@@ -1,8 +1,8 @@
 /* Cinema design tokens. Browser builds only; TV builds keep Nuvio's own theme. */
 :root.cinema-web {
-  --cinema-bg: #0b0b0c;
-  --cinema-surface: #151517;
-  --cinema-surface-raised: #1d1d20;
+  --cinema-bg: #141414;
+  --cinema-surface: #1a1a1c;
+  --cinema-surface-raised: #232327;
   --cinema-line: rgba(255, 255, 255, 0.08);
   --cinema-text: #f4f4f5;
   --cinema-text-muted: rgba(244, 244, 245, 0.62);
