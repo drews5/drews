@@ -168,7 +168,8 @@
     width: 100% !important;
     height: auto !important;
     min-height: 0 !important;
-    overflow: visible !important;
+    overflow-y: auto !important;
+    max-height: 62vh !important;
     flex: 0 0 auto !important;
   }
   .cinema-web #settings .settings-trakt-card { width: 100% !important; height: auto !important; min-height: 0 !important; padding: 14px !important; border-radius: var(--cinema-radius) !important; }
