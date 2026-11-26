@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'cinema/**'
       - 'scripts/build-cinema.mjs'
       - 'scripts/cinema-*'
       - '.github/workflows/cinema.yml'
@@ -29,7 +30,12 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .cinema-core-cache
-          key: cinema-core-v1-${{ runner.os }}-${{ steps.node.outputs.node-version }}-${{ hashFiles('scripts/build-cinema.mjs') }}
+          key: cinema-core-v2-${{ runner.os }}-${{ steps.node.outputs.node-version }}-${{ hashFiles('scripts/build-cinema.mjs', 'cinema/patches.mjs') }}
+      - name: Restore Wrangler
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: cinema-wrangler4-${{ runner.os }}-v1
       - name: Build Cinema only
         run: node scripts/build-cinema.mjs
       - name: Prepare Cloudflare assets

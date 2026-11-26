@@ -1,0 +1,98 @@
+/* Phone shell for Nuvio's "modern" sidebar layout (used by synced profiles). */
+@media (max-width: 760px) {
+  .cinema-web #app .modern-sidebar-shell {
+    position: fixed !important;
+    inset: auto 0 0 0 !important;
+    width: 100% !important;
+    height: calc(var(--cinema-nav-height) + var(--cinema-safe-bottom)) !important;
+    transform: none !important;
+    z-index: 900 !important;
+    pointer-events: auto !important;
+  }
+  .cinema-web #app .modern-sidebar-shell::before,
+  .cinema-web #app .modern-sidebar-shell::after,
+  .cinema-web #app .modern-sidebar-pill { display: none !important; }
+  .cinema-web #app .modern-sidebar-panel {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 4px var(--cinema-safe-bottom) !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    border: 0 !important;
+    border-top: 1px solid var(--cinema-line) !important;
+    border-radius: 0 !important;
+    background: rgba(11, 11, 12, 0.94) !important;
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+    box-shadow: none !important;
+    pointer-events: auto !important;
+  }
+  .cinema-web #app .modern-sidebar-nav-list {
+    display: flex !important;
+    flex: 4 1 0 !important;
+    flex-direction: row !important;
+    width: auto !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    transform: none !important;
+  }
+  .cinema-web #app :is(.modern-sidebar-nav-item, .modern-sidebar-profile) {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    width: auto !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 6px 2px 4px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    color: var(--cinema-text-muted) !important;
+  }
+  .cinema-web #app .modern-sidebar-profile { order: 2; }
+  .cinema-web #app .modern-sidebar-nav-item.selected { color: var(--cinema-text) !important; }
+  .cinema-web #app .modern-sidebar-nav-icon-circle {
+    width: 24px !important;
+    height: 24px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+  .cinema-web #app .modern-sidebar-nav-icon-circle :is(svg, .root-sidebar-icon) { width: 24px !important; height: 24px !important; }
+  .cinema-web #app .modern-sidebar-nav-icon-circle :is(svg, path) { fill: currentColor !important; }
+  .cinema-web #app .modern-sidebar-nav-icon-circle .material-icons { font-size: 24px !important; color: currentColor !important; }
+  .cinema-web #app .modern-sidebar-profile-avatar { width: 24px !important; height: 24px !important; font-size: 12px !important; margin: 0 !important; }
+  .cinema-web #app :is(.modern-sidebar-nav-label, .modern-sidebar-profile-name) {
+    display: block !important;
+    width: auto !important;
+    max-width: 100% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    font: 500 11px/1.2 var(--cinema-font) !important;
+    color: inherit !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  .cinema-web #app .home-shell.has-modern-sidebar > :is(.home-main, main) {
+    padding-bottom: calc(var(--cinema-nav-height) + var(--cinema-safe-bottom)) !important;
+  }
+}

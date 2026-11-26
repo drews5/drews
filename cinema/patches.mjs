@@ -60,6 +60,31 @@ export async function patchUpstream(source){
 function officialConfiguration() {`]
  ]));
 
+ // Upstream only wires mouse/touch to the focus engine on webOS (Magic Remote).
+ // Browsers need the same path, or tapping hero/stream buttons does nothing.
+ files.push(await edit(source,'js/ui/navigation/focusEngine.js',[
+  ['import { Platform } from "../../platform/index.js";\n',`import { Platform } from "../../platform/index.js";
+
+function isCinemaBrowser() {
+  return Boolean(globalThis.document?.documentElement?.classList?.contains("cinema-web"));
+}
+
+function pointerInputEnabled() {
+  return Platform.isWebOS() || isCinemaBrowser();
+}
+
+// Hover-to-focus suits mice; on touch it would scroll rows under the finger.
+function pointerHoverEnabled() {
+  return Platform.isWebOS() || (isCinemaBrowser() && !document.documentElement.classList.contains("cinema-touch"));
+}
+`],
+  ['    if (Platform.isWebOS()) {\n      document.addEventListener("mousemove", this.boundHandlePointerMove, true);\n      document.addEventListener("pointermove", this.boundHandlePointerMove, true);\n      document.addEventListener("click", this.boundHandlePointerClick, true);\n',
+   '    if (pointerInputEnabled()) {\n      document.addEventListener("mousemove", this.boundHandlePointerMove, true);\n      document.addEventListener("pointermove", this.boundHandlePointerMove, true);\n      document.addEventListener("click", this.boundHandlePointerClick, true);\n    }\n    if (Platform.isWebOS()) {\n'],
+  ['  handlePointerMove(event) {\n    if (!Platform.isWebOS()) {','  handlePointerMove(event) {\n    if (!pointerHoverEnabled()) {'],
+  ['  processPointerMove(event) {\n    if (!Platform.isWebOS()) {','  processPointerMove(event) {\n    if (!pointerHoverEnabled()) {'],
+  ['  handlePointerClick(event) {\n    if (!Platform.isWebOS()) {','  handlePointerClick(event) {\n    if (!pointerInputEnabled()) {']
+ ]));
+
  const mount='js/ui/screens/account/authQrSignInScreenMethods-01-mount.js';
  files.push(await edit(source,mount,[
   ['<h1 class="qr-title">${I18n.t("auth.qr.title")}</h1>',
@@ -100,7 +125,9 @@ function officialConfiguration() {`]
 
  // Hosted browser builds update on deployment; the TV installer prompt does not apply.
  files.push(await edit(source,'js/app.js',[
-  ['async function checkForAppUpdateOnStartup() {','async function checkForAppUpdateOnStartup() {\n  if (!Platform.isTizen() && !Platform.isWebOS()) return;']
+  ['async function checkForAppUpdateOnStartup() {','async function checkForAppUpdateOnStartup() {\n  if (!Platform.isTizen() && !Platform.isWebOS()) return;'],
+  // The add-on manager page bootstraps separately and otherwise renders raw string keys.
+  ['async function bootstrapAddonRemoteMode() {\n  await renderAddonRemotePage();','async function bootstrapAddonRemoteMode() {\n  await I18n.init();\n  await renderAddonRemotePage();']
  ]));
  return files;
 }
