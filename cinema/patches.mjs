@@ -99,6 +99,26 @@ function pointerHoverEnabled() {
       if (!target || this.isExternalFrameMode()) {`]
  ]));
 
+ // On phones the modern sidebar panel is the always-visible bottom bar, so it must stay
+ // exposed to assistive technology even while "collapsed".
+ const phoneNav=['import { I18n } from "../../i18n/index.js";\n',`import { I18n } from "../../i18n/index.js";
+
+function cinemaPhoneNavigation() {
+  return Boolean(globalThis.document?.documentElement?.classList?.contains("cinema-web") &&
+    globalThis.matchMedia?.("(max-width: 760px)")?.matches);
+}
+`];
+ files.push(await edit(source,'js/ui/components/sidebarNavigationHelpers-02-get-sidebar-avatar-catalog.js',[phoneNav,
+  ['<aside class="modern-sidebar-panel" aria-hidden="${expanded ? "false" : "true"}">',
+   '<aside class="modern-sidebar-panel" aria-hidden="${expanded || cinemaPhoneNavigation() ? "false" : "true"}">']
+ ]));
+ files.push(await edit(source,'js/ui/components/sidebarNavigationHelpers-04-set-modern-sidebar-expanded.js',[phoneNav,
+  ['      if (panel) panel.setAttribute("aria-hidden", "true");',
+   '      if (panel) panel.setAttribute("aria-hidden", cinemaPhoneNavigation() ? "false" : "true");'],
+  ['if (panel) {\n      panel.setAttribute("aria-hidden", "true");',
+   'if (panel) {\n      panel.setAttribute("aria-hidden", cinemaPhoneNavigation() ? "false" : "true");']
+ ]));
+
  const mount='js/ui/screens/account/authQrSignInScreenMethods-01-mount.js';
  files.push(await edit(source,mount,[
   ['<h1 class="qr-title">${I18n.t("auth.qr.title")}</h1>',
